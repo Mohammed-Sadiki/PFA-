@@ -293,8 +293,8 @@ class VBoxVMService:
     def stop_vm(self, vm_name: str) -> bool:
         """
         Gracefully shut down the VM via ACPI power button.
-        Falls back to hard poweroff if ACPI fails.
-        Returns True also if the VM is already powered off.
+        Falls back to hard poweroff if the VM does not stop within the timeout.
+        Returns True if the VM is successfully stopped.
         """
         # If already off, treat as success
         current_state = self.get_vm_status(vm_name)
@@ -302,12 +302,33 @@ class VBoxVMService:
             log.info("[%s] VM is already in state '%s', treating stop as success.", vm_name, current_state)
             return True
 
+        # 1. Try graceful ACPI shutdown
+        log.info("[%s] Sending ACPI power button event...", vm_name)
         _, _, rc = self._run_vbox("controlvm", vm_name, "acpipowerbutton")
+        
         if rc == 0:
-            return True
-        log.warning("[%s] ACPI shutdown failed, forcing poweroff ...", vm_name)
+            # Wait up to 10 seconds for the VM to power off
+            for _ in range(10):
+                time.sleep(1)
+                if self.get_vm_status(vm_name) in ("poweroff", "saved", "aborted"):
+                    log.info("[%s] VM stopped gracefully via ACPI.", vm_name)
+                    return True
+
+        # 2. If still running, force poweroff
+        log.warning("[%s] ACPI shutdown timed out or failed. Forcing poweroff...", vm_name)
         _, _, rc2 = self._run_vbox("controlvm", vm_name, "poweroff")
-        return rc2 == 0
+        if rc2 != 0:
+            log.error("[%s] Forced poweroff command failed.", vm_name)
+            return False
+
+        # Wait up to 5 seconds for the state to transition to poweroff
+        for _ in range(5):
+            time.sleep(1)
+            if self.get_vm_status(vm_name) in ("poweroff", "saved", "aborted"):
+                log.info("[%s] VM stopped after forced poweroff.", vm_name)
+                return True
+
+        return False
 
     def delete_vm(self, vm_name: str) -> bool:
         """Stop (if running) then unregister and delete all VM files."""

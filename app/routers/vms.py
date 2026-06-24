@@ -203,10 +203,17 @@ def start_vm(
     """Start a stopped VM."""
     vm = _get_owned_vm(vm_id, current_user, db)
 
-    if vm.status == VMStatus.RUNNING:
-        raise HTTPException(status_code=400, detail="VM is already running")
     if vm.status in (VMStatus.PENDING, VMStatus.CREATING):
         raise HTTPException(status_code=400, detail="VM is still being provisioned")
+
+    # Sync live VirtualBox state first — VM may already be running
+    live_raw = vm_service.get_vm_status(vm.name)
+    live_status = _vbox_status_to_enum(live_raw)
+    if live_status == VMStatus.RUNNING:
+        vm.status = VMStatus.RUNNING
+        db.commit()
+        ssh_cmd = f"ssh -p {vm.ssh_port} {current_user.username}@127.0.0.1" if vm.ssh_port else None
+        return VMStatusOut(id=vm.id, name=vm.name, status=vm.status, ssh_command=ssh_cmd)
 
     success = vm_service.start_vm(vm.name)
     if not success:
