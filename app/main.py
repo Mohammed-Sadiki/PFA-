@@ -13,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.database import init_db
-from app.routers import auth, vms
+from app.routers import auth, vms, admin
 
 settings = get_settings()
 logging.basicConfig(
@@ -58,6 +58,7 @@ app.add_middleware(
 # ── API Routers ────────────────────────────────────────────────────────────────
 app.include_router(auth.router)
 app.include_router(vms.router)
+app.include_router(admin.router)
 
 # ── Static files / SPA ────────────────────────────────────────────────────────
 _static_dir = Path(__file__).parent / "static"
@@ -67,6 +68,11 @@ if _static_dir.exists():
     @app.get("/", include_in_schema=False)
     def serve_frontend():
         return FileResponse(str(_static_dir / "index.html"))
+
+    @app.get("/admin", include_in_schema=False)
+    def serve_admin():
+        return FileResponse(str(_static_dir / "admin.html"))
+
 else:
     @app.get("/", include_in_schema=False)
     def root():
