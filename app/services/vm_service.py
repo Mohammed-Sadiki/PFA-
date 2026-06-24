@@ -22,6 +22,10 @@ log = logging.getLogger(__name__)
 class GoldenMasterNotFoundError(Exception):
     pass
 
+class GoldenMasterNotReadyError(Exception):
+    """Raised when the golden master VDI exists but has no OS installed."""
+    pass
+
 class VBoxCommandError(Exception):
     def __init__(self, msg: str, stderr: str = ""):
         super().__init__(msg)
@@ -73,6 +77,11 @@ class VBoxVMService:
     def _golden_master_exists(self) -> bool:
         stdout, _, rc = self._run_vbox("showvminfo", self.golden_master, "--machinereadable")
         return rc == 0
+
+    def _golden_master_vdi_size(self) -> int:
+        """Return size in bytes of the golden master VDI file. 0 if not found."""
+        vdi = Path(settings.GOLDEN_MASTER_DIR) / self.golden_master / f"{self.golden_master}.vdi"
+        return vdi.stat().st_size if vdi.exists() else 0
 
     def _pick_ssh_port(self) -> int:
         """Return a random host port in the configured range that is not yet in use."""
@@ -138,7 +147,17 @@ class VBoxVMService:
         if not self._golden_master_exists():
             raise GoldenMasterNotFoundError(
                 f"Golden master '{self.golden_master}' not found in VirtualBox. "
-                "Please run the golden master setup script first."
+                "Please run install_golden_master.ps1 then finalize_golden_master.ps1."
+            )
+
+        # Guard: refuse to clone an empty (un-installed) golden master
+        vdi_size = self._golden_master_vdi_size()
+        MINIMUM_INSTALLED_SIZE = 500 * 1024 * 1024  # 500 MB
+        if vdi_size < MINIMUM_INSTALLED_SIZE:
+            raise GoldenMasterNotReadyError(
+                f"Golden master VDI is only {vdi_size // (1024*1024)} MB — Zorin OS is not installed. "
+                "Run C:\\VMs\\install_golden_master.ps1, complete the installation, "
+                "then run C:\\VMs\\finalize_golden_master.ps1."
             )
 
         # Ensure destination directory exists
@@ -167,13 +186,19 @@ class VBoxVMService:
 
         vm_path = str(Path(self.vm_base_dir) / vm_name / f"{vm_name}.vbox")
 
-        # 2 ── CPU / RAM ────────────────────────────────────────────────────────
-        log.info("[%s] Setting %d vCPU, %d MB RAM ...", vm_name, vcpu, ram_mb)
+        # 2 ── CPU / RAM + boot order ────────────────────────────────────────────
+        log.info("[%s] Setting %d vCPU, %d MB RAM, boot=disk ...", vm_name, vcpu, ram_mb)
         _, stderr, rc = self._run_vbox(
-            "modifyvm", vm_name, "--cpus", str(vcpu), "--memory", str(ram_mb)
+            "modifyvm", vm_name,
+            "--cpus", str(vcpu),
+            "--memory", str(ram_mb),
+            "--boot1", "disk",
+            "--boot2", "none",
+            "--boot3", "none",
+            "--boot4", "none",
         )
         if rc != 0:
-            raise VBoxCommandError(f"modifyvm (cpu/ram) failed for '{vm_name}'", stderr)
+            raise VBoxCommandError(f"modifyvm (cpu/ram/boot) failed for '{vm_name}'", stderr)
 
         # 3 ── Resize disk if needed ────────────────────────────────────────────
         if disk_gb != 15:
@@ -190,12 +215,23 @@ class VBoxVMService:
         log.info("[%s] Generating cloud-init ISO ...", vm_name)
         iso_path = create_cloud_init_iso(vm_name, username, password)
 
-        # Ensure IDE controller exists (clone should have inherited it, but be safe)
+        # Ensure IDE controller exists and mark it as NOT bootable
         self._run_vbox(
             "storagectl", vm_name,
             "--name", "IDE Controller",
             "--add", "ide",
             "--controller", "PIIX4",
+            "--bootable", "off",   # <-- prevent VirtualBox from ever booting the cloud-init ISO
+        )
+
+        # Detach any existing medium on IDE port 1 first (safe no-op if absent)
+        self._run_vbox(
+            "storageattach", vm_name,
+            "--storagectl", "IDE Controller",
+            "--port", "1",
+            "--device", "0",
+            "--type", "dvddrive",
+            "--medium", "none",
         )
 
         _, stderr, rc = self._run_vbox(
@@ -219,9 +255,9 @@ class VBoxVMService:
         if rc != 0:
             raise VBoxCommandError(f"NAT port forwarding failed for '{vm_name}'", stderr)
 
-        # 6 ── Boot headless ────────────────────────────────────────────────────
-        log.info("[%s] Starting VM headless ...", vm_name)
-        _, stderr, rc = self._run_vbox("startvm", vm_name, "--type", "headless")
+        # 6 ── Boot VM ──────────────────────────────────────────────────────────
+        log.info("[%s] Starting VM with type %s ...", vm_name, settings.VM_START_TYPE)
+        _, stderr, rc = self._run_vbox("startvm", vm_name, "--type", settings.VM_START_TYPE)
         if rc != 0:
             raise VBoxCommandError(f"startvm failed for '{vm_name}'", stderr)
 
@@ -250,8 +286,8 @@ class VBoxVMService:
         return "unknown"
 
     def start_vm(self, vm_name: str) -> bool:
-        """Start a stopped / saved VM headless. Returns True on success."""
-        _, _, rc = self._run_vbox("startvm", vm_name, "--type", "headless")
+        """Start a stopped / saved VM. Returns True on success."""
+        _, _, rc = self._run_vbox("startvm", vm_name, "--type", settings.VM_START_TYPE)
         return rc == 0
 
     def stop_vm(self, vm_name: str) -> bool:

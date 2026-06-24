@@ -25,6 +25,7 @@ from app.schemas.vm import VMCreate, VMOut, VMStatusOut
 from app.services.vm_service import (
     VBoxVMService,
     GoldenMasterNotFoundError,
+    GoldenMasterNotReadyError,
     VBoxCommandError,
     PortCollisionError,
 )
@@ -96,6 +97,10 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
 
     except GoldenMasterNotFoundError as exc:
         log.error("provision_vm_task: golden master missing — %s", exc)
+        _mark_error(db, vm_id, str(exc))
+
+    except GoldenMasterNotReadyError as exc:
+        log.error("provision_vm_task: golden master not ready — %s", exc)
         _mark_error(db, vm_id, str(exc))
 
     except (VBoxCommandError, PortCollisionError) as exc:
