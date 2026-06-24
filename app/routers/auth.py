@@ -96,6 +96,8 @@ def register(payload: UserCreate, db: Session = Depends(get_db)):
         username=payload.username,
         email=payload.email,
         hashed_password=hash_password(payload.password),
+        is_verified=False,
+        verification_token=None
     )
     db.add(user)
     db.commit()
@@ -116,6 +118,13 @@ def login(
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+    
+    if not user.is_verified:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Votre compte est en attente de validation par un administrateur.",
+        )
+
     token = create_access_token(
         data={"sub": user.username},
         expires_delta=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),

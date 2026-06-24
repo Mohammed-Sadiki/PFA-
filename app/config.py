@@ -41,6 +41,16 @@ class Settings(BaseSettings):
     SSH_PORT_MIN: int = 22000
     SSH_PORT_MAX: int = 22999
 
+    # SMTP / Email Verification
+    SMTP_HOST: str = "smtp.gmail.com"
+    SMTP_PORT: int = 587
+    SMTP_USERNAME: str = ""
+    SMTP_PASSWORD: str = ""
+    SMTP_FROM: str = "noreply@zorinvm.local"
+    EMAIL_VERIFICATION_REQUIRED: bool = True
+    EMAIL_SIMULATION_MODE: bool = True
+    APP_BASE_URL: str = "http://localhost:8000"
+
     class Config:
         env_file = ".env"
 

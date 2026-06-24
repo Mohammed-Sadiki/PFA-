@@ -875,6 +875,12 @@
       <span class="nav-badge" id="badge-users">0</span>
     </button>
 
+    <button class="nav-item" id="nav-pending-users" onclick="showPage('pending-users')">
+      <span class="nav-icon">⏳</span>
+      Demandes
+      <span class="nav-badge" id="badge-pending-users">0</span>
+    </button>
+
     <div class="nav-section">Liens Rapides</div>
 
     <a class="nav-item" href="/api/docs" target="_blank">
@@ -1051,7 +1057,40 @@
       </div>
     </div>
   </section>
-</div>
+
+  <!-- ── PAGE: PENDING USERS ────────────────────────────────────────────── -->
+  <section class="page" id="page-pending-users">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Demandes d'inscription</div>
+        <div class="page-sub">Comptes utilisateurs en attente d'approbation</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" onclick="loadPendingUsers()">🔄</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="table-wrap">
+        <table id="pending-users-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Utilisateur</th>
+              <th>Email</th>
+              <th>Créé le</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="pending-users-body">
+            <tr><td colspan="5"><div class="empty-state"><p>Chargement…</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /#main -->
 
 <!-- ═══ MODAL: VM DETAILS ═══════════════════════════════════════════════ -->
 <div class="modal-overlay" id="modal-vm-detail">
@@ -1076,7 +1115,7 @@
 <div class="modal-overlay" id="modal-confirm">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">⚠️ Confirmer la suppression</div>
+      <div class="modal-title" id="confirm-title">⚠️ Confirmer la suppression</div>
       <button class="modal-close" onclick="closeModal('modal-confirm')">✕</button>
     </div>
     <div class="modal-body">
@@ -1139,7 +1178,7 @@ function showPage(name) {
   document.getElementById(`page-${name}`).classList.add('active');
   document.getElementById(`nav-${name}`).classList.add('active');
 
-  const titles = { dashboard: 'Tableau de bord', vms: 'Machines Virtuelles', users: 'Utilisateurs' };
+  const titles = { dashboard: 'Tableau de bord', vms: 'Machines Virtuelles', users: 'Utilisateurs', 'pending-users': 'Demandes d\'inscription' };
   document.getElementById('page-title').textContent = titles[name] || '';
 
   // Close mobile sidebar
@@ -1148,6 +1187,7 @@ function showPage(name) {
   if (name === 'dashboard') loadDashboard();
   if (name === 'vms') loadVMs();
   if (name === 'users') loadUsers();
+  if (name === 'pending-users') loadPendingUsers();
 }
 
 function toggleSidebar() {
@@ -1244,6 +1284,9 @@ async function loadDashboard() {
     const vms = await api('/admin/vms');
     document.getElementById('badge-vms').textContent = vms.length;
     renderActivityFeed(vms);
+
+    const pending = await api('/admin/pending-users');
+    document.getElementById('badge-pending-users').textContent = pending.length;
   } catch(e) {
     toast(e.detail || 'Erreur de chargement du tableau de bord', 'error');
   }
@@ -1445,16 +1488,115 @@ function renderUsersTable(users, vms) {
           </div>
         </td>
         <td class="td-owner">${u.email}</td>
-        <td><span class="badge badge-admin">Admin</span></td>
+        <td>
+          <span class="badge ${u.is_admin ? 'badge-admin' : 'badge-user'}">${u.is_admin ? 'Admin' : 'Utilisateur'}</span>
+        </td>
         <td class="td-muted">${userVMs} VM${userVMs !== 1 ? 's' : ''}</td>
         <td class="td-muted">${formatDate(u.created_at)}</td>
         <td>
           <div class="btn-group">
+            ${isCurrentUser ? '' : `<button class="btn btn-ghost btn-sm" onclick="toggleRole(${u.id},'${u.username}',${u.is_admin})" title="Changer le rôle">${u.is_admin ? '👤 Rétrograder' : '🛡 Promouvoir'}</button>`}
             <button class="btn btn-danger btn-sm" ${isCurrentUser ? 'disabled title="Impossible de se supprimer soi-même"' : `onclick="confirmDeleteUser(${u.id},'${u.username}')"`}>🗑 Supprimer</button>
           </div>
         </td>
       </tr>`;
   }).join('');
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   PENDING USERS ACTIONS
+───────────────────────────────────────────────────────────────────────── */
+async function loadPendingUsers() {
+  try {
+    const pending = await api('/admin/pending-users');
+    const tbody = document.getElementById('pending-users-body');
+    document.getElementById('badge-pending-users').textContent = pending.length;
+    
+    if (!pending.length) {
+      tbody.innerHTML = `<tr><td colspan="5"><div class="empty-state"><div class="empty-icon">⏳</div><p>Aucune demande d'inscription en attente</p></div></td></tr>`;
+      return;
+    }
+
+    tbody.innerHTML = pending.map(u => `
+      <tr>
+        <td class="td-muted">#${u.id}</td>
+        <td>
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="user-avatar" style="width:28px;height:28px;font-size:0.7rem;background:linear-gradient(135deg, var(--warning), var(--orange));">${u.username[0].toUpperCase()}</div>
+            <div style="font-weight:600;font-size:0.85rem">${u.username}</div>
+          </div>
+        </td>
+        <td class="td-owner">${u.email}</td>
+        <td class="td-muted">${formatDate(u.created_at)}</td>
+        <td>
+          <div class="btn-group">
+            <button class="btn btn-success btn-sm" onclick="approveUser(${u.id},'${u.username}')">✓ Approuver</button>
+            <button class="btn btn-danger btn-sm" onclick="rejectUser(${u.id},'${u.username}')">✕ Rejeter</button>
+          </div>
+        </td>
+      </tr>`).join('');
+  } catch(e) {
+    toast(e.detail || 'Erreur de chargement des demandes', 'error');
+  }
+}
+
+async function approveUser(id, username) {
+  try {
+    await api(`/admin/users/${id}/approve`, { method: 'POST' });
+    toast(`Compte de "${username}" approuvé. Il apparaît maintenant dans la liste des utilisateurs.`, 'success');
+    await loadPendingUsers();
+    await loadDashboard();
+    // Navigate to Users page to see the newly approved user
+    setTimeout(() => showPage('users'), 1200);
+  } catch(e) {
+    toast(e.detail || 'Erreur d\'approbation', 'error');
+  }
+}
+
+async function toggleRole(id, username, currentlyAdmin) {
+  const action = currentlyAdmin ? 'rétrograder' : 'promouvoir';
+  const newRole = currentlyAdmin ? 'Utilisateur' : 'Administrateur';
+  const icon = currentlyAdmin ? '👤' : '🛡';
+
+  // Adapt modal style
+  document.getElementById('confirm-title').textContent = `${icon} Changer le rôle`;
+  const okBtn = document.getElementById('confirm-ok-btn');
+  okBtn.className = 'btn btn-primary';
+  okBtn.textContent = `${icon} Confirmer`;
+
+  document.getElementById('confirm-message').textContent = `Voulez-vous ${action} "${username}" en ${newRole} ?`;
+  okBtn.onclick = async () => {
+    closeModal('modal-confirm');
+    try {
+      const res = await api(`/admin/users/${id}/role`, { method: 'PATCH' });
+      toast(`Rôle de "${username}" changé en ${res.is_admin ? 'Administrateur' : 'Utilisateur'}.`, 'success');
+      await loadUsers();
+    } catch(e) {
+      toast(e.detail || 'Erreur lors du changement de rôle', 'error');
+    } finally {
+      // Reset modal to default style
+      document.getElementById('confirm-title').textContent = '⚠️ Confirmer la suppression';
+      okBtn.className = 'btn btn-danger';
+      okBtn.textContent = '🗑 Supprimer';
+    }
+  };
+  openModal('modal-confirm');
+}
+
+async function rejectUser(id, username) {
+  document.getElementById('confirm-message').textContent = `Êtes-vous sûr de vouloir rejeter et supprimer la demande d'inscription de "${username}" ?`;
+  document.getElementById('confirm-ok-btn').onclick = async () => {
+    closeModal('modal-confirm');
+    try {
+      await api(`/admin/users/${id}/reject`, { method: 'POST' });
+      toast(`Demande d'inscription de "${username}" rejetée et supprimée.`, 'info');
+      await loadPendingUsers();
+      await loadDashboard();
+    } catch(e) {
+      toast(e.detail || 'Erreur lors du rejet', 'error');
+    }
+  };
+  openModal('modal-confirm');
 }
 
 function filterUsers() {
@@ -1532,6 +1674,7 @@ function refreshAll() {
   if (page === 'dashboard') loadDashboard();
   if (page === 'vms') loadVMs();
   if (page === 'users') loadUsers();
+  if (page === 'pending-users') loadPendingUsers();
   toast('Actualisation…', 'info');
 }
 
@@ -1546,6 +1689,7 @@ function startAutoRefresh() {
     if (page === 'dashboard') loadDashboard();
     if (page === 'vms') loadVMs();
     if (page === 'users') loadUsers();
+    if (page === 'pending-users') loadPendingUsers();
   }, 30000);
 }
 

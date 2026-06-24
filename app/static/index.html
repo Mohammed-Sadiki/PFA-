@@ -693,7 +693,7 @@ async function doRegister(e) {
         password: document.getElementById('regPass').value,
       }),
     });
-    toast('Account created! Please sign in.', 'success');
+    toast('Compte créé ! Votre compte est en attente de validation par un administrateur.', 'success');
     switchTab('login');
     document.getElementById('loginUser').value = document.getElementById('regUser').value;
   } catch(err) {

@@ -126,6 +126,69 @@ def list_all_users(
     return db.query(User).all()
 
 
+@router.get("/pending-users", response_model=List[UserOut])
+def list_pending_users(
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+):
+    """Return all users with is_verified = False (pending approval)."""
+    _require_admin(current_user)
+    return db.query(User).filter(User.is_verified == False).all()
+
+
+@router.post("/users/{user_id}/approve", response_model=dict)
+def approve_user(
+    user_id: int,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+):
+    """Approve a pending user registration."""
+    _require_admin(current_user)
+    user = db.get(User, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    user.is_verified = True
+    db.commit()
+    return {"status": "approved", "username": user.username}
+
+
+@router.post("/users/{user_id}/reject", response_model=dict)
+def reject_user(
+    user_id: int,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+):
+    """Reject a pending user registration by deleting the account."""
+    _require_admin(current_user)
+    user = db.get(User, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(user)
+    db.commit()
+    return {"status": "rejected", "username": user.username}
+
+
+@router.patch("/users/{user_id}/role", response_model=dict)
+def update_user_role(
+    user_id: int,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+):
+    """Toggle admin role for a user."""
+    _require_admin(current_user)
+
+    if user_id == current_user.id:
+        raise HTTPException(status_code=400, detail="Cannot change your own role")
+
+    user = db.get(User, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    user.is_admin = not user.is_admin
+    db.commit()
+    return {"status": "updated", "username": user.username, "is_admin": user.is_admin}
+
+
 @router.delete("/users/{user_id}", response_model=dict)
 def delete_user(
     user_id: int,
