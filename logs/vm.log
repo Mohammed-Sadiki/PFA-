@@ -1,0 +1,2 @@
+2026-07-02 02:57:23,927 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-331ef001' | Résultat: Déjà arrêtée
+2026-07-02 02:57:54,074 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-331ef001' | Résultat: Réussite

@@ -2369,3 +2369,144 @@ Exception: parameter `response` must be an instance of starlette.responses.Respo
 2026-07-02 02:52:46,814 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
 2026-07-02 02:53:02,689 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
 2026-07-02 02:53:02,849 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-07-02 02:53:03,767 | INFO     | IP: - | User: - | watchfiles.main — 2 changes detected
+2026-07-02 02:53:07,165 | INFO     | IP: - | User: - | watchfiles.main — 5 changes detected
+2026-07-02 02:53:07,857 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-07-02 02:53:07,864 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-07-02 02:53:24,906 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-07-02 02:53:25,021 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:53:24,985 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\VMs\vbox-zorin-automation\app\routers\auth.py", line 139, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-07-02 02:53:35,513 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 02:53:35,603 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:56:55,991 | WARNING  | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Échec (Identifiants incorrects)
+2026-07-02 02:56:56,025 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\VMs\vbox-zorin-automation\app\routers\auth.py", line 139, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-07-02 02:56:56,101 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:57:12,932 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
+2026-07-02 02:57:13,034 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:57:23,927 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-331ef001' | Résultat: Déjà arrêtée
+2026-07-02 02:57:24,006 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:57:54,074 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-331ef001' | Résultat: Réussite
+2026-07-02 02:57:54,161 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 03:05:11,883 | INFO     | IP: - | User: - | watchfiles.main — 129 changes detected
+2026-07-02 03:05:12,250 | INFO     | IP: - | User: - | watchfiles.main — 70 changes detected
+2026-07-02 03:05:12,616 | INFO     | IP: - | User: - | watchfiles.main — 2 changes detected
+2026-07-02 03:05:13,004 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:13,511 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:13,877 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:14,241 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:14,596 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:14,954 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:15,310 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:15,671 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:16,080 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:16,484 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:16,891 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:17,309 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:17,716 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:18,122 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:18,528 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:18,933 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:19,338 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:19,743 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:20,111 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:20,523 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:20,928 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:21,337 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:21,739 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:22,145 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:22,553 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:22,910 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:23,266 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:23,628 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:23,983 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:24,369 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:24,800 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:25,153 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:25,564 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:25,969 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:26,424 | INFO     | IP: - | User: - | watchfiles.main — 4 changes detected
+2026-07-02 03:05:26,842 | INFO     | IP: - | User: - | watchfiles.main — 2 changes detected
+2026-07-02 03:05:27,211 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:27,569 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:27,927 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:28,284 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:28,642 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 03:05:28,999 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
