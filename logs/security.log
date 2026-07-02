@@ -16,3 +16,12 @@
 2026-07-02 03:39:36,119 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
 2026-07-02 14:53:49,743 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
 2026-07-02 14:54:20,130 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 15:24:22,684 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
+2026-07-02 15:25:26,819 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-07-02 15:25:31,814 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 15:25:40,060 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 15:26:01,124 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
+2026-07-02 15:26:20,957 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-07-02 15:26:25,671 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-07-02 15:26:36,572 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-07-02 16:08:26,365 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
