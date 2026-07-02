@@ -8,21 +8,28 @@ Endpoints:
 """
 
 import logging
+from datetime import datetime
 from typing import Annotated, List
 
 from fastapi import APIRouter, Depends, HTTPException, status
+
 from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.models.vm import VM, VMStatus
 from app.models.user import User
+from app.models.audit_log import AuditLog
+from app.services.audit_service import AuditService
 from app.routers.auth import get_current_user
 from app.schemas.user import UserOut
 from app.schemas.vm import VMOut
 from pydantic import BaseModel
 
+
 router = APIRouter(prefix="/admin", tags=["Admin"])
 log = logging.getLogger(__name__)
+security_log = logging.getLogger("app.security")
+
 
 
 # ─── Schemas ──────────────────────────────────────────────────────────────────
@@ -56,8 +63,12 @@ class AdminVMOut(BaseModel):
 # ─── Helpers ──────────────────────────────────────────────────────────────────
 
 def _require_admin(current_user: User) -> User:
-    """For now any authenticated user can access admin endpoints (single-tenant).
-    Extend this with a role check when roles are added."""
+    """Ensure that the current user is an administrator."""
+    if not current_user.is_admin:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Accès interdit. Vous devez être administrateur.",
+        )
     return current_user
 
 
@@ -146,9 +157,27 @@ def approve_user(
     _require_admin(current_user)
     user = db.get(User, user_id)
     if not user:
+        security_log.warning("Action: Approbation de l'utilisateur ID %d | Résultat: Échec (Utilisateur non trouvé)", user_id)
+        AuditService.log_event(
+            db=db,
+            action="USER_APPROVE",
+            resource_type="user",
+            resource_id=user_id,
+            status="FAILED",
+            details={"reason": "User not found"}
+        )
         raise HTTPException(status_code=404, detail="User not found")
     user.is_verified = True
     db.commit()
+    security_log.info("Action: Approbation de l'utilisateur '%s' | Résultat: Réussite", user.username)
+    AuditService.log_event(
+        db=db,
+        action="USER_APPROVE",
+        resource_type="user",
+        resource_id=user.id,
+        status="SUCCESS",
+        details={"approved_username": user.username}
+    )
     return {"status": "approved", "username": user.username}
 
 
@@ -162,10 +191,29 @@ def reject_user(
     _require_admin(current_user)
     user = db.get(User, user_id)
     if not user:
+        security_log.warning("Action: Rejet de l'utilisateur ID %d | Résultat: Échec (Utilisateur non trouvé)", user_id)
+        AuditService.log_event(
+            db=db,
+            action="USER_REJECT",
+            resource_type="user",
+            resource_id=user_id,
+            status="FAILED",
+            details={"reason": "User not found"}
+        )
         raise HTTPException(status_code=404, detail="User not found")
+    username = user.username
     db.delete(user)
     db.commit()
-    return {"status": "rejected", "username": user.username}
+    security_log.info("Action: Rejet de l'utilisateur '%s' | Résultat: Réussite", username)
+    AuditService.log_event(
+        db=db,
+        action="USER_REJECT",
+        resource_type="user",
+        resource_id=user_id,
+        status="SUCCESS",
+        details={"rejected_username": username}
+    )
+    return {"status": "rejected", "username": username}
 
 
 @router.patch("/users/{user_id}/role", response_model=dict)
@@ -178,14 +226,43 @@ def update_user_role(
     _require_admin(current_user)
 
     if user_id == current_user.id:
+        security_log.warning("Action: Changement de rôle de l'utilisateur ID %d | Résultat: Échec (Tentative de modification de son propre rôle)", user_id)
+        AuditService.log_event(
+            db=db,
+            action="USER_ROLE_CHANGE",
+            resource_type="user",
+            resource_id=user_id,
+            status="FAILED",
+            details={"reason": "Cannot change your own role"}
+        )
         raise HTTPException(status_code=400, detail="Cannot change your own role")
 
     user = db.get(User, user_id)
     if not user:
+        security_log.warning("Action: Changement de rôle de l'utilisateur ID %d | Résultat: Échec (Utilisateur non trouvé)", user_id)
+        AuditService.log_event(
+            db=db,
+            action="USER_ROLE_CHANGE",
+            resource_type="user",
+            resource_id=user_id,
+            status="FAILED",
+            details={"reason": "User not found"}
+        )
         raise HTTPException(status_code=404, detail="User not found")
 
     user.is_admin = not user.is_admin
     db.commit()
+    security_log.info("Action: Changement de rôle de l'utilisateur '%s' (is_admin: %s) | Résultat: Réussite", user.username, user.is_admin)
+    
+    action = "USER_PROMOTE" if user.is_admin else "USER_DEMOTE"
+    AuditService.log_event(
+        db=db,
+        action=action,
+        resource_type="user",
+        resource_id=user.id,
+        status="SUCCESS",
+        details={"username": user.username}
+    )
     return {"status": "updated", "username": user.username, "is_admin": user.is_admin}
 
 
@@ -199,12 +276,108 @@ def delete_user(
     _require_admin(current_user)
 
     if user_id == current_user.id:
+        security_log.warning("Action: Suppression de l'utilisateur ID %d | Résultat: Échec (Tentative de suppression de son propre compte)", user_id)
+        AuditService.log_event(
+            db=db,
+            action="USER_DELETE",
+            resource_type="user",
+            resource_id=user_id,
+            status="FAILED",
+            details={"reason": "Cannot delete your own account"}
+        )
         raise HTTPException(status_code=400, detail="Cannot delete your own account")
 
     user = db.get(User, user_id)
     if not user:
+        security_log.warning("Action: Suppression de l'utilisateur ID %d | Résultat: Échec (Utilisateur non trouvé)", user_id)
+        AuditService.log_event(
+            db=db,
+            action="USER_DELETE",
+            resource_type="user",
+            resource_id=user_id,
+            status="FAILED",
+            details={"reason": "User not found"}
+        )
         raise HTTPException(status_code=404, detail="User not found")
 
+    username = user.username
+    user_id_logged = user.id
     db.delete(user)
     db.commit()
-    return {"status": "deleted", "username": user.username}
+    security_log.info("Action: Suppression de l'utilisateur '%s' | Résultat: Réussite", username)
+    AuditService.log_event(
+        db=db,
+        action="USER_DELETE",
+        resource_type="user",
+        resource_id=user_id_logged,
+        status="SUCCESS",
+        details={"deleted_username": username}
+    )
+    return {"status": "deleted", "username": username}
+
+
+# ─── Audit Log Schemas & Endpoints ──────────────────────────────────────────
+
+class AuditLogOut(BaseModel):
+    id: int
+    created_at: datetime
+    user_id: int | None
+    username: str | None
+    action: str
+    resource_type: str | None
+    resource_id: str | None
+    status: str
+    ip_address: str | None
+    details: str | None
+
+    model_config = {"from_attributes": True}
+
+
+class AuditLogResponse(BaseModel):
+    items: List[AuditLogOut]
+    total: int
+
+
+@router.get("/audit-logs", response_model=AuditLogResponse)
+def get_audit_logs(
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+    username: str | None = None,
+    action: str | None = None,
+    status: str | None = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
+    limit: int = 50,
+    offset: int = 0,
+):
+    """Retrieve filtered and paginated audit logs for administrators."""
+    _require_admin(current_user)
+
+    query = db.query(AuditLog)
+
+    if username:
+        query = query.filter(AuditLog.username.ilike(f"%{username}%"))
+    if action:
+        query = query.filter(AuditLog.action == action)
+    if status:
+        query = query.filter(AuditLog.status == status)
+    if start_date:
+        try:
+            # Handle possible date-time formats
+            dt = datetime.fromisoformat(start_date.replace("Z", "+00:00"))
+            query = query.filter(AuditLog.created_at >= dt)
+        except ValueError:
+            pass
+    if end_date:
+        try:
+            dt = datetime.fromisoformat(end_date.replace("Z", "+00:00"))
+            query = query.filter(AuditLog.created_at <= dt)
+        except ValueError:
+            pass
+
+    total = query.count()
+    items = query.order_by(AuditLog.created_at.desc()).offset(offset).limit(limit).all()
+
+    return AuditLogResponse(items=items, total=total)
+
+

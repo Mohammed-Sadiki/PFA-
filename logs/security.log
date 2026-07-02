@@ -1,0 +1,9 @@
+2026-07-02 02:40:32,435 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 02:40:45,061 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 02:43:56,081 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-07-02 02:43:57,146 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-07-02 02:44:16,076 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 02:49:47,775 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-07-02 02:51:33,223 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-07-02 02:51:49,277 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 02:52:17,307 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite

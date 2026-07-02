@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 from functools import lru_cache
 from typing import List
 
@@ -11,9 +12,36 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./zorin_vm_platform.db"
 
     # JWT Auth
-    SECRET_KEY: str = "change-me-in-production"
+    SECRET_KEY: str
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60
+    LOGIN_RATE_LIMIT: str = "5/15minute"
+    LOG_LEVEL: str = "INFO"
+    LOG_MAX_BYTES: int = 10485760  # 10 MB
+    LOG_BACKUP_COUNT: int = 5
+
+
+
+    @field_validator("SECRET_KEY")
+    @classmethod
+    def validate_secret_key(cls, v: str) -> str:
+        if not v:
+            raise ValueError("SECRET_KEY is missing from environment/dotenv file.")
+        
+        # Check minimum length of 64 characters
+        if len(v) < 64:
+            raise ValueError(f"SECRET_KEY must be at least 64 characters long (currently {len(v)}).")
+
+        # Reject common placeholder values
+        placeholders = [
+            "change-me-in-production",
+            "change-me-to-a-random-64-char-secret-in-production-never-commit",
+            "change-me-to-a-random-64-char-secret-in-production"
+        ]
+        if any(p in v.lower() for p in placeholders):
+            raise ValueError("SECRET_KEY cannot use default placeholder value.")
+            
+        return v
 
     # VirtualBox
     VBOXMANAGE_PATH: str = r"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"

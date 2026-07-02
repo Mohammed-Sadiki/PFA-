@@ -6,10 +6,12 @@ Endpoints:
   GET  /auth/me        — Return current authenticated user
 """
 
+import logging
 from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, status
+
+from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from jose import JWTError, jwt
 from passlib.context import CryptContext
@@ -19,6 +21,8 @@ from app.config import get_settings
 from app.database import get_db
 from app.models.user import User
 from app.schemas.user import Token, TokenData, UserCreate, UserOut
+from app.limiter import limiter
+
 
 settings = get_settings()
 
@@ -62,6 +66,7 @@ async def get_current_user(
     token: Annotated[str, Depends(oauth2_scheme)],
     db: Session = Depends(get_db),
 ) -> User:
+    from app.logger import current_user_var
     credentials_exc = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -79,7 +84,9 @@ async def get_current_user(
     user = get_user_by_username(db, token_data.username)
     if user is None:
         raise credentials_exc
+    current_user_var.set(user.username)
     return user
+
 
 
 # ─── Endpoints ────────────────────────────────────────────────────────────────
@@ -106,13 +113,29 @@ def register(payload: UserCreate, db: Session = Depends(get_db)):
 
 
 @router.post("/login", response_model=Token)
+@limiter.limit(settings.LOGIN_RATE_LIMIT)
 def login(
+    request: Request,
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     db: Session = Depends(get_db),
 ):
+
     """Authenticate and return a JWT access token."""
+    from app.logger import current_user_var
+    from app.services.audit_service import AuditService
+    current_user_var.set(form_data.username)
+    security_log = logging.getLogger("app.security")
+
     user = authenticate_user(db, form_data.username, form_data.password)
     if not user:
+        security_log.warning("Action: Connexion de l'utilisateur '%s' | Résultat: Échec (Identifiants incorrects)", form_data.username)
+        AuditService.log_event(
+            db=db,
+            action="LOGIN",
+            username=form_data.username,
+            status="FAILED",
+            details={"reason": "Incorrect username or password"}
+        )
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
@@ -120,19 +143,58 @@ def login(
         )
     
     if not user.is_verified:
+        security_log.warning("Action: Connexion de l'utilisateur '%s' | Résultat: Échec (Compte non vérifié / en attente)", form_data.username)
+        AuditService.log_event(
+            db=db,
+            action="LOGIN",
+            user_id=user.id,
+            username=user.username,
+            status="FAILED",
+            details={"reason": "Account pending verification"}
+        )
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Votre compte est en attente de validation par un administrateur.",
         )
 
+    current_user_var.set(user.username)
+    security_log.info("Action: Connexion de l'utilisateur '%s' | Résultat: Réussite", user.username)
+    AuditService.log_event(
+        db=db,
+        action="LOGIN",
+        user_id=user.id,
+        username=user.username,
+        status="SUCCESS"
+    )
+
     token = create_access_token(
         data={"sub": user.username},
         expires_delta=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
     )
-    return Token(access_token=token)
+    from fastapi.responses import JSONResponse
+    return JSONResponse(content={"access_token": token, "token_type": "bearer"})
+
+
+
+@router.post("/logout")
+def logout(
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+):
+    """Log logout event in audit log."""
+    from app.services.audit_service import AuditService
+    AuditService.log_event(
+        db=db,
+        action="LOGOUT",
+        user_id=current_user.id,
+        username=current_user.username,
+        status="SUCCESS"
+    )
+    return {"status": "ok"}
 
 
 @router.get("/me", response_model=UserOut)
 def get_me(current_user: Annotated[User, Depends(get_current_user)]):
     """Return the currently authenticated user."""
     return current_user
+

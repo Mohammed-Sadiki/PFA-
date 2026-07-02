@@ -881,6 +881,11 @@
       <span class="nav-badge" id="badge-pending-users">0</span>
     </button>
 
+    <button class="nav-item" id="nav-audit-logs" onclick="showPage('audit-logs')">
+      <span class="nav-icon">📋</span>
+      Audit Logs
+    </button>
+
     <div class="nav-section">Liens Rapides</div>
 
     <a class="nav-item" href="/api/docs" target="_blank">
@@ -1090,6 +1095,97 @@
     </div>
   </section>
 
+  <!-- ── PAGE: AUDIT LOGS ─────────────────────────────────────────────── -->
+  <section class="page" id="page-audit-logs">
+    <div class="page-header">
+      <div>
+        <div class="page-title">Audit Logs</div>
+        <div class="page-sub">Historique complet de toutes les actions importantes</div>
+      </div>
+      <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm" onclick="loadAuditLogs()">🔄</button>
+      </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;align-items:end;">
+        <div>
+          <label class="form-label" style="margin-bottom:4px;">Utilisateur</label>
+          <input class="form-input" id="audit-filter-user" type="text" placeholder="Filtrer par utilisateur…" oninput="loadAuditLogs()" style="padding:8px 12px;" />
+        </div>
+        <div>
+          <label class="form-label" style="margin-bottom:4px;">Action</label>
+          <select class="form-input" id="audit-filter-action" onchange="loadAuditLogs()" style="padding:8px 12px;">
+            <option value="">Toutes les actions</option>
+            <option value="LOGIN">LOGIN</option>
+            <option value="LOGOUT">LOGOUT</option>
+            <option value="USER_APPROVE">USER_APPROVE</option>
+            <option value="USER_REJECT">USER_REJECT</option>
+            <option value="USER_PROMOTE">USER_PROMOTE</option>
+            <option value="USER_DEMOTE">USER_DEMOTE</option>
+            <option value="USER_DELETE">USER_DELETE</option>
+            <option value="VM_CREATE">VM_CREATE</option>
+            <option value="VM_PROVISION">VM_PROVISION</option>
+            <option value="VM_START">VM_START</option>
+            <option value="VM_STOP">VM_STOP</option>
+            <option value="VM_DELETE">VM_DELETE</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label" style="margin-bottom:4px;">Statut</label>
+          <select class="form-input" id="audit-filter-status" onchange="loadAuditLogs()" style="padding:8px 12px;">
+            <option value="">Tous les statuts</option>
+            <option value="SUCCESS">SUCCESS</option>
+            <option value="FAILED">FAILED</option>
+          </select>
+        </div>
+        <div>
+          <label class="form-label" style="margin-bottom:4px;">Depuis</label>
+          <input class="form-input" id="audit-filter-start" type="date" onchange="loadAuditLogs()" style="padding:8px 12px;" />
+        </div>
+        <div>
+          <label class="form-label" style="margin-bottom:4px;">Jusqu'au</label>
+          <input class="form-input" id="audit-filter-end" type="date" onchange="loadAuditLogs()" style="padding:8px 12px;" />
+        </div>
+        <div>
+          <button class="btn btn-ghost btn-sm" onclick="resetAuditFilters()" style="width:100%;margin-top:4px;">✕ Réinitialiser</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card">
+      <div class="table-wrap">
+        <table id="audit-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Utilisateur</th>
+              <th>Action</th>
+              <th>Ressource</th>
+              <th>Statut</th>
+              <th>IP</th>
+              <th>Détails</th>
+            </tr>
+          </thead>
+          <tbody id="audit-body">
+            <tr><td colspan="8"><div class="empty-state"><p>Chargement…</p></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Pagination -->
+      <div id="audit-pagination" style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-top:1px solid var(--border);">
+        <div style="color:var(--text-3);font-size:0.8rem;" id="audit-count">—</div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-ghost btn-sm" id="audit-prev" onclick="auditPrev()" disabled>← Précédent</button>
+          <button class="btn btn-ghost btn-sm" id="audit-next" onclick="auditNext()">Suivant →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div><!-- /#main -->
 
 <!-- ═══ MODAL: VM DETAILS ═══════════════════════════════════════════════ -->
@@ -1128,6 +1224,23 @@
   </div>
 </div>
 
+<!-- ═══ MODAL: AUDIT LOG DETAIL ════════════════════════════════════════ -->
+<div class="modal-overlay" id="modal-audit-detail">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📋 Détail de l'événement</div>
+      <button class="modal-close" onclick="closeModal('modal-audit-detail')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-grid" id="audit-detail-content"></div>
+      <div id="audit-detail-json" style="margin-top:14px;"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('modal-audit-detail')">Fermer</button>
+    </div>
+  </div>
+</div>
+
 <!-- ═══ TOAST CONTAINER ══════════════════════════════════════════════════ -->
 <div id="toast-container"></div>
 
@@ -1142,6 +1255,8 @@ let allVMs        = [];
 let allUsers      = [];
 let modalVMId     = null;
 let modalVMName   = '';
+let auditOffset   = 0;
+const AUDIT_LIMIT = 50;
 
 /* ─────────────────────────────────────────────────────────────────────────
    API HELPER
@@ -1178,7 +1293,7 @@ function showPage(name) {
   document.getElementById(`page-${name}`).classList.add('active');
   document.getElementById(`nav-${name}`).classList.add('active');
 
-  const titles = { dashboard: 'Tableau de bord', vms: 'Machines Virtuelles', users: 'Utilisateurs', 'pending-users': 'Demandes d\'inscription' };
+  const titles = { dashboard: 'Tableau de bord', vms: 'Machines Virtuelles', users: 'Utilisateurs', 'pending-users': 'Demandes d\'inscription', 'audit-logs': 'Audit Logs' };
   document.getElementById('page-title').textContent = titles[name] || '';
 
   // Close mobile sidebar
@@ -1188,6 +1303,7 @@ function showPage(name) {
   if (name === 'vms') loadVMs();
   if (name === 'users') loadUsers();
   if (name === 'pending-users') loadPendingUsers();
+  if (name === 'audit-logs') { auditOffset = 0; loadAuditLogs(); }
 }
 
 function toggleSidebar() {
@@ -1675,6 +1791,7 @@ function refreshAll() {
   if (page === 'vms') loadVMs();
   if (page === 'users') loadUsers();
   if (page === 'pending-users') loadPendingUsers();
+  if (page === 'audit-logs') loadAuditLogs();
   toast('Actualisation…', 'info');
 }
 
@@ -1690,7 +1807,118 @@ function startAutoRefresh() {
     if (page === 'vms') loadVMs();
     if (page === 'users') loadUsers();
     if (page === 'pending-users') loadPendingUsers();
+    if (page === 'audit-logs') loadAuditLogs();
   }, 30000);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   AUDIT LOGS PAGE
+───────────────────────────────────────────────────────────────────────── */
+async function loadAuditLogs() {
+  const username   = document.getElementById('audit-filter-user').value.trim();
+  const action     = document.getElementById('audit-filter-action').value;
+  const status     = document.getElementById('audit-filter-status').value;
+  const startDate  = document.getElementById('audit-filter-start').value;
+  const endDate    = document.getElementById('audit-filter-end').value;
+
+  const params = new URLSearchParams({ limit: AUDIT_LIMIT, offset: auditOffset });
+  if (username)  params.set('username',   username);
+  if (action)    params.set('action',     action);
+  if (status)    params.set('status',     status);
+  if (startDate) params.set('start_date', startDate + 'T00:00:00');
+  if (endDate)   params.set('end_date',   endDate   + 'T23:59:59');
+
+  try {
+    const data = await api('/admin/audit-logs?' + params.toString());
+    renderAuditTable(data.items);
+    updateAuditPagination(data.total);
+  } catch(e) {
+    toast(e.detail || 'Erreur de chargement des audit logs', 'error');
+  }
+}
+
+function renderAuditTable(items) {
+  const tbody = document.getElementById('audit-body');
+  if (!items.length) {
+    tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><div class="empty-icon">📋</div><p>Aucun événement trouvé</p></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = items.map(ev => {
+    const statusCls = ev.status === 'SUCCESS' ? 'badge-running' : 'badge-error';
+    const actionCls = auditActionColor(ev.action);
+    return `<tr style="cursor:pointer" onclick="showAuditDetail(${ev.id})" data-id="${ev.id}" data-json='${escapeHtml(JSON.stringify(ev))}'>
+      <td class="td-muted">#${ev.id}</td>
+      <td class="td-muted" style="white-space:nowrap">${formatDate(ev.created_at)}</td>
+      <td>${ev.username ? escapeHtml(ev.username) : '<span style="color:var(--text-3)">—</span>'}</td>
+      <td><span class="badge ${actionCls}" style="font-size:0.7rem;letter-spacing:.04em">${ev.action}</span></td>
+      <td class="td-muted">${ev.resource_type ? escapeHtml(ev.resource_type) + (ev.resource_id ? ' #' + ev.resource_id : '') : '—'}</td>
+      <td><span class="badge ${statusCls}">${ev.status}</span></td>
+      <td class="td-muted mono" style="font-size:0.75rem">${ev.ip_address || '—'}</td>
+      <td><button class="btn btn-ghost btn-sm btn-icon" title="Voir les détails" onclick="event.stopPropagation();showAuditDetail(${ev.id},this.closest('tr'))">🔍</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function auditActionColor(action) {
+  if (action === 'LOGIN' || action === 'LOGOUT') return 'badge-pending';
+  if (action.startsWith('VM_')) return 'badge-creating';
+  if (action.startsWith('USER_')) return 'badge-admin';
+  return 'badge-stopped';
+}
+
+function showAuditDetail(id, row) {
+  // Find data from already-rendered row
+  const tr = row || document.querySelector(`tr[data-id="${id}"]`);
+  if (!tr) return;
+  let ev;
+  try { ev = JSON.parse(tr.getAttribute('data-json').replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')); }
+  catch { return; }
+
+  const items = [
+    { label: 'ID',           value: '#' + ev.id },
+    { label: 'Date',         value: formatDate(ev.created_at) },
+    { label: 'Utilisateur',  value: ev.username || '—' },
+    { label: 'Action',       value: ev.action },
+    { label: 'Ressource',    value: ev.resource_type ? ev.resource_type + (ev.resource_id ? ' #' + ev.resource_id : '') : '—' },
+    { label: 'Statut',       value: ev.status },
+    { label: 'Adresse IP',   value: ev.ip_address || '—', mono: true },
+  ];
+
+  document.getElementById('audit-detail-content').innerHTML = items.map(i =>
+    `<div class="detail-item"><div class="detail-label">${i.label}</div><div class="detail-value ${i.mono ? 'mono' : ''}">${escapeHtml(String(i.value))}</div></div>`
+  ).join('');
+
+  const jsonDiv = document.getElementById('audit-detail-json');
+  if (ev.details) {
+    let pretty = ev.details;
+    try { pretty = JSON.stringify(JSON.parse(ev.details), null, 2); } catch {}
+    jsonDiv.innerHTML = `<div style="font-size:0.75rem;font-weight:600;color:var(--text-2);margin-bottom:6px;">Détails</div><pre style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px;font-family:'JetBrains Mono',monospace;font-size:0.75rem;color:var(--cyan);overflow-x:auto;white-space:pre-wrap;">${escapeHtml(pretty)}</pre>`;
+  } else {
+    jsonDiv.innerHTML = '';
+  }
+
+  openModal('modal-audit-detail');
+}
+
+function updateAuditPagination(total) {
+  const from = auditOffset + 1;
+  const to   = Math.min(auditOffset + AUDIT_LIMIT, total);
+  document.getElementById('audit-count').textContent = total ? `${from}–${to} sur ${total} événements` : 'Aucun événement';
+  document.getElementById('audit-prev').disabled = auditOffset === 0;
+  document.getElementById('audit-next').disabled = (auditOffset + AUDIT_LIMIT) >= total;
+}
+
+function auditPrev() { if (auditOffset > 0) { auditOffset = Math.max(0, auditOffset - AUDIT_LIMIT); loadAuditLogs(); } }
+function auditNext() { auditOffset += AUDIT_LIMIT; loadAuditLogs(); }
+
+function resetAuditFilters() {
+  document.getElementById('audit-filter-user').value   = '';
+  document.getElementById('audit-filter-action').value = '';
+  document.getElementById('audit-filter-status').value = '';
+  document.getElementById('audit-filter-start').value  = '';
+  document.getElementById('audit-filter-end').value    = '';
+  auditOffset = 0;
+  loadAuditLogs();
 }
 
 /* ─────────────────────────────────────────────────────────────────────────

@@ -1,0 +1,2371 @@
+2026-07-01 19:11:03,007 | ERROR    | IP: testclient | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : name 'logging' is not defined)
+Traceback (most recent call last):
+  File "c:\VMs/vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "c:\VMs/vbox-zorin-automation\app\routers\auth.py", line 124, in login
+    security_log = logging.getLogger("app.security")
+                   ^^^^^^^
+NameError: name 'logging' is not defined. Did you mean: 'login'? Or did you forget to import 'logging'?
+2026-07-01 19:11:03,066 | ERROR    | IP: testclient | User: - | app — Action: Traitement de la requête a échoué (Exception non gérée) | Résultat: name 'logging' is not defined
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 772, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "c:\VMs/vbox-zorin-automation\app\main.py", line 91, in log_ip_middleware
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    |     return await call_next(request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    |     await self.original_router.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    |     await included_router._handle_selected(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    |     await original_route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    |     await app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    |     response = func(*args, **kwargs)
+    |   File "c:\VMs/vbox-zorin-automation\app\routers\auth.py", line 124, in login
+    |     security_log = logging.getLogger("app.security")
+    |                    ^^^^^^^
+    | NameError: name 'logging' is not defined. Did you mean: 'login'? Or did you forget to import 'logging'?
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 88, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\VMs/vbox-zorin-automation\app\main.py", line 91, in log_ip_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    await app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "c:\VMs/vbox-zorin-automation\app\routers\auth.py", line 124, in login
+    security_log = logging.getLogger("app.security")
+                   ^^^^^^^
+NameError: name 'logging' is not defined. Did you mean: 'login'? Or did you forget to import 'logging'?
+2026-07-02 02:39:54,766 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-07-02 02:39:54,959 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:39:55,102 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-07-02 02:39:55,340 | INFO     | IP: - | User: - | watchfiles.main — 4 changes detected
+2026-07-02 02:40:32,435 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 02:40:32,516 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : parameter `response` must be an instance of starlette.responses.Response)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    self._inject_headers(
+    ~~~~~~~~~~~~~~~~~~~~^
+        kwargs.get("response"),
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        request.state.view_rate_limit,  # type: ignore
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    raise Exception(
+        "parameter `response` must be an instance of starlette.responses.Response"
+    )
+Exception: parameter `response` must be an instance of starlette.responses.Response
+2026-07-02 02:40:32,579 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Traitement de la requête a échoué (Exception non gérée) | Résultat: parameter `response` must be an instance of starlette.responses.Response
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 772, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\VMs\vbox-zorin-automation\app\main.py", line 102, in log_ip_middleware
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    |     return await call_next(request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    |     await self.original_router.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    |     await included_router._handle_selected(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    |     await original_route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    |     await app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    |     self._inject_headers(
+    |     ~~~~~~~~~~~~~~~~~~~~^
+    |         kwargs.get("response"),
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+    |         request.state.view_rate_limit,  # type: ignore
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    |     raise Exception(
+    |         "parameter `response` must be an instance of starlette.responses.Response"
+    |     )
+    | Exception: parameter `response` must be an instance of starlette.responses.Response
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\VMs\vbox-zorin-automation\app\main.py", line 102, in log_ip_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    await app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    self._inject_headers(
+    ~~~~~~~~~~~~~~~~~~~~^
+        kwargs.get("response"),
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        request.state.view_rate_limit,  # type: ignore
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    raise Exception(
+        "parameter `response` must be an instance of starlette.responses.Response"
+    )
+Exception: parameter `response` must be an instance of starlette.responses.Response
+2026-07-02 02:40:32,696 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:40:45,061 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 02:40:45,105 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : parameter `response` must be an instance of starlette.responses.Response)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    self._inject_headers(
+    ~~~~~~~~~~~~~~~~~~~~^
+        kwargs.get("response"),
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        request.state.view_rate_limit,  # type: ignore
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    raise Exception(
+        "parameter `response` must be an instance of starlette.responses.Response"
+    )
+Exception: parameter `response` must be an instance of starlette.responses.Response
+2026-07-02 02:40:45,185 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:40:45,135 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Traitement de la requête a échoué (Exception non gérée) | Résultat: parameter `response` must be an instance of starlette.responses.Response
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 772, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\VMs\vbox-zorin-automation\app\main.py", line 102, in log_ip_middleware
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    |     return await call_next(request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    |     await self.original_router.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    |     await included_router._handle_selected(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    |     await original_route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    |     await app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    |     self._inject_headers(
+    |     ~~~~~~~~~~~~~~~~~~~~^
+    |         kwargs.get("response"),
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+    |         request.state.view_rate_limit,  # type: ignore
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    |     raise Exception(
+    |         "parameter `response` must be an instance of starlette.responses.Response"
+    |     )
+    | Exception: parameter `response` must be an instance of starlette.responses.Response
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\VMs\vbox-zorin-automation\app\main.py", line 102, in log_ip_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    await app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    self._inject_headers(
+    ~~~~~~~~~~~~~~~~~~~~^
+        kwargs.get("response"),
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        request.state.view_rate_limit,  # type: ignore
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    raise Exception(
+        "parameter `response` must be an instance of starlette.responses.Response"
+    )
+Exception: parameter `response` must be an instance of starlette.responses.Response
+2026-07-02 02:43:56,081 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-07-02 02:43:56,120 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\VMs\vbox-zorin-automation\app\routers\auth.py", line 139, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-07-02 02:43:56,190 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:43:57,146 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-07-02 02:43:57,245 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\VMs\vbox-zorin-automation\app\routers\auth.py", line 139, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-07-02 02:43:57,378 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:44:16,076 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 02:44:16,115 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : parameter `response` must be an instance of starlette.responses.Response)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    self._inject_headers(
+    ~~~~~~~~~~~~~~~~~~~~^
+        kwargs.get("response"),
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        request.state.view_rate_limit,  # type: ignore
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    raise Exception(
+        "parameter `response` must be an instance of starlette.responses.Response"
+    )
+Exception: parameter `response` must be an instance of starlette.responses.Response
+2026-07-02 02:44:16,191 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:44:16,145 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Traitement de la requête a échoué (Exception non gérée) | Résultat: parameter `response` must be an instance of starlette.responses.Response
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 772, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\VMs\vbox-zorin-automation\app\main.py", line 102, in log_ip_middleware
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    |     return await call_next(request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    |     await self.original_router.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    |     await included_router._handle_selected(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    |     await original_route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    |     await app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    |     self._inject_headers(
+    |     ~~~~~~~~~~~~~~~~~~~~^
+    |         kwargs.get("response"),
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+    |         request.state.view_rate_limit,  # type: ignore
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    |     raise Exception(
+    |         "parameter `response` must be an instance of starlette.responses.Response"
+    |     )
+    | Exception: parameter `response` must be an instance of starlette.responses.Response
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\VMs\vbox-zorin-automation\app\main.py", line 102, in log_ip_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    await app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    self._inject_headers(
+    ~~~~~~~~~~~~~~~~~~~~^
+        kwargs.get("response"),
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        request.state.view_rate_limit,  # type: ignore
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    raise Exception(
+        "parameter `response` must be an instance of starlette.responses.Response"
+    )
+Exception: parameter `response` must be an instance of starlette.responses.Response
+2026-07-02 02:45:35,500 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:45:35,868 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:36,225 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:36,633 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:37,039 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:37,512 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:37,874 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:38,286 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:38,710 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:39,133 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:39,502 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:39,962 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:40,327 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:40,739 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:41,147 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:41,554 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:41,959 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:42,364 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:42,770 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:43,175 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:43,583 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:44,051 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:44,455 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:44,862 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:45,268 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:45,674 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:46,081 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:46,485 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:46,891 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:47,299 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:47,705 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:48,110 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:48,518 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:48,924 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:49,331 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:49,738 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:50,145 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:50,550 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:50,917 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:51,326 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:51,736 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:52,140 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:52,546 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:52,952 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:53,370 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:53,776 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:54,181 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:54,586 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:54,992 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:55,397 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:55,805 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:56,226 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:56,632 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:57,037 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:57,444 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:57,850 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:58,257 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:58,666 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:59,034 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:59,441 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:45:59,847 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:00,256 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:00,660 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:01,079 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:01,484 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:01,890 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:02,306 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:02,713 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:03,119 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:03,488 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:03,898 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:04,304 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:04,713 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:05,130 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:05,536 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:05,943 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:06,351 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:06,755 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:07,175 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:07,544 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:07,955 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:08,363 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:08,767 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:09,174 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:09,582 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:09,989 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:10,395 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:10,812 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:11,219 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:11,635 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:12,040 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:12,444 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:12,851 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:13,256 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:13,661 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:14,065 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:14,471 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:14,876 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:15,280 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:15,689 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:16,156 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:16,515 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:16,870 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:17,233 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:17,590 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:17,956 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:18,323 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:18,734 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:19,147 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:19,562 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:19,968 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:20,373 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:20,791 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:21,200 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:21,606 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:22,019 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:22,474 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:22,896 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:23,403 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:23,822 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:24,231 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:24,650 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:25,094 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:25,471 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:26,008 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:26,688 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:28,172 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:28,538 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:28,892 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:29,312 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:29,722 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:30,129 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:30,536 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:30,938 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:31,292 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:31,650 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:32,009 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:32,369 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:32,730 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:33,092 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:33,502 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:33,909 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:34,314 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:34,723 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:35,080 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:35,493 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:35,901 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:36,307 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:36,667 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:37,126 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:37,491 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:37,907 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:38,317 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:38,677 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:39,094 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:39,499 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:39,916 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:40,320 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:40,727 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:41,131 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:41,537 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:41,906 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:42,315 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:42,722 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:43,177 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:43,542 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:43,950 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:44,356 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:44,762 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:45,169 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:45,573 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:45,979 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:46,389 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:46,749 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:47,157 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:47,565 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:47,971 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:48,377 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:48,781 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:49,186 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:49,589 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:49,995 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:50,399 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:50,804 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:51,223 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:51,631 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:52,038 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:52,444 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:52,852 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:53,258 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:53,666 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:54,085 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:54,491 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:54,896 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:55,302 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:55,661 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:56,073 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:56,478 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:56,882 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:57,301 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:57,705 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:58,140 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:58,503 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:58,864 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:59,227 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:59,585 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:46:59,943 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:00,304 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:00,713 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:01,118 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:01,524 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:01,929 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:02,332 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:02,739 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:03,144 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:03,550 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:03,954 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:04,358 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:04,762 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:05,167 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:05,573 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:05,979 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:06,383 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:06,788 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:07,193 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:07,609 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:07,977 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:08,437 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:08,801 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:09,210 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:09,615 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:10,022 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:10,428 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:10,834 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:11,241 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:11,649 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:12,061 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:12,468 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:12,880 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:13,287 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:13,696 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:14,105 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:14,510 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:14,915 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:15,320 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:15,727 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:16,131 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:16,537 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:16,943 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:17,350 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:17,718 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:18,126 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:18,531 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:18,936 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:19,342 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:19,760 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:20,128 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:20,536 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:20,941 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:21,346 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:21,750 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:22,155 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:22,558 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:22,967 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:23,372 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:23,780 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:24,186 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:24,612 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:25,046 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:25,415 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:25,832 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:26,287 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:26,651 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:27,112 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:27,530 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:27,939 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:28,359 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:28,783 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:29,209 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:29,624 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:30,083 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:30,449 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:30,861 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:31,279 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:31,684 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:32,092 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:32,497 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:32,901 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:33,311 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:33,716 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:34,122 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:34,528 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:34,935 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:35,340 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:35,748 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:36,115 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:36,526 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:36,931 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:37,350 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:37,757 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:38,164 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:38,582 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:38,950 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:39,359 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:39,767 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:40,171 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:40,575 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:40,983 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:41,388 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:41,796 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:42,203 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:42,609 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:43,013 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:43,417 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:43,821 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:44,228 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:44,635 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:45,053 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:45,458 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:45,865 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:46,271 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:46,688 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:47,092 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:47,501 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:47,906 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:48,313 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:48,681 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:49,088 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:49,494 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:49,899 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:50,304 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:50,711 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:51,116 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:51,523 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:51,928 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:52,332 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:52,735 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:53,140 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:53,547 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:53,951 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:54,368 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:54,773 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:55,180 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:55,585 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:55,989 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:56,394 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:56,800 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:57,218 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:57,622 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:58,028 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:58,396 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:58,804 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:59,209 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:47:59,616 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:00,022 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:00,430 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:00,835 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:01,240 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:01,645 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:02,103 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:02,468 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:02,874 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:03,279 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:03,683 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:04,100 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:04,505 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:04,923 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:05,332 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:05,736 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:06,141 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:06,547 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:06,952 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:07,357 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:07,764 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:08,170 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:08,575 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:08,979 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:09,386 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:09,791 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:10,198 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:10,604 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:11,009 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:11,413 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:11,821 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:12,226 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:12,593 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:13,002 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:13,409 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:13,813 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:14,218 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:14,625 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:15,044 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:15,451 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:15,857 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:16,266 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:16,672 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:17,081 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:17,487 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:17,895 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:18,300 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:18,711 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:19,117 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:19,523 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:19,929 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:20,335 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:20,739 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:21,144 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:21,551 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:21,955 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:22,358 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:22,764 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:23,172 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:23,579 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:23,986 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:24,391 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:24,797 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:25,203 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:25,611 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:25,978 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:26,384 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:26,791 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:27,194 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:27,600 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:28,005 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:28,412 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:28,816 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:29,235 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:29,653 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:30,022 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:30,430 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:30,843 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:31,248 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:31,656 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:32,052 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:32,466 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:32,873 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:33,294 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:33,714 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:34,191 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:34,571 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:35,044 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:35,410 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:35,845 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:36,259 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:36,672 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:37,083 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:37,497 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:37,859 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:38,268 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:38,675 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:39,080 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:39,486 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:39,889 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:40,297 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:40,705 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:41,109 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:41,517 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:41,922 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:42,330 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:42,734 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:43,138 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:43,544 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:43,951 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:44,354 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:44,762 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:45,167 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:45,585 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:45,991 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:46,399 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:46,803 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:47,207 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:47,614 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:48,020 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:48,424 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:48,831 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:49,236 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:49,641 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:50,060 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:50,424 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:50,832 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:51,238 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:51,657 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:52,064 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:52,471 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:52,889 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:53,255 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:53,665 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:54,083 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:54,488 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:54,894 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:55,299 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:55,707 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:56,112 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:56,530 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:56,935 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:57,341 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:57,745 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:58,113 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:58,522 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:58,938 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:59,343 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:48:59,750 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:00,156 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:00,563 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:00,971 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:01,376 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:01,794 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:02,149 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:02,557 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:02,963 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:03,368 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:03,787 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:04,193 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:04,598 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:05,006 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:05,413 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:05,821 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:06,227 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:06,639 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:07,043 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:07,462 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:07,868 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:08,272 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:08,675 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:09,080 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:09,486 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:09,904 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:10,308 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:10,714 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:11,081 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:11,491 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:11,897 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:12,317 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:12,724 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:13,129 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:13,533 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:13,939 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:14,344 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:14,748 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:15,154 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:15,560 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:15,978 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:16,383 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:16,789 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:17,193 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:17,561 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:17,972 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:18,376 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:18,779 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:19,185 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:19,592 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:19,998 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:20,401 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:20,805 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:21,209 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:21,615 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:22,020 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:22,428 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:22,837 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:23,247 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:23,656 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:24,062 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:24,469 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:24,876 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:25,283 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:25,688 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:26,093 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:26,509 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:26,918 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:27,285 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:27,694 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:28,113 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:28,531 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:28,937 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:29,341 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:29,747 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:30,152 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:30,557 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:30,964 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:31,370 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:31,774 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:32,181 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:32,585 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:32,940 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:33,298 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:33,675 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:34,035 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:34,393 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:34,749 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:35,107 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:35,515 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:35,921 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:36,326 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:36,733 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:37,137 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:37,542 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:37,947 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:38,389 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:38,805 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:39,214 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:39,629 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:40,036 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:40,443 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:40,875 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:41,278 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:41,686 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:42,092 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:42,497 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:42,867 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:43,327 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:43,692 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:44,102 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:44,532 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:44,948 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:45,358 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:45,775 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:46,248 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:46,615 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:47,024 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:47,442 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:47,737 | WARNING  | IP: 127.0.0.1 | User: - | slowapi — ratelimit 5 per 15 minute (127.0.0.1) exceeded at endpoint: /auth/login
+2026-07-02 02:49:47,740 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 429: 5 per 15 minute)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 768, in sync_wrapper
+    self._check_request_limit(request, func, False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 635, in _check_request_limit
+    self.__evaluate_limits(request, _endpoint_key, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 533, in __evaluate_limits
+    raise RateLimitExceeded(failed_limit)
+slowapi.errors.RateLimitExceeded: 429: 5 per 15 minute
+2026-07-02 02:49:47,775 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-07-02 02:49:47,863 | INFO     | IP: - | User: - | watchfiles.main — 4 changes detected
+2026-07-02 02:49:48,282 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:48,701 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:49,069 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:49,481 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:49,889 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:50,307 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:50,728 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:51,135 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:51,553 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:51,958 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:52,324 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:52,737 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:53,144 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:53,554 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:53,967 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:54,375 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:54,802 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:55,216 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:55,626 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:55,997 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:56,457 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:56,873 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:57,283 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:57,701 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:58,107 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:58,512 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:58,918 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:59,324 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:49:59,698 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:00,106 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:00,522 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:00,933 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:01,348 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:01,755 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:02,180 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:02,603 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:03,070 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:03,476 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:03,899 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:04,267 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:04,672 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:05,081 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:05,485 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:05,890 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:06,297 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:06,706 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:07,113 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:07,520 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:07,927 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:08,345 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:08,750 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:09,119 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:09,474 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:09,858 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:10,221 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:10,581 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:10,943 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:11,403 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:11,807 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:12,160 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:12,520 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:12,878 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:13,247 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:13,604 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:13,962 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:14,322 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:14,683 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:15,042 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:15,396 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:15,754 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:16,109 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:16,517 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:16,931 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:17,335 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:17,703 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:18,113 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:18,518 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:18,921 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:19,329 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:19,734 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:20,138 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:20,543 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:20,950 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:21,321 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:50:48,264 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:51:01,876 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:51:02,018 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-07-02 02:51:02,804 | INFO     | IP: - | User: - | watchfiles.main — 4 changes detected
+2026-07-02 02:51:03,463 | INFO     | IP: - | User: - | watchfiles.main — 5 changes detected
+2026-07-02 02:51:06,697 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-07-02 02:51:06,704 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-07-02 02:51:33,223 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-07-02 02:51:33,304 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\VMs\vbox-zorin-automation\app\routers\auth.py", line 139, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-07-02 02:51:33,390 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:51:49,277 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 02:51:49,353 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : parameter `response` must be an instance of starlette.responses.Response)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    self._inject_headers(
+    ~~~~~~~~~~~~~~~~~~~~^
+        kwargs.get("response"),
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        request.state.view_rate_limit,  # type: ignore
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    raise Exception(
+        "parameter `response` must be an instance of starlette.responses.Response"
+    )
+Exception: parameter `response` must be an instance of starlette.responses.Response
+2026-07-02 02:51:49,398 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Traitement de la requête a échoué (Exception non gérée) | Résultat: parameter `response` must be an instance of starlette.responses.Response
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 772, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\VMs\vbox-zorin-automation\app\main.py", line 102, in log_ip_middleware
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    |     return await call_next(request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    |     await self.original_router.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    |     await included_router._handle_selected(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    |     await original_route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    |     await app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    |     self._inject_headers(
+    |     ~~~~~~~~~~~~~~~~~~~~^
+    |         kwargs.get("response"),
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+    |         request.state.view_rate_limit,  # type: ignore
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    |     raise Exception(
+    |         "parameter `response` must be an instance of starlette.responses.Response"
+    |     )
+    | Exception: parameter `response` must be an instance of starlette.responses.Response
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\VMs\vbox-zorin-automation\app\main.py", line 102, in log_ip_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    await app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    self._inject_headers(
+    ~~~~~~~~~~~~~~~~~~~~^
+        kwargs.get("response"),
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        request.state.view_rate_limit,  # type: ignore
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    raise Exception(
+        "parameter `response` must be an instance of starlette.responses.Response"
+    )
+Exception: parameter `response` must be an instance of starlette.responses.Response
+2026-07-02 02:51:49,613 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:52:17,307 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 02:52:17,369 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : parameter `response` must be an instance of starlette.responses.Response)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    self._inject_headers(
+    ~~~~~~~~~~~~~~~~~~~~^
+        kwargs.get("response"),
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        request.state.view_rate_limit,  # type: ignore
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    raise Exception(
+        "parameter `response` must be an instance of starlette.responses.Response"
+    )
+Exception: parameter `response` must be an instance of starlette.responses.Response
+2026-07-02 02:52:17,414 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 02:52:17,384 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Traitement de la requête a échoué (Exception non gérée) | Résultat: parameter `response` must be an instance of starlette.responses.Response
+  + Exception Group Traceback (most recent call last):
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_utils.py", line 85, in create_collapsing_task_group
+  |     async with anyio.create_task_group() as tg:
+  |                ~~~~~~~~~~~~~~~~~~~~~~~^^
+  |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 772, in __aexit__
+  |     raise BaseExceptionGroup(
+  |         "unhandled errors in a TaskGroup", self._exceptions
+  |     ) from None
+  | ExceptionGroup: unhandled errors in a TaskGroup (1 sub-exception)
+  +-+---------------- 1 ----------------
+    | Traceback (most recent call last):
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    |     await self.app(scope, receive, _send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    |     await self.simple_response(scope, receive, send, request_headers=headers)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\VMs\vbox-zorin-automation\app\main.py", line 102, in log_ip_middleware
+    |     response = await call_next(request)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    |     response = await self.dispatch_func(request, call_next)
+    |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    |     return await call_next(request)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    |     raise app_exc from app_exc.__cause__ or app_exc.__context__
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    |     await self.app(scope, receive_or_disconnect, send_no_error)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    |     await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    |     await self.app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    |     await self.middleware_stack(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    |     await route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    |     await self.original_router.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    |     await included_router._handle_selected(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    |     await original_route.handle(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    |     await app(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    |     await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    |     raise exc
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    |     await app(scope, receive, sender)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    |     response = await f(request)
+    |                ^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    |     raw_response = await run_endpoint_function(
+    |                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     ...<3 lines>...
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    |     return await run_in_threadpool(dependant.call, **values)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    |     return await anyio.to_thread.run_sync(func)
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    |     return await get_async_backend().run_sync_in_worker_thread(
+    |            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |         func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    |     return await future
+    |            ^^^^^^^^^^^^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    |     result = context.run(func, *args)
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    |     self._inject_headers(
+    |     ~~~~~~~~~~~~~~~~~~~~^
+    |         kwargs.get("response"),
+    |         ^^^^^^^^^^^^^^^^^^^^^^^
+    |         request.state.view_rate_limit,  # type: ignore
+    |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |     )
+    |     ^
+    |   File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    |     raise Exception(
+    |         "parameter `response` must be an instance of starlette.responses.Response"
+    |     )
+    | Exception: parameter `response` must be an instance of starlette.responses.Response
+    +------------------------------------
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\errors.py", line 164, in __call__
+    await self.app(scope, receive, _send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 96, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\cors.py", line 154, in simple_response
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\VMs\vbox-zorin-automation\app\main.py", line 102, in log_ip_middleware
+    response = await call_next(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 193, in __call__
+    response = await self.dispatch_func(request, call_next)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\middleware.py", line 128, in dispatch
+    return await call_next(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 168, in call_next
+    raise app_exc from app_exc.__cause__ or app_exc.__context__
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\base.py", line 144, in coro
+    await self.app(scope, receive_or_disconnect, send_no_error)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\middleware\exceptions.py", line 63, in __call__
+    await wrap_app_handling_exceptions(self.app, conn)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\middleware\asyncexitstack.py", line 18, in __call__
+    await self.app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\routing.py", line 660, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2531, in app
+    await route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1700, in handle
+    await self.original_router.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 2586, in handle
+    await included_router._handle_selected(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1720, in _handle_selected
+    await original_route.handle(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 1239, in handle
+    await app(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 150, in app
+    await wrap_app_handling_exceptions(app, request)(scope, receive, send)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 53, in wrapped_app
+    raise exc
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\_exception_handler.py", line 42, in wrapped_app
+    await app(scope, receive, sender)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 774, in sync_wrapper
+    self._inject_headers(
+    ~~~~~~~~~~~~~~~~~~~~^
+        kwargs.get("response"),
+        ^^^^^^^^^^^^^^^^^^^^^^^
+        request.state.view_rate_limit,  # type: ignore
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\slowapi\extension.py", line 383, in _inject_headers
+    raise Exception(
+        "parameter `response` must be an instance of starlette.responses.Response"
+    )
+Exception: parameter `response` must be an instance of starlette.responses.Response
+2026-07-02 02:52:46,814 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:53:02,689 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 02:53:02,849 | INFO     | IP: - | User: - | app.main — Shutting down.

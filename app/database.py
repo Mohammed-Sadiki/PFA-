@@ -16,15 +16,22 @@ Base = declarative_base()
 
 def get_db():
     """FastAPI dependency: yields a DB session, closes it after request."""
+    import logging
     db = SessionLocal()
     try:
         yield db
+    except Exception as exc:
+        db_log = logging.getLogger("app")
+        db_log.error("Action: Transaction base de données | Résultat: Échec (Erreur DB : %s)", exc, exc_info=exc)
+        raise exc
     finally:
         db.close()
+
 
 
 def init_db():
     """Create all tables. Called on app startup."""
     # Import models so SQLAlchemy registers them before create_all
-    from app.models import user, vm  # noqa: F401
+    from app.models import user, vm, audit_log  # noqa: F401
+
     Base.metadata.create_all(bind=engine)

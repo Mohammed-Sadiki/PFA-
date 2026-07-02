@@ -22,6 +22,8 @@ from app.models.vm import VM, VMStatus
 from app.routers.auth import get_current_user
 from app.models.user import User
 from app.schemas.vm import VMCreate, VMOut, VMStatusOut
+from app.services.audit_service import AuditService
+
 from app.services.vm_service import (
     VBoxVMService,
     GoldenMasterNotFoundError,
@@ -67,11 +69,25 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
     Long-running background task: clone golden master, configure, boot.
     Runs in a thread pool outside the request lifecycle.
     """
+    from app.logger import current_user_var
+    current_user_var.set(username)
+    vm_log = logging.getLogger("app.vm")
+    
     db: Session = db_session_factory()
+    vm = None
     try:
         vm = db.get(VM, vm_id)
         if not vm:
-            log.error("provision_vm_task: VM %d not found in DB", vm_id)
+            vm_log.error("Action: Provisioning de la VM ID %d | Résultat: Échec (VM non trouvée en base de données)", vm_id)
+            AuditService.log_event(
+                db=db,
+                action="VM_PROVISION",
+                resource_type="vm",
+                resource_id=vm_id,
+                status="FAILED",
+                username=username,
+                details={"reason": "VM not found in database"}
+            )
             return
 
         vm.status = VMStatus.CREATING
@@ -93,26 +109,87 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
         vm.ssh_port   = result["ssh_port"]
         vm.started_at = datetime.now(timezone.utc)
         db.commit()
-        log.info("VM '%s' provisioned successfully (SSH port %d)", vm.name, vm.ssh_port)
+        vm_log.info("Action: Provisioning de la VM '%s' | Résultat: Réussite (SSH port %d)", vm.name, vm.ssh_port)
+        
+        AuditService.log_event(
+            db=db,
+            action="VM_PROVISION",
+            resource_type="vm",
+            resource_id=vm.id,
+            status="SUCCESS",
+            user_id=vm.owner_id,
+            username=username,
+            details={"name": vm.name, "ip": vm.ip_address, "ssh_port": vm.ssh_port}
+        )
 
     except GoldenMasterNotFoundError as exc:
-        log.error("provision_vm_task: golden master missing — %s", exc)
+        vm_name = vm.name if vm else f"ID {vm_id}"
+        owner_id = vm.owner_id if vm else None
+        vm_log.error("Action: Provisioning de la VM '%s' | Résultat: Échec (Master de référence introuvable : %s)", vm_name, exc)
+        AuditService.log_event(
+            db=db,
+            action="VM_PROVISION",
+            resource_type="vm",
+            resource_id=vm_id,
+            status="FAILED",
+            user_id=owner_id,
+            username=username,
+            details={"name": vm_name, "reason": f"GoldenMasterNotFoundError: {exc}"}
+        )
         _mark_error(db, vm_id, str(exc))
 
     except GoldenMasterNotReadyError as exc:
-        log.error("provision_vm_task: golden master not ready — %s", exc)
+        vm_name = vm.name if vm else f"ID {vm_id}"
+        owner_id = vm.owner_id if vm else None
+        vm_log.error("Action: Provisioning de la VM '%s' | Résultat: Échec (Master de référence non prêt : %s)", vm_name, exc)
+        AuditService.log_event(
+            db=db,
+            action="VM_PROVISION",
+            resource_type="vm",
+            resource_id=vm_id,
+            status="FAILED",
+            user_id=owner_id,
+            username=username,
+            details={"name": vm_name, "reason": f"GoldenMasterNotReadyError: {exc}"}
+        )
         _mark_error(db, vm_id, str(exc))
 
     except (VBoxCommandError, PortCollisionError) as exc:
-        log.error("provision_vm_task: VBox error — %s", exc)
+        vm_name = vm.name if vm else f"ID {vm_id}"
+        owner_id = vm.owner_id if vm else None
+        vm_log.error("Action: Provisioning de la VM '%s' | Résultat: Échec (Erreur VirtualBox : %s)", vm_name, exc)
+        AuditService.log_event(
+            db=db,
+            action="VM_PROVISION",
+            resource_type="vm",
+            resource_id=vm_id,
+            status="FAILED",
+            user_id=owner_id,
+            username=username,
+            details={"name": vm_name, "reason": f"VirtualBoxError: {exc}"}
+        )
         _mark_error(db, vm_id, str(exc))
 
     except Exception as exc:
-        log.exception("provision_vm_task: unexpected error")
+        vm_name = vm.name if vm else f"ID {vm_id}"
+        owner_id = vm.owner_id if vm else None
+        vm_log.error("Action: Provisioning de la VM '%s' | Résultat: Échec (Erreur inattendue : %s)", vm_name, exc, exc_info=True)
+        AuditService.log_event(
+            db=db,
+            action="VM_PROVISION",
+            resource_type="vm",
+            resource_id=vm_id,
+            status="FAILED",
+            user_id=owner_id,
+            username=username,
+            details={"name": vm_name, "reason": f"UnexpectedError: {exc}"}
+        )
         _mark_error(db, vm_id, f"Unexpected error: {exc}")
 
     finally:
         db.close()
+
+
 
 
 def _mark_error(db: Session, vm_id: int, message: str) -> None:
@@ -136,6 +213,7 @@ def create_vm(
     Submit a new VM provisioning request.
     Returns immediately with status PENDING; provisioning runs in the background.
     """
+    vm_log = logging.getLogger("app.vm")
     vm_name = f"{current_user.username}-{uuid.uuid4().hex[:8]}"
 
     vm = VM(
@@ -161,7 +239,18 @@ def create_vm(
         SessionLocal,
     )
 
+    vm_log.info("Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: %s)", vm_name)
+    AuditService.log_event(
+        db=db,
+        action="VM_CREATE",
+        resource_type="vm",
+        resource_id=vm.id,
+        status="SUCCESS",
+        details={"name": vm.name, "vcpu": vm.vcpu, "ram_mb": vm.ram_mb, "disk_gb": vm.disk_gb}
+    )
     return vm
+
+
 
 
 @router.get("/", response_model=List[VMOut])
@@ -201,9 +290,11 @@ def start_vm(
     db: Session = Depends(get_db),
 ):
     """Start a stopped VM."""
+    vm_log = logging.getLogger("app.vm")
     vm = _get_owned_vm(vm_id, current_user, db)
 
     if vm.status in (VMStatus.PENDING, VMStatus.CREATING):
+        vm_log.warning("Action: Démarrage de la VM '%s' | Résultat: Échec (VM toujours en cours de provisioning)", vm.name)
         raise HTTPException(status_code=400, detail="VM is still being provisioned")
 
     # Sync live VirtualBox state first — VM may already be running
@@ -212,16 +303,35 @@ def start_vm(
     if live_status == VMStatus.RUNNING:
         vm.status = VMStatus.RUNNING
         db.commit()
+        vm_log.info("Action: Démarrage de la VM '%s' | Résultat: Déjà en cours d'exécution", vm.name)
         ssh_cmd = f"ssh -p {vm.ssh_port} {current_user.username}@127.0.0.1" if vm.ssh_port else None
         return VMStatusOut(id=vm.id, name=vm.name, status=vm.status, ssh_command=ssh_cmd)
 
     success = vm_service.start_vm(vm.name)
     if not success:
+        vm_log.error("Action: Démarrage de la VM '%s' | Résultat: Échec (Erreur au démarrage dans VirtualBox)", vm.name)
+        AuditService.log_event(
+            db=db,
+            action="VM_START",
+            resource_type="vm",
+            resource_id=vm.id,
+            status="FAILED",
+            details={"name": vm.name, "reason": "VirtualBox start error"}
+        )
         raise HTTPException(status_code=500, detail="Failed to start VM")
 
     vm.status = VMStatus.RUNNING
     vm.started_at = datetime.now(timezone.utc)
     db.commit()
+    vm_log.info("Action: Démarrage de la VM '%s' | Résultat: Réussite", vm.name)
+    AuditService.log_event(
+        db=db,
+        action="VM_START",
+        resource_type="vm",
+        resource_id=vm.id,
+        status="SUCCESS",
+        details={"name": vm.name}
+    )
 
     ssh_cmd = f"ssh -p {vm.ssh_port} {current_user.username}@127.0.0.1" if vm.ssh_port else None
     return VMStatusOut(id=vm.id, name=vm.name, status=vm.status, ssh_command=ssh_cmd)
@@ -234,9 +344,11 @@ def stop_vm(
     db: Session = Depends(get_db),
 ):
     """Stop a running VM (ACPI graceful shutdown, falls back to poweroff)."""
+    vm_log = logging.getLogger("app.vm")
     vm = _get_owned_vm(vm_id, current_user, db)
 
     if vm.status not in (VMStatus.RUNNING, VMStatus.ERROR):
+        vm_log.warning("Action: Arrêt de la VM '%s' | Résultat: Échec (VM non active / déjà arrêtée)", vm.name)
         raise HTTPException(status_code=400, detail="VM is not running")
 
     # Sync live VirtualBox state first — VM may already be stopped
@@ -245,14 +357,33 @@ def stop_vm(
     if live_status in (VMStatus.STOPPED, VMStatus.ERROR):
         vm.status = VMStatus.STOPPED
         db.commit()
+        vm_log.info("Action: Arrêt de la VM '%s' | Résultat: Déjà arrêtée", vm.name)
         return VMStatusOut(id=vm.id, name=vm.name, status=vm.status)
 
     success = vm_service.stop_vm(vm.name)
     if not success:
+        vm_log.error("Action: Arrêt de la VM '%s' | Résultat: Échec (Erreur à l'arrêt dans VirtualBox)", vm.name)
+        AuditService.log_event(
+            db=db,
+            action="VM_STOP",
+            resource_type="vm",
+            resource_id=vm.id,
+            status="FAILED",
+            details={"name": vm.name, "reason": "VirtualBox stop error"}
+        )
         raise HTTPException(status_code=500, detail="Failed to stop VM")
 
     vm.status = VMStatus.STOPPED
     db.commit()
+    vm_log.info("Action: Arrêt de la VM '%s' | Résultat: Réussite", vm.name)
+    AuditService.log_event(
+        db=db,
+        action="VM_STOP",
+        resource_type="vm",
+        resource_id=vm.id,
+        status="SUCCESS",
+        details={"name": vm.name}
+    )
 
     return VMStatusOut(id=vm.id, name=vm.name, status=vm.status)
 
@@ -264,21 +395,35 @@ def delete_vm(
     db: Session = Depends(get_db),
 ):
     """Delete a VM permanently (stops it first if running, removes all files)."""
+    vm_log = logging.getLogger("app.vm")
     vm = _get_owned_vm(vm_id, current_user, db)
 
     if vm.status in (VMStatus.PENDING, VMStatus.CREATING):
+        vm_log.warning("Action: Suppression de la VM '%s' | Résultat: Échec (VM en cours de provisioning)", vm.name)
         raise HTTPException(
             status_code=400,
             detail="Cannot delete a VM that is still being provisioned",
         )
 
     # Best-effort VBox deletion (may already be gone)
+    vm_name_deleted = vm.name
+    vm_id_deleted = vm.id
     vm_service.delete_vm(vm.name)
 
     db.delete(vm)
     db.commit()
+    vm_log.info("Action: Suppression de la VM '%s' | Résultat: Réussite", vm_name_deleted)
+    AuditService.log_event(
+        db=db,
+        action="VM_DELETE",
+        resource_type="vm",
+        resource_id=vm_id_deleted,
+        status="SUCCESS",
+        details={"name": vm_name_deleted}
+    )
 
-    return {"status": "deleted", "name": vm.name}
+    return {"status": "deleted", "name": vm_name_deleted}
+
 
 
 @router.get("/{vm_id}/logs", response_model=dict)
