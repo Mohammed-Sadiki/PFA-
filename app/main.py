@@ -13,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.database import init_db
-from app.routers import auth, vms, admin
+from app.routers import auth, vms, admin, ws
 from app.limiter import limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
@@ -29,12 +29,16 @@ log = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Startup: initialise DB tables. Shutdown: nothing extra needed."""
+    """Startup: initialise DB tables and capture the event loop for WS broadcasts."""
+    import asyncio as _asyncio
+    from app.services.websocket_manager import set_main_loop
+    set_main_loop(_asyncio.get_event_loop())
     log.info("Initialising database …")
     init_db()
     log.info("Database ready.")
     yield
     log.info("Shutting down.")
+
 
 
 app = FastAPI(
@@ -121,6 +125,8 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(vms.router)
 app.include_router(admin.router)
+app.include_router(ws.router)
+
 
 # ── Static files / SPA ────────────────────────────────────────────────────────
 _static_dir = Path(__file__).parent / "static"

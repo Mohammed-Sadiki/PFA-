@@ -260,11 +260,23 @@
     .topbar-btn:hover { background: var(--border); color: var(--text); }
 
     .status-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
+      width: 8px; height: 8px; border-radius: 50%;
       background: var(--success);
-      animation: pulse-dot 2s ease-in-out infinite;
+      animation: pulse 2s ease-in-out infinite;
     }
+
+    /* WS status indicator */
+    .ws-indicator {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.72rem; color: var(--text-3);
+    }
+    .ws-dot-admin {
+      width: 7px; height: 7px; border-radius: 50%;
+      transition: background 0.4s;
+    }
+    .ws-dot-admin.connected    { background: var(--success); animation: pulse 2s ease-in-out infinite; }
+    .ws-dot-admin.disconnected { background: var(--danger); }
+    .ws-dot-admin.polling      { background: var(--warning); animation: pulse 2s ease-in-out infinite; }
 
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
@@ -918,6 +930,10 @@
     <button class="topbar-hamburger" onclick="toggleSidebar()" id="hamburger">☰</button>
     <span class="topbar-title" id="page-title">Tableau de bord</span>
     <div class="topbar-actions">
+      <div class="ws-indicator" id="ws-admin-indicator" title="WebSocket déconnecté">
+        <span class="ws-dot-admin disconnected" id="ws-admin-dot"></span>
+        <span id="ws-admin-label">—</span>
+      </div>
       <div class="status-dot" title="API en ligne"></div>
       <button class="topbar-btn" onclick="refreshAll()">🔄 Actualiser</button>
     </div>
@@ -1369,12 +1385,13 @@ async function loadApp() {
   // Hide login, show dashboard
   document.getElementById('login-screen').style.display = 'none';
   loadDashboard();
-  startAutoRefresh();
+  connectAdminWS();
 }
 
 function doLogout() {
   localStorage.removeItem('admin_token');
   TOKEN = '';
+  disconnectAdminWS();
   // Show login screen
   document.getElementById('login-screen').style.display = 'flex';
   document.getElementById('login-username').value = '';
@@ -1796,19 +1813,146 @@ function refreshAll() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
-   AUTO REFRESH (every 30s)
+   WEBSOCKET — temps réel
 ───────────────────────────────────────────────────────────────────────── */
-function startAutoRefresh() {
-  setInterval(() => {
+let adminWs = null;
+let adminWsReconnectDelay = 1000;
+let adminWsReconnectTimer = null;
+let adminWsPingTimer = null;
+let adminWsFallbackTimer = null;
+
+function setAdminWsDot(state, label) {
+  const dot = document.getElementById('ws-admin-dot');
+  const lbl = document.getElementById('ws-admin-label');
+  const ind = document.getElementById('ws-admin-indicator');
+  if (dot) { dot.className = 'ws-dot-admin ' + state; }
+  if (lbl) { lbl.textContent = label; }
+  if (ind) { ind.title = label; }
+}
+
+function connectAdminWS() {
+  if (!TOKEN) return;
+  if (adminWs && (adminWs.readyState === WebSocket.CONNECTING || adminWs.readyState === WebSocket.OPEN)) return;
+
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  const wsUrl = `${proto}://${location.host}/ws?token=${encodeURIComponent(TOKEN)}`;
+  setAdminWsDot('disconnected', 'Connexion…');
+
+  try { adminWs = new WebSocket(wsUrl); } catch {
+    activateAdminFallback(); return;
+  }
+
+  adminWs.onopen = () => {
+    adminWsReconnectDelay = 1000;
+    setAdminWsDot('connected', '🟢 Temps réel');
+    if (adminWsFallbackTimer) { clearInterval(adminWsFallbackTimer); adminWsFallbackTimer = null; }
+    adminWsPingTimer = setInterval(() => {
+      if (adminWs && adminWs.readyState === WebSocket.OPEN) adminWs.send('ping');
+    }, 20000);
+  };
+
+  adminWs.onmessage = (ev) => {
+    if (ev.data === 'pong') return;
+    let msg;
+    try { msg = JSON.parse(ev.data); } catch { return; }
+    handleAdminWsMessage(msg);
+  };
+
+  adminWs.onclose = () => {
+    clearInterval(adminWsPingTimer);
+    setAdminWsDot('disconnected', '🔴 Déconnecté');
+    if (TOKEN) scheduleAdminReconnect();
+  };
+
+  adminWs.onerror = () => {
+    adminWs.close();
+    activateAdminFallback();
+  };
+}
+
+function scheduleAdminReconnect() {
+  if (adminWsReconnectTimer) clearTimeout(adminWsReconnectTimer);
+  adminWsReconnectTimer = setTimeout(() => {
+    adminWsReconnectDelay = Math.min(adminWsReconnectDelay * 2, 30000);
+    connectAdminWS();
+  }, adminWsReconnectDelay);
+}
+
+function disconnectAdminWS() {
+  if (adminWs) { adminWs.onclose = null; adminWs.close(); adminWs = null; }
+  clearInterval(adminWsPingTimer);
+  clearInterval(adminWsFallbackTimer);
+  clearTimeout(adminWsReconnectTimer);
+  setAdminWsDot('disconnected', 'Déconnecté');
+}
+
+function activateAdminFallback() {
+  if (adminWsFallbackTimer) return;
+  setAdminWsDot('polling', '🟡 Polling actif');
+  adminWsFallbackTimer = setInterval(() => {
+    if (!TOKEN) return;
     const active = document.querySelector('.page.active');
     if (!active) return;
     const page = active.id.replace('page-', '');
-    if (page === 'dashboard') loadDashboard();
-    if (page === 'vms') loadVMs();
-    if (page === 'users') loadUsers();
+    if (page === 'dashboard')    loadDashboard();
+    if (page === 'vms')          loadVMs();
+    if (page === 'users')        loadUsers();
     if (page === 'pending-users') loadPendingUsers();
-    if (page === 'audit-logs') loadAuditLogs();
+    if (page === 'audit-logs')   loadAuditLogs();
   }, 30000);
+}
+
+function handleAdminWsMessage(msg) {
+  const ev = msg.event;
+  const data = msg.data || {};
+
+  // Stats update — directly update counters without full reload
+  if (ev === 'STATS_UPDATE') {
+    if (data.total_vms   !== undefined) document.getElementById('stat-total-vms').textContent = data.total_vms;
+    if (data.running_vms !== undefined) document.getElementById('stat-running').textContent   = data.running_vms;
+    if (data.stopped_vms !== undefined) document.getElementById('stat-stopped').textContent   = data.stopped_vms;
+    if (data.error_vms   !== undefined) document.getElementById('stat-error').textContent     = data.error_vms;
+    if (data.total_users !== undefined) {
+      document.getElementById('stat-users').textContent  = data.total_users;
+      document.getElementById('badge-users').textContent = data.total_users;
+    }
+    return;
+  }
+
+  // VM events — reload active VM page / activity feed
+  if (['VM_CREATED', 'VM_STATUS_UPDATED', 'VM_PROVISION_FINISHED', 'VM_DELETED'].includes(ev)) {
+    const active = document.querySelector('.page.active');
+    const page = active ? active.id.replace('page-', '') : '';
+    if (page === 'vms') loadVMs();
+    else if (page === 'dashboard') loadDashboard();
+    else loadDashboard(); // refresh activity feed in background
+    return;
+  }
+
+  // User events — reload relevant user lists
+  if (ev === 'USER_REGISTERED') {
+    const pending = parseInt(document.getElementById('badge-pending-users').textContent || '0', 10);
+    document.getElementById('badge-pending-users').textContent = pending + 1;
+    const active = document.querySelector('.page.active');
+    if (active && active.id === 'page-pending-users') loadPendingUsers();
+    toast(`🔔 Nouvelle demande d'inscription : ${data.username}`, 'info');
+    return;
+  }
+
+  if (['USER_APPROVED', 'USER_REJECTED', 'USER_DELETED', 'USER_ROLE_UPDATED'].includes(ev)) {
+    const active = document.querySelector('.page.active');
+    const page = active ? active.id.replace('page-', '') : '';
+    if (page === 'users') loadUsers();
+    else if (page === 'pending-users') loadPendingUsers();
+    return;
+  }
+
+  // Audit log — if audit tab is open, refresh
+  if (ev === 'AUDIT_LOG_NEW') {
+    const active = document.querySelector('.page.active');
+    if (active && active.id === 'page-audit-logs') loadAuditLogs();
+    return;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────

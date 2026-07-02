@@ -109,6 +109,12 @@ def register(payload: UserCreate, db: Session = Depends(get_db)):
     db.add(user)
     db.commit()
     db.refresh(user)
+    # Broadcast new user registration to admins
+    from app.services.websocket_manager import manager
+    manager.sync_broadcast_admins({
+        "event": "USER_REGISTERED",
+        "data": {"id": user.id, "username": user.username, "email": user.email}
+    })
     return user
 
 
@@ -171,6 +177,13 @@ def login(
         data={"sub": user.username},
         expires_delta=timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES),
     )
+    # Broadcast login event to admins
+    from app.services.websocket_manager import manager
+    manager.sync_broadcast_admins({
+        "event": "USER_LOGIN",
+        "data": {"username": user.username, "is_admin": user.is_admin}
+    })
+    manager.sync_broadcast_stats_update(db)
     from fastapi.responses import JSONResponse
     return JSONResponse(content={"access_token": token, "token_type": "bearer"})
 
@@ -183,6 +196,7 @@ def logout(
 ):
     """Log logout event in audit log."""
     from app.services.audit_service import AuditService
+    from app.services.websocket_manager import manager
     AuditService.log_event(
         db=db,
         action="LOGOUT",
@@ -190,6 +204,10 @@ def logout(
         username=current_user.username,
         status="SUCCESS"
     )
+    manager.sync_broadcast_admins({
+        "event": "USER_LOGOUT",
+        "data": {"username": current_user.username}
+    })
     return {"status": "ok"}
 
 

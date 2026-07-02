@@ -325,6 +325,17 @@
     .toast-error   { background: rgba(244,63,94,0.15);  border-color: var(--clr-danger);  color: var(--clr-danger); }
     .toast-info    { background: rgba(56,189,248,0.12); border-color: var(--clr-primary); color: var(--clr-primary); }
 
+    /* ─── WS Status indicator ──────────────────────────────────── */
+    .ws-dot {
+      display: inline-block; width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-left: 0.4rem; vertical-align: middle;
+      transition: background 0.4s;
+    }
+    .ws-dot.connected    { background: var(--clr-success); animation: pulse 2s ease-in-out infinite; }
+    .ws-dot.disconnected { background: var(--clr-danger); }
+    .ws-dot.polling      { background: var(--clr-warning); animation: pulse 2s ease-in-out infinite; }
+
     /* ─── Spinner ─────────────────────────────────────────────────────── */
     .spinner {
       display: inline-block; width: 14px; height: 14px;
@@ -353,14 +364,6 @@
       transition: color var(--transition);
     }
     .modal-close:hover { color: var(--clr-text); }
-
-    /* ─── Refresh indicator ───────────────────────────────────────────── */
-    .refresh-dot {
-      display: inline-block; width: 8px; height: 8px;
-      border-radius: 50%; background: var(--clr-success);
-      animation: pulse 2s ease-in-out infinite;
-      margin-left: 0.4rem; vertical-align: middle;
-    }
 
     /* ─── Separator ───────────────────────────────────────────────────── */
     hr { border: none; border-top: 1px solid var(--clr-border); margin: 2rem 0; }
@@ -518,7 +521,7 @@
       <div class="section-header">
         <h2>
           🖥 Your Virtual Machines
-          <span class="refresh-dot" title="Auto-refreshing every 10s"></span>
+          <span class="ws-dot disconnected" id="ws-status-dot" title="WebSocket déconnecté"></span>
         </h2>
         <span id="vmCount" style="font-size:0.85rem;color:var(--clr-muted)"></span>
       </div>
@@ -604,7 +607,6 @@
 const API = '';          // same-origin
 let token = localStorage.getItem('zvm_token') || null;
 let currentUser = null;
-let pollTimer = null;
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Utilities
@@ -721,13 +723,13 @@ async function afterLogin() {
   updateRange(document.getElementById('vmRam'),  'ramVal',  v => v >= 1024 ? (v/1024).toFixed(1)+' GB' : v+' MB');
   updateRange(document.getElementById('vmDisk'), 'diskVal', v => v + ' GB');
   loadVMs();
-  startPolling();
+  connectWS();
 }
 
 function logout() {
   token = null; currentUser = null;
   localStorage.removeItem('zvm_token');
-  stopPolling();
+  disconnectWS();
   document.getElementById('authGate').style.display = 'block';
   document.getElementById('dashboard').style.display = 'none';
   document.getElementById('userInfo').style.display = 'none';
@@ -951,15 +953,88 @@ async function fetchLogs() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   Polling
+   WebSocket — temps réel
 ───────────────────────────────────────────────────────────────────────────── */
-function startPolling() {
-  stopPolling();
-  pollTimer = setInterval(loadVMs, 10000);
+let ws = null;
+let wsReconnectDelay = 1000;  // starts at 1 s, doubles per failure up to 30 s
+let wsReconnectTimer = null;
+let wsPingTimer = null;
+let wsFallbackTimer = null;
+
+function setWsDot(state, title) {
+  const dot = document.getElementById('ws-status-dot');
+  if (!dot) return;
+  dot.className = 'ws-dot ' + state;
+  dot.title = title;
 }
 
-function stopPolling() {
-  if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
+function connectWS() {
+  if (!token) return;
+  if (ws && (ws.readyState === WebSocket.CONNECTING || ws.readyState === WebSocket.OPEN)) return;
+
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws';
+  const wsUrl = `${proto}://${location.host}/ws?token=${encodeURIComponent(token)}`;
+  setWsDot('disconnected', 'Connexion en cours…');
+
+  try { ws = new WebSocket(wsUrl); } catch {
+    activateFallbackPolling(); return;
+  }
+
+  ws.onopen = () => {
+    wsReconnectDelay = 1000;
+    setWsDot('connected', '🟢 Temps réel actif');
+    if (wsFallbackTimer) { clearInterval(wsFallbackTimer); wsFallbackTimer = null; }
+    wsPingTimer = setInterval(() => {
+      if (ws && ws.readyState === WebSocket.OPEN) ws.send('ping');
+    }, 20000);
+  };
+
+  ws.onmessage = (ev) => {
+    if (ev.data === 'pong') return;
+    let msg;
+    try { msg = JSON.parse(ev.data); } catch { return; }
+    handleWsMessage(msg);
+  };
+
+  ws.onclose = () => {
+    clearInterval(wsPingTimer);
+    setWsDot('disconnected', '🔴 Déconnecté — reconnexion…');
+    if (token) scheduleReconnect();
+  };
+
+  ws.onerror = () => {
+    ws.close();
+    activateFallbackPolling();
+  };
+}
+
+function scheduleReconnect() {
+  if (wsReconnectTimer) clearTimeout(wsReconnectTimer);
+  wsReconnectTimer = setTimeout(() => {
+    wsReconnectDelay = Math.min(wsReconnectDelay * 2, 30000);
+    connectWS();
+  }, wsReconnectDelay);
+}
+
+function disconnectWS() {
+  if (ws) { ws.onclose = null; ws.close(); ws = null; }
+  clearInterval(wsPingTimer);
+  clearInterval(wsFallbackTimer);
+  clearTimeout(wsReconnectTimer);
+  setWsDot('disconnected', 'Déconnecté');
+}
+
+function activateFallbackPolling() {
+  if (wsFallbackTimer) return;
+  setWsDot('polling', '🟡 Mode polling (WebSocket indisponible)');
+  wsFallbackTimer = setInterval(() => { if (token) loadVMs(); }, 10000);
+}
+
+function handleWsMessage(msg) {
+  const ev = msg.event;
+  if (['VM_STATUS_UPDATED', 'VM_PROVISION_FINISHED', 'VM_CREATED', 'VM_DELETED'].includes(ev)) {
+    loadVMs();
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
@@ -974,6 +1049,7 @@ function stopPolling() {
     }
   }
 })();
+
 </script>
 </body>
 </html>

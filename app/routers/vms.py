@@ -9,6 +9,7 @@ Endpoints:
   DELETE /vms/{vm_id}       — Delete a VM permanently
 """
 
+import asyncio
 import logging
 import uuid
 from datetime import datetime, timezone
@@ -121,6 +122,19 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
             username=username,
             details={"name": vm.name, "ip": vm.ip_address, "ssh_port": vm.ssh_port}
         )
+        # Broadcast success to owner and admins (runs in background thread, needs new event loop)
+        from app.services.websocket_manager import manager as _mgr
+        _vm_data = {"id": vm.id, "name": vm.name, "status": vm.status.value, "ssh_port": vm.ssh_port, "ip_address": vm.ip_address}
+        _owner_id = vm.owner_id
+
+        async def _broadcast_provision_success():
+            await _mgr.broadcast_user(_owner_id, {"event": "VM_PROVISION_FINISHED", "data": _vm_data})
+            await _mgr.broadcast_admins({"event": "VM_STATUS_UPDATED", "data": _vm_data})
+            await _mgr.broadcast_stats_update(db)
+
+        import threading
+        threading.Thread(target=lambda: asyncio.run(_broadcast_provision_success()), daemon=True).start()
+
 
     except GoldenMasterNotFoundError as exc:
         vm_name = vm.name if vm else f"ID {vm_id}"
@@ -248,6 +262,9 @@ def create_vm(
         status="SUCCESS",
         details={"name": vm.name, "vcpu": vm.vcpu, "ram_mb": vm.ram_mb, "disk_gb": vm.disk_gb}
     )
+    from app.services.websocket_manager import manager
+    manager.sync_broadcast_admins({"event": "VM_CREATED", "data": {"id": vm.id, "name": vm.name, "owner": current_user.username}})
+    manager.sync_broadcast_stats_update(db)
     return vm
 
 
@@ -332,7 +349,11 @@ def start_vm(
         status="SUCCESS",
         details={"name": vm.name}
     )
-
+    vm_data = {"id": vm.id, "name": vm.name, "status": vm.status.value}
+    from app.services.websocket_manager import manager
+    manager.sync_broadcast_user(current_user.id, {"event": "VM_STATUS_UPDATED", "data": vm_data})
+    manager.sync_broadcast_admins({"event": "VM_STATUS_UPDATED", "data": vm_data})
+    manager.sync_broadcast_stats_update(db)
     ssh_cmd = f"ssh -p {vm.ssh_port} {current_user.username}@127.0.0.1" if vm.ssh_port else None
     return VMStatusOut(id=vm.id, name=vm.name, status=vm.status, ssh_command=ssh_cmd)
 
@@ -384,7 +405,11 @@ def stop_vm(
         status="SUCCESS",
         details={"name": vm.name}
     )
-
+    vm_data = {"id": vm.id, "name": vm.name, "status": vm.status.value}
+    from app.services.websocket_manager import manager
+    manager.sync_broadcast_user(current_user.id, {"event": "VM_STATUS_UPDATED", "data": vm_data})
+    manager.sync_broadcast_admins({"event": "VM_STATUS_UPDATED", "data": vm_data})
+    manager.sync_broadcast_stats_update(db)
     return VMStatusOut(id=vm.id, name=vm.name, status=vm.status)
 
 
@@ -421,7 +446,10 @@ def delete_vm(
         status="SUCCESS",
         details={"name": vm_name_deleted}
     )
-
+    from app.services.websocket_manager import manager
+    manager.sync_broadcast_user(current_user.id, {"event": "VM_DELETED", "data": {"id": vm_id_deleted, "name": vm_name_deleted}})
+    manager.sync_broadcast_admins({"event": "VM_DELETED", "data": {"id": vm_id_deleted, "name": vm_name_deleted, "owner": current_user.username}})
+    manager.sync_broadcast_stats_update(db)
     return {"status": "deleted", "name": vm_name_deleted}
 
 

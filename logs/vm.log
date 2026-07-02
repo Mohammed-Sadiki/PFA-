@@ -1,2 +1,6 @@
 2026-07-02 02:57:23,927 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-331ef001' | Résultat: Déjà arrêtée
 2026-07-02 02:57:54,074 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-331ef001' | Résultat: Réussite
+2026-07-02 03:28:41,988 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-7c4134d2)
+2026-07-02 03:28:52,808 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-e86ac8a5)
+2026-07-02 03:45:00,572 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-17453af5)
+2026-07-02 03:46:48,923 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-17453af5' | Résultat: Réussite (SSH port 22746)

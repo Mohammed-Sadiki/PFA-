@@ -8,6 +8,7 @@ Endpoints:
 """
 
 import logging
+import asyncio
 from datetime import datetime
 from typing import Annotated, List
 
@@ -178,6 +179,9 @@ def approve_user(
         status="SUCCESS",
         details={"approved_username": user.username}
     )
+    from app.services.websocket_manager import manager
+    manager.sync_broadcast_admins({"event": "USER_APPROVED", "data": {"id": user.id, "username": user.username}})
+    manager.sync_broadcast_stats_update(db)
     return {"status": "approved", "username": user.username}
 
 
@@ -213,6 +217,9 @@ def reject_user(
         status="SUCCESS",
         details={"rejected_username": username}
     )
+    from app.services.websocket_manager import manager
+    manager.sync_broadcast_admins({"event": "USER_REJECTED", "data": {"username": username}})
+    manager.sync_broadcast_stats_update(db)
     return {"status": "rejected", "username": username}
 
 
@@ -263,6 +270,8 @@ def update_user_role(
         status="SUCCESS",
         details={"username": user.username}
     )
+    from app.services.websocket_manager import manager
+    manager.sync_broadcast_admins({"event": "USER_ROLE_UPDATED", "data": {"id": user.id, "username": user.username, "is_admin": user.is_admin}})
     return {"status": "updated", "username": user.username, "is_admin": user.is_admin}
 
 
@@ -313,6 +322,9 @@ def delete_user(
         status="SUCCESS",
         details={"deleted_username": username}
     )
+    from app.services.websocket_manager import manager
+    manager.sync_broadcast_admins({"event": "USER_DELETED", "data": {"username": username}})
+    manager.sync_broadcast_stats_update(db)
     return {"status": "deleted", "username": username}
 
 
