@@ -13,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.database import init_db
-from app.routers import auth, vms, admin, ws
+from app.routers import auth, vms, admin, ws, notifications
 from app.limiter import limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
@@ -131,6 +131,7 @@ app.include_router(auth.router)
 app.include_router(vms.router)
 app.include_router(admin.router)
 app.include_router(ws.router)
+app.include_router(notifications.router)
 
 
 # ── Static files / SPA ────────────────────────────────────────────────────────

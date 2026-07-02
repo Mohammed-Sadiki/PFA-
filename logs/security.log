@@ -14,3 +14,5 @@
 2026-07-02 03:37:30,102 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
 2026-07-02 03:39:02,711 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
 2026-07-02 03:39:36,119 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
+2026-07-02 14:53:49,743 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
+2026-07-02 14:54:20,130 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite

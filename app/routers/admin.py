@@ -25,6 +25,7 @@ from app.routers.auth import get_current_user
 from app.schemas.user import UserOut
 from app.schemas.vm import VMOut
 from app.services.metrics_service import MetricsService
+from app.services.notification_service import NotificationService
 from pydantic import BaseModel
 
 
@@ -181,6 +182,14 @@ def approve_user(
         status="SUCCESS",
         details={"approved_username": user.username}
     )
+    # Notify the approved user
+    NotificationService.create_notification(
+        db=db,
+        user_id=user.id,
+        title="✅ Compte Validé",
+        message="Votre compte a été validé par un administrateur. Vous pouvez maintenant créer vos machines virtuelles.",
+        type="success"
+    )
     from app.services.websocket_manager import manager
     manager.sync_broadcast_admins({"event": "USER_APPROVED", "data": {"id": user.id, "username": user.username}})
     manager.sync_broadcast_stats_update(db)
@@ -271,6 +280,19 @@ def update_user_role(
         resource_id=user.id,
         status="SUCCESS",
         details={"username": user.username}
+    )
+    # Notify promoted/demoted user
+    role_label = "Administrateur" if user.is_admin else "Utilisateur"
+    notif_type = "success" if user.is_admin else "warning"
+    notif_title = "📍 Promu Administrateur" if user.is_admin else "↩️ Rétrogradation de rôle"
+    notif_msg = (
+        f"Félicitations ! Vous avez été promu au rôle d'Administrateur."
+        if user.is_admin else
+        f"Votre rôle a été rétrögradé au statut {role_label}."
+    )
+    NotificationService.create_notification(
+        db=db, user_id=user.id,
+        title=notif_title, message=notif_msg, type=notif_type
     )
     from app.services.websocket_manager import manager
     manager.sync_broadcast_admins({"event": "USER_ROLE_UPDATED", "data": {"id": user.id, "username": user.username, "is_admin": user.is_admin}})

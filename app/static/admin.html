@@ -278,6 +278,75 @@
     .ws-dot-admin.disconnected { background: var(--danger); }
     .ws-dot-admin.polling      { background: var(--warning); animation: pulse 2s ease-in-out infinite; }
 
+    /* ═══ NOTIFICATION BELL ══════════════════════════════════════════════════════════════════ */
+    .notif-btn {
+      position: relative;
+      background: var(--surface2);
+      border: 1px solid var(--border-l);
+      border-radius: var(--radius-sm);
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1rem;
+      transition: all var(--transition);
+      color: var(--text);
+    }
+    .notif-btn:hover { background: rgba(99,102,241,0.15); border-color: var(--primary); }
+    .notif-badge {
+      position: absolute; top: -5px; right: -5px;
+      background: var(--danger);
+      color: #fff; font-size: 0.6rem; font-weight: 700;
+      width: 17px; height: 17px; border-radius: 50%;
+      display: none; align-items: center; justify-content: center;
+      border: 2px solid var(--bg);
+    }
+    .notif-badge.visible { display: flex; }
+    .notif-dropdown {
+      position: absolute; top: calc(100% + 10px); right: 0;
+      width: 360px; max-height: 480px;
+      background: var(--surface);
+      border: 1px solid var(--border-l);
+      border-radius: var(--radius);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+      z-index: 200;
+      display: none; flex-direction: column;
+      overflow: hidden;
+    }
+    .notif-dropdown.open { display: flex; }
+    .notif-header {
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .notif-header h4 { font-size: 0.85rem; font-weight: 700; }
+    .notif-read-all {
+      font-size: 0.72rem; color: var(--primary); cursor: pointer;
+      background: none; border: none; font-family: inherit; font-weight: 600;
+      padding: 0;
+    }
+    .notif-read-all:hover { text-decoration: underline; }
+    .notif-list { overflow-y: auto; flex: 1; display: flex; flex-direction: column; }
+    .notif-empty { padding: 1.5rem; text-align: center; color: var(--text-3); font-size: 0.82rem; }
+    .notif-item {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; gap: 0.7rem; align-items: flex-start;
+      cursor: pointer; transition: background var(--transition);
+    }
+    .notif-item:hover { background: var(--surface2); }
+    .notif-item.unread { background: rgba(99,102,241,0.06); }
+    .notif-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .notif-body { flex: 1; min-width: 0; }
+    .notif-title { font-size: 0.82rem; font-weight: 600; margin-bottom: 2px; }
+    .notif-msg { font-size: 0.76rem; color: var(--text-2); line-height: 1.4; }
+    .notif-time { font-size: 0.68rem; color: var(--text-3); margin-top: 3px; }
+    .notif-del {
+      background: none; border: none; color: var(--text-3);
+      font-size: 0.95rem; cursor: pointer; line-height: 1;
+      padding: 2px; border-radius: 4px;
+      transition: color var(--transition); flex-shrink: 0;
+    }
+    .notif-del:hover { color: var(--danger); }
+
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
       50% { opacity: 0.8; box-shadow: 0 0 0 4px rgba(16,185,129,0); }
@@ -935,6 +1004,22 @@
         <span id="ws-admin-label">—</span>
       </div>
       <div class="status-dot" title="API en ligne"></div>
+      <!-- Notification Bell -->
+      <div id="admin-notif-wrapper" style="position:relative;">
+        <button class="notif-btn" id="admin-notif-bell" onclick="toggleAdminNotifDropdown()" title="Notifications" aria-label="Notifications">
+          🔔
+          <span class="notif-badge" id="admin-notif-badge"></span>
+        </button>
+        <div class="notif-dropdown" id="admin-notif-dropdown">
+          <div class="notif-header">
+            <h4>🔔 Notifications</h4>
+            <button class="notif-read-all" onclick="markAllAdminNotifRead()">Tout marquer lu</button>
+          </div>
+          <div class="notif-list" id="admin-notif-list">
+            <div class="notif-empty">Aucune notification</div>
+          </div>
+        </div>
+      </div>
       <button class="topbar-btn" onclick="refreshAll()">🔄 Actualiser</button>
     </div>
   </header>
@@ -1386,6 +1471,7 @@ async function loadApp() {
   document.getElementById('login-screen').style.display = 'none';
   loadDashboard();
   connectAdminWS();
+  loadAdminNotifications();
 }
 
 function doLogout() {
@@ -1996,6 +2082,15 @@ function handleAdminWsMessage(msg) {
     if (active && active.id === 'page-audit-logs') loadAuditLogs();
     return;
   }
+
+  // New notification — push to bell dropdown
+  if (ev === 'NOTIFICATION_NEW') {
+    const notif = data;
+    adminPrependNotification(notif);
+    const icon = adminNotifIcon(notif.type);
+    toast(`${icon} ${notif.title}: ${notif.message}`, notif.type === 'error' ? 'error' : (notif.type === 'success' ? 'success' : 'info'));
+    return;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -2107,6 +2202,141 @@ function resetAuditFilters() {
   auditOffset = 0;
   loadAuditLogs();
 }
+
+/* ─────────────────────────────────────────────────────────────────────────
+   NOTIFICATIONS CENTER
+───────────────────────────────────────────────────────────────────────── */
+let _adminNotifOpen = false;
+
+function adminNotifIcon(type) {
+  return {success:'✅', error:'❌', warning:'⚠️', info:'ℹ️'}[type] || '🔔';
+}
+
+function adminRelTime(iso) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const s = Math.floor(diff / 1000);
+  if (s < 60) return 'il y a quelques secondes';
+  const m = Math.floor(s / 60);
+  if (m < 60) return `il y a ${m} min`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `il y a ${h}h`;
+  return `il y a ${Math.floor(h/24)}j`;
+}
+
+async function loadAdminNotifications() {
+  try {
+    const notifs = await api('/notifications?limit=30');
+    renderAdminNotifications(notifs);
+    updateAdminBadge(notifs.filter(n => !n.is_read).length);
+  } catch { /* silent */ }
+}
+
+function renderAdminNotifications(notifs) {
+  const list = document.getElementById('admin-notif-list');
+  if (!notifs.length) {
+    list.innerHTML = '<div class="notif-empty">🎉 Aucune notification</div>';
+    return;
+  }
+  list.innerHTML = notifs.map(n => adminNotifItemHTML(n)).join('');
+}
+
+function adminNotifItemHTML(n) {
+  const icon = adminNotifIcon(n.type);
+  const unreadCls = n.is_read ? '' : ' unread';
+  return `
+    <div class="notif-item${unreadCls}" id="admin-notif-${n.id}" onclick="markAdminNotifRead(${n.id})">
+      <div class="notif-icon">${icon}</div>
+      <div class="notif-body">
+        <div class="notif-title">${n.title}</div>
+        <div class="notif-msg">${n.message}</div>
+        <div class="notif-time">${adminRelTime(n.created_at)}</div>
+      </div>
+      <button class="notif-del" onclick="deleteAdminNotif(event,${n.id})" title="Supprimer">×</button>
+    </div>`;
+}
+
+function adminPrependNotification(n) {
+  const list = document.getElementById('admin-notif-list');
+  const empty = list.querySelector('.notif-empty');
+  if (empty) empty.remove();
+  list.insertAdjacentHTML('afterbegin', adminNotifItemHTML(n));
+  // Update badge
+  const badge = document.getElementById('admin-notif-badge');
+  const current = parseInt(badge.textContent) || 0;
+  updateAdminBadge(current + 1);
+}
+
+function updateAdminBadge(count) {
+  const badge = document.getElementById('admin-notif-badge');
+  if (count > 0) {
+    badge.textContent = count > 99 ? '99+' : count;
+    badge.classList.add('visible');
+  } else {
+    badge.textContent = '';
+    badge.classList.remove('visible');
+  }
+}
+
+async function markAdminNotifRead(id) {
+  const el = document.getElementById(`admin-notif-${id}`);
+  if (el && el.classList.contains('unread')) {
+    el.classList.remove('unread');
+    try {
+      await api(`/notifications/${id}/read`, { method: 'PATCH' });
+      // Decrement badge
+      const badge = document.getElementById('admin-notif-badge');
+      const cur = parseInt(badge.textContent) || 0;
+      updateAdminBadge(Math.max(0, cur - 1));
+    } catch { /* silent */ }
+  }
+}
+
+async function markAllAdminNotifRead() {
+  try {
+    await api('/notifications/read-all', { method: 'PATCH' });
+    document.querySelectorAll('#admin-notif-list .notif-item.unread').forEach(el => el.classList.remove('unread'));
+    updateAdminBadge(0);
+  } catch { /* silent */ }
+}
+
+async function deleteAdminNotif(event, id) {
+  event.stopPropagation();
+  try {
+    await api(`/notifications/${id}`, { method: 'DELETE' });
+    const el = document.getElementById(`admin-notif-${id}`);
+    if (el) {
+      const wasUnread = el.classList.contains('unread');
+      el.remove();
+      if (wasUnread) {
+        const badge = document.getElementById('admin-notif-badge');
+        const cur = parseInt(badge.textContent) || 0;
+        updateAdminBadge(Math.max(0, cur - 1));
+      }
+      if (!document.querySelector('#admin-notif-list .notif-item')) {
+        document.getElementById('admin-notif-list').innerHTML = '<div class="notif-empty">🎉 Aucune notification</div>';
+      }
+    }
+  } catch { /* silent */ }
+}
+
+function toggleAdminNotifDropdown() {
+  _adminNotifOpen = !_adminNotifOpen;
+  document.getElementById('admin-notif-dropdown').classList.toggle('open', _adminNotifOpen);
+  if (_adminNotifOpen) loadAdminNotifications();
+}
+
+function closeAdminNotifDropdown() {
+  _adminNotifOpen = false;
+  document.getElementById('admin-notif-dropdown').classList.remove('open');
+}
+
+// Close dropdown on outside click
+document.addEventListener('click', (e) => {
+  const wrapper = document.getElementById('admin-notif-wrapper');
+  if (_adminNotifOpen && wrapper && !wrapper.contains(e.target)) {
+    closeAdminNotifDropdown();
+  }
+});
 
 /* ─────────────────────────────────────────────────────────────────────────
    BOOT

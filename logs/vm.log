@@ -11,3 +11,10 @@
 2026-07-02 04:03:02,873 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
 2026-07-02 04:06:31,786 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
 2026-07-02 04:07:46,868 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
+2026-07-02 14:56:01,491 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
+2026-07-02 14:56:54,357 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-73d62ccd)
+2026-07-02 14:58:57,689 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-73d62ccd' | Résultat: Réussite (SSH port 22128)
+2026-07-02 15:02:11,834 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-73d62ccd' | Résultat: Réussite
+2026-07-02 15:09:03,311 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-17453af5' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
+2026-07-02 15:09:40,143 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-73d62ccd' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
+2026-07-02 15:09:54,404 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-73d62ccd' | Résultat: Réussite

@@ -6253,3 +6253,1029 @@ VBoxManage.exe: error: Context: "DetachDevice(Bstr(pszCtl).raw(), port, device)"
 2026-07-02 04:10:18,513 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
 2026-07-02 04:10:18,867 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
 2026-07-02 04:10:19,269 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:19,875 | INFO     | IP: - | User: - | watchfiles.main — 70 changes detected
+2026-07-02 04:10:20,270 | INFO     | IP: - | User: - | watchfiles.main — 69 changes detected
+2026-07-02 04:10:20,667 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:21,138 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:21,492 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:21,844 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:22,245 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:22,597 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:23,001 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:23,364 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:23,768 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:24,173 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:24,527 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:24,930 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:25,284 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:25,687 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:26,039 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:26,443 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:26,805 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:27,208 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:27,560 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:27,962 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:28,317 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:28,720 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:29,072 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:29,477 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:29,878 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:30,229 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:30,631 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:30,982 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:31,385 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:31,738 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:32,140 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:32,493 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:32,895 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:33,297 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:33,649 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:34,050 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:34,402 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:34,803 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:35,155 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:35,556 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:35,907 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:36,309 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:36,660 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:37,062 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:37,464 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:37,816 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:38,220 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:38,573 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:38,974 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:39,325 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:39,727 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:40,078 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:40,480 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:40,830 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:41,233 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:41,585 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:41,987 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:42,389 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:42,740 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:43,142 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:43,493 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:43,896 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:44,248 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:44,650 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:45,001 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:45,404 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:45,755 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:46,157 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:46,509 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:46,911 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:47,313 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:47,665 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:48,067 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:48,418 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:48,821 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:49,172 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:49,574 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:49,925 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:50,310 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:50,661 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:51,014 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:51,366 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:51,718 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:52,070 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:52,421 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:52,772 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:53,124 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:53,475 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:53,826 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:54,229 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:54,581 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:54,983 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:55,335 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:55,739 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:56,091 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:56,492 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:56,844 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:57,246 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:57,597 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:10:57,998 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 04:10:58,025 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikisadiki
+2026-07-02 04:10:58,027 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 04:10:58,131 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-07-02 04:10:58,131 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-07-02 04:10:59,138 | INFO     | IP: - | User: - | watchfiles.main — 2 changes detected
+2026-07-02 04:11:02,376 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-07-02 04:11:02,379 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-07-02 04:11:02,386 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-07-02 04:11:02,486 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 04:11:02,491 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikisadiki, is_admin=False
+2026-07-02 04:11:02,927 | INFO     | IP: - | User: - | watchfiles.main — 2 changes detected
+2026-07-02 04:11:03,000 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikisadiki
+2026-07-02 04:11:03,001 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 04:11:03,100 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-07-02 04:11:03,100 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-07-02 04:11:03,904 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:11:06,701 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-07-02 04:11:06,704 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-07-02 04:11:06,710 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-07-02 04:11:06,805 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 04:11:06,809 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikisadiki, is_admin=False
+2026-07-02 04:11:08,197 | INFO     | IP: - | User: - | watchfiles.main — 2 changes detected
+2026-07-02 04:11:08,232 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikisadiki
+2026-07-02 04:11:08,233 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 04:11:08,332 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-07-02 04:11:08,332 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-07-02 04:11:09,002 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 04:11:11,976 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-07-02 04:11:11,980 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-07-02 04:11:11,986 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-07-02 04:11:12,128 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikisadiki, is_admin=False
+2026-07-02 04:11:12,133 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 04:11:41,293 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikisadiki
+2026-07-02 04:11:41,431 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 07:38:08,081 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: PAUSED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 07:38:08,301 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 07:38:08,360 | ERROR    | IP: - | User: - | app — Failed to broadcast stats update: This Connection is closed
+2026-07-02 07:38:08,940 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:41:38,109 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikisadiki-17453af5', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikisadiki-17453af5', '--machinereadable']' timed out after 5 seconds
+2026-07-02 14:41:38,112 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:41:41,555 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\routers\auth.py", line 76, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 473, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\dependencies\utils.py", line 678, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\VMs\vbox-zorin-automation\app\routers\auth.py", line 82, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-07-02 14:41:48,271 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 1195.1MB). Broadcasting.
+2026-07-02 14:41:48,408 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:41:52,700 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 11.3%, RAM: 1250.4MB). Broadcasting.
+2026-07-02 14:41:59,489 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:42:30,207 | INFO     | IP: - | User: - | watchfiles.main — 2 changes detected
+2026-07-02 14:42:30,593 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:31,077 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:31,811 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:32,231 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:32,727 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:33,084 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:33,451 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:33,804 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:34,157 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:34,557 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:34,914 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:35,275 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:35,629 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:35,989 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:36,346 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:36,699 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:37,060 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:37,420 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:37,827 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:38,186 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:38,595 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:38,954 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:39,377 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:39,820 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:40,177 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:40,591 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:40,960 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:41,428 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:41,866 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:42,231 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:42,586 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:42,939 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:43,201 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\routers\auth.py", line 76, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 473, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\dependencies\utils.py", line 678, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\VMs\vbox-zorin-automation\app\routers\auth.py", line 82, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-07-02 14:42:43,329 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:43,780 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:44,138 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:44,496 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:44,852 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:45,214 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:45,571 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:45,939 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:46,315 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:46,671 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:47,095 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:47,458 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:47,875 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:48,244 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:48,649 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:49,002 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:49,405 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:49,759 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:50,161 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:50,516 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:50,918 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:51,322 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:51,676 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:52,078 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:52,435 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:52,851 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:53,217 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:53,620 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:53,973 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:54,376 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:54,728 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:55,131 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:55,489 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:55,892 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:56,297 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:56,653 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:57,058 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:57,410 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:57,814 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:58,217 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:58,570 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:58,973 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:59,326 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:42:59,729 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:00,081 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:00,484 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:00,887 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:01,239 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:01,642 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:01,995 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:02,397 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:02,750 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:03,153 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:03,505 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:03,907 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:04,310 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:04,662 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:05,065 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:05,467 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:05,822 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:06,225 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:06,578 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:06,983 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:07,335 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:07,740 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:08,144 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:08,497 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:08,900 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:09,252 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:09,655 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:10,008 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:10,412 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:10,764 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:11,168 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:11,572 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:11,924 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:12,326 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:12,678 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:13,081 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:13,497 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:13,850 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:14,253 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:14,605 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:15,008 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:15,361 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:15,764 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:16,117 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:16,520 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:16,922 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:17,275 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:17,680 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:18,032 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:18,435 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:18,787 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:19,190 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:19,595 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:19,949 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:20,353 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:20,707 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:21,110 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:21,462 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:21,866 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:22,268 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:22,620 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:23,023 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:23,376 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:23,779 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:24,131 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:24,534 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:24,938 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:25,291 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:25,694 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:26,047 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:26,449 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:26,853 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:27,205 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:27,609 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:27,964 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:28,369 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:28,773 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:29,127 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:29,530 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:29,933 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:30,287 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:30,690 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:31,043 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:31,447 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:31,850 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:32,203 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:32,606 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:33,023 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:33,376 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:33,785 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:34,136 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:34,540 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:34,944 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:35,297 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:35,701 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:36,055 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:36,462 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:36,868 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:37,260 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:38,514 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:41,289 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:41,644 | INFO     | IP: - | User: - | watchfiles.main — 2 changes detected
+2026-07-02 14:43:42,047 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:42,400 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:42,804 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:43,269 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:43,696 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:44,105 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:44,468 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:44,884 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:45,299 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:45,652 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:46,054 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:46,411 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:46,814 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:47,225 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:47,580 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:47,983 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:48,369 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:48,817 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:49,172 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:49,579 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:49,992 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:50,396 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:50,754 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:51,179 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:51,792 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:52,497 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:52,856 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:53,212 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:53,566 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:53,917 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:54,270 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:54,622 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:54,974 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:55,327 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:55,681 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:56,034 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:56,387 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:56,791 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:57,195 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:57,548 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:57,952 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:58,306 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:58,709 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:59,112 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:59,468 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:43:59,873 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:00,226 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:00,637 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:00,990 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:01,393 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:01,829 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:02,231 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:02,584 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:02,987 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:03,365 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:03,796 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:04,148 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:04,550 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:04,902 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:05,304 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:05,657 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:06,059 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:06,412 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:06,815 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:07,217 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:07,570 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:07,972 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:08,325 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:08,678 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:09,030 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:09,383 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:09,735 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:10,088 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:10,440 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:10,792 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:11,144 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:11,496 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:11,898 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:12,252 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:12,655 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:13,058 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:13,423 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:13,929 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:14,333 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:14,685 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:15,088 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:15,440 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:15,844 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:16,197 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:16,600 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:17,005 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:17,467 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:17,820 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:18,222 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:18,574 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:18,928 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:19,280 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:19,632 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:19,984 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:20,336 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:20,688 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:21,041 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:21,395 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:21,750 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:22,153 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:22,504 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:22,912 | INFO     | IP: - | User: - | watchfiles.main — 2 changes detected
+2026-07-02 14:44:23,063 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-07-02 14:44:23,064 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-07-02 14:44:23,877 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:44:24,740 | INFO     | IP: - | User: - | watchfiles.main — 5 changes detected
+2026-07-02 14:44:28,269 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-07-02 14:44:28,309 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-07-02 14:44:28,316 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-07-02 14:44:28,346 | INFO     | IP: - | User: - | watchfiles.main — 11 changes detected
+2026-07-02 14:44:41,535 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.4%, RAM: 1389.5MB). Broadcasting.
+2026-07-02 14:44:41,555 | ERROR    | IP: - | User: - | app — Failed to broadcast stats update: This Connection is closed
+2026-07-02 14:44:47,987 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:45:15,568 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:45:15,746 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-07-02 14:45:15,801 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-07-02 14:45:17,173 | INFO     | IP: - | User: - | watchfiles.main — 2 changes detected
+2026-07-02 14:45:22,347 | INFO     | IP: - | User: - | watchfiles.main — 9 changes detected
+2026-07-02 14:45:22,523 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-07-02 14:45:22,528 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-07-02 14:45:22,537 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-07-02 14:45:39,933 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:45:40,060 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-07-02 14:45:40,067 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-07-02 14:45:40,947 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:45:45,754 | INFO     | IP: - | User: - | watchfiles.main — 5 changes detected
+2026-07-02 14:45:46,033 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-07-02 14:45:46,174 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-07-02 14:45:46,205 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-07-02 14:48:22,766 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:49:00,527 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 1.6%, RAM: 1389.5MB). Broadcasting.
+2026-07-02 14:49:07,027 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:51:08,655 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:51:29,540 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 1.0%, RAM: 1390.0MB). Broadcasting.
+2026-07-02 14:51:36,163 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:51:39,311 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 14:52:08,494 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 1.0%, RAM: 1390.1MB). Broadcasting.
+2026-07-02 14:52:15,126 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:52:21,538 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.6%, RAM: 1390.1MB). Broadcasting.
+2026-07-02 14:52:27,914 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:52:47,606 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.2%, RAM: 1390.0MB). Broadcasting.
+2026-07-02 14:52:53,918 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:53:49,743 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
+2026-07-02 14:53:49,860 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:53:50,001 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikisadiki, is_admin=False
+2026-07-02 14:53:57,071 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikisadiki
+2026-07-02 14:53:57,195 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikisadiki, is_admin=False
+2026-07-02 14:53:58,592 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 4.3%, RAM: 1390.0MB). Broadcasting.
+2026-07-02 14:54:05,375 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-17453af5 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:54:20,130 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-07-02 14:54:20,232 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:54:20,253 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 14:54:24,038 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 14:54:24,210 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 14:55:50,575 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — [sadikisadiki-17453af5] Sending ACPI power button event...
+2026-07-02 14:56:01,437 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — [sadikisadiki-17453af5] VM stopped gracefully via ACPI.
+2026-07-02 14:56:01,490 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Metrics cache invalidated for VM: sadikisadiki-17453af5
+2026-07-02 14:56:01,491 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
+2026-07-02 14:56:01,526 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:56:01,559 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Notification created: '⏹️ VM Arrêtée' for user ID 2
+2026-07-02 14:56:01,814 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Metric change detected for sadikisadiki-17453af5 (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:56:01,905 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:56:11,112 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 14:56:11,403 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 14:56:54,357 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-73d62ccd)
+2026-07-02 14:56:54,402 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:56:54,456 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Notification created: '🖥️ VM en cours de création' for user ID 2
+2026-07-02 14:56:54,801 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:56:54,929 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — [sadikisadiki-73d62ccd] Checking for clean-template snapshot...
+2026-07-02 14:56:55,164 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — [sadikisadiki-73d62ccd] Cloning from zorin-lite-master (snapshot=True) ...
+2026-07-02 14:57:10,104 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 14:57:10,265 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 14:57:52,948 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — [sadikisadiki-73d62ccd] Setting 4 vCPU, 4096 MB RAM, boot=disk ...
+2026-07-02 14:57:53,135 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — [sadikisadiki-73d62ccd] Generating cloud-init ISO ...
+2026-07-02 14:58:02,158 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.cloudinit_service — Creating cloud-init ISO at C:\VMs\cloud-init-temp\sadikisadiki-73d62ccd\sadikisadiki-73d62ccd-cidata.iso
+2026-07-02 14:58:02,472 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.cloudinit_service — Cloud-init ISO created: C:\VMs\cloud-init-temp\sadikisadiki-73d62ccd\sadikisadiki-73d62ccd-cidata.iso
+2026-07-02 14:58:02,621 | WARNING  | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Storage controller named 'IDE Controller' already exists
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_IN_USE (0x80bb000c), component SessionMachine, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "AddStorageController(Bstr(pszCtl).raw(), StorageBus_IDE, ctl.asOutParam())" at line 1084 of file VBoxManageStorageController.cpp
+
+2026-07-02 14:58:02,795 | WARNING  | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: No storage device attached to device slot 0 on port 1 of controller 'IDE Controller'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component SessionMachine, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "DetachDevice(Bstr(pszCtl).raw(), port, device)" at line 413 of file VBoxManageStorageController.cpp
+
+2026-07-02 14:58:03,809 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — [sadikisadiki-73d62ccd] Forwarding host port 22128 → guest 22 ...
+2026-07-02 14:58:03,932 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — [sadikisadiki-73d62ccd] Starting VM with type gui ...
+2026-07-02 14:58:46,447 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:58:48,663 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:58:57,689 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-73d62ccd' | Résultat: Réussite (SSH port 22128)
+2026-07-02 14:58:57,738 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:58:57,814 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Metrics cache invalidated for VM: sadikisadiki-73d62ccd
+2026-07-02 14:58:57,872 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Notification created: '✅ VM Prête' for user ID 2
+2026-07-02 14:58:58,160 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 14:58:58,723 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:59:36,594 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 19.5%, RAM: 708.6MB). Broadcasting.
+2026-07-02 14:59:44,054 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 14:59:54,696 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 19.3%, RAM: 770.6MB). Broadcasting.
+2026-07-02 15:00:03,328 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 15:00:16,126 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 34.0%, RAM: 962.7MB). Broadcasting.
+2026-07-02 15:00:23,562 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 21.4%, RAM: 965.6MB). Broadcasting.
+2026-07-02 15:00:32,203 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 15:00:37,845 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 25.6%, RAM: 998.6MB). Broadcasting.
+2026-07-02 15:00:42,431 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 15:00:49,788 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 20.8%, RAM: 1071.3MB). Broadcasting.
+2026-07-02 15:00:57,193 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 15:01:41,953 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 15:01:52,940 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — [sadikisadiki-73d62ccd] Sending ACPI power button event...
+2026-07-02 15:02:06,585 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 15:02:06,745 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 15:02:09,167 | WARNING  | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — VBoxManage exited 1
+STDOUT: name="sadikisadiki-73d62ccd"
+encryption="disabled"
+groups="/"
+platformArchitecture="x86"
+ostype="Ubuntu (64-bit)"
+UUID="675235f5-cdca-4f3b-b5d9-3e4ddf371437"
+CfgFile="C:\\VMs\\vms\\sadikisadiki-73d62ccd\\sadikisadiki-73d62ccd.vbox"
+SnapFldr="C:\\VMs\\vms\\sadikisadiki-73d62ccd\\Snapshots"
+LogFldr="C:\\VMs\\vms\\sadikisadiki-73d62ccd\\Logs"
+hardwareuuid="675235f5-cdca-4f3b-b5d9-3e4ddf371437"
+memory=4096
+pagefusion="off"
+vram=50
+cpuexecutioncap=100
+cpu-profile="host"
+chipset="piix3"
+firmware="BIOS"
+cpus=4
+hpet="off"
+pae="off"
+longmode="on"
+triplefaultreset="off"
+apic="on"
+x2apic="on"
+nested-hw-virt="off"
+hwvirtex="on"
+nestedpaging="on"
+largepages="on"
+vtxvpid="on"
+vtxux="on"
+virtvmsavevmload="on"
+cpuid-portability-level=0
+bootmenu="messageandmenu"
+boot1="disk"
+boot2="none"
+boot3="none"
+boot4="none"
+acpi="on"
+ioapic="on"
+biosapic="apic"
+biossystemtimeoffset=0
+NvramFile="C:\\VMs\\vms\\sadikisadiki-73d62ccd\\sadikisadiki-73d62ccd.nvram"
+rtcuseutc="on"
+iommu="none"
+paravirtprovider="default"
+effparavirtprovider="kvm"
+VMState="poweroff"
+VMStateChangeTime="2026-07-02T13:02:06.908000000"
+graphicscontroller="vboxvga"
+monitorcount=1
+accelerate3d="off"
+teleporterenabled="off"
+teleporterport=0
+teleporteraddress=""
+teleporterpassword=""
+tracing-enabled="off"
+tracing-allow-vm-access="off"
+tracing-config=""
+autostart-enabled="off"
+autostart-delay=0
+defaultfrontend=""
+vmprocpriority="default"
+storagecontrollername0="SATA Controller"
+storagecontrollertype0="IntelAhci"
+storagecontrollerinstance0="0"
+storagecontrollermaxportcount0="30"
+storagecontrollerportcount0="30"
+storagecontrollerbootable0="on"
+storagecontrollername1="IDE Controller"
+storagecontrollertype1="PIIX4"
+storagecontrollerinstance1="0"
+storagecontrollermaxportcount1="2"
+storagecontrollerportcount1="2"
+storagecontrollerbootable1="on"
+"SATA Controller-0-0"="C:\\VMs\\vms\\sadikisadiki-73d62ccd\\sadikisadiki-73d62ccd.vdi"
+"SATA Controller-ImageUUID-0-0"="6a310e4f-f338-4053-aa4b-cac9e437c327"
+"SATA Controller-nonrotational-0-0"="off"
+"SATA Controller-discard-0-0"="off"
+"SATA Controller-1-0"="none"
+"SATA Controller-2-0"="none"
+"SATA Controller-3-0"="none"
+"SATA Controller-4-0"="none"
+"SATA Controller-5-0"="none"
+"SATA Controller-6-0"="none"
+"SATA Controller-7-0"="none"
+"SATA Controller-8-0"="none"
+"SATA Controller-9-0"="none"
+"SATA Controller-10-0"="none"
+"SATA Controller-11-0"="none"
+
+STDERR: VBoxManage.exe: error: The object is not ready
+VBoxManage.exe: error: Details: code E_ACCESSDENIED (0x80070005), component SessionMachine, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "GetMediumAttachment" at line 915 of file VBoxManageInfo.cpp
+VBoxManage.exe: error: The session is not locked (session state: Unlocked)
+VBoxManage.exe: error: Details: code E_UNEXPECTED (0x8000ffff), component SessionWrap, interface ISession, callee IUnknown
+VBoxManage.exe: error: Context: "UnlockMachine()" at line 3336 of file VBoxManageInfo.cpp
+
+2026-07-02 15:02:11,792 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — [sadikisadiki-73d62ccd] VM stopped gracefully via ACPI.
+2026-07-02 15:02:11,824 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Metrics cache invalidated for VM: sadikisadiki-73d62ccd
+2026-07-02 15:02:11,834 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-73d62ccd' | Résultat: Réussite
+2026-07-02 15:02:11,925 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:02:11,989 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Notification created: '⏹️ VM Arrêtée' for user ID 2
+2026-07-02 15:02:12,353 | INFO     | IP: - | User: - | watchfiles.main — 4 changes detected
+2026-07-02 15:06:32,429 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:06:32,670 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikisadiki
+2026-07-02 15:06:32,716 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 15:06:32,900 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-07-02 15:06:32,903 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-07-02 15:06:39,246 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 15:06:47,493 | INFO     | IP: - | User: - | watchfiles.main — 5 changes detected
+2026-07-02 15:06:47,813 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-07-02 15:06:47,836 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-07-02 15:06:47,845 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-07-02 15:06:48,040 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikisadiki, is_admin=False
+2026-07-02 15:06:48,046 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 15:07:09,954 | INFO     | IP: - | User: - | watchfiles.main — 10 changes detected
+2026-07-02 15:07:10,380 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:10,799 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:11,167 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:11,575 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:11,978 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:12,388 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:12,875 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:13,240 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:13,611 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:13,969 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:14,334 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:14,700 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:15,055 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:15,451 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:15,836 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:16,244 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:16,653 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:17,167 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:17,811 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:18,188 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:18,547 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:19,016 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:19,380 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:19,794 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:20,218 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:20,621 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:21,025 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:21,433 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:21,836 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:22,242 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:22,646 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:23,065 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:23,470 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:23,875 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:24,293 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:24,696 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:25,102 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:25,511 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:25,917 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:26,321 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:26,676 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:27,039 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:27,405 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:27,764 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:28,139 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:28,500 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:28,909 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:29,276 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:29,679 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:30,098 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:30,502 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:30,883 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:31,291 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:31,716 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:32,125 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:32,530 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:32,937 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:33,344 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:33,711 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:34,148 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:34,556 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:34,965 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:35,379 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:35,783 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:36,201 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:36,604 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:37,008 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:37,421 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:37,782 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:38,143 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:38,506 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:38,859 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:39,219 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:39,666 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:40,065 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:40,468 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:40,873 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:41,285 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:41,645 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:42,056 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:42,464 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:42,867 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:43,271 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:43,814 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:44,184 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:44,545 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:44,898 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:45,258 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:45,618 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:45,988 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:46,352 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:46,762 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:47,194 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:47,605 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:48,010 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:48,440 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:48,850 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:49,255 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:49,664 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:50,034 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:50,487 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:50,906 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:51,314 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:51,717 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:52,128 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:52,530 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:52,935 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:53,340 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:53,746 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:54,164 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:54,571 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:54,987 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:55,391 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:55,796 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:56,200 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:56,604 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:57,013 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:57,430 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:57,804 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:58,272 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:58,687 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:59,113 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:59,530 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:07:59,947 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:00,358 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:00,774 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:01,180 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:01,551 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:01,980 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:02,392 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:02,806 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:03,218 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:03,620 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:04,037 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:04,446 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:04,854 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:05,263 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:05,666 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:06,074 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:06,484 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:06,900 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:07,307 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:07,724 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:08,138 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:08,542 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:08,949 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:09,352 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:09,759 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:10,164 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:10,567 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:10,972 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:11,383 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:11,801 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:12,207 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:12,616 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:13,018 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:13,422 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:13,778 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:14,184 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:14,592 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:15,031 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:15,396 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:15,853 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:16,207 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:16,564 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:08:36,898 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikisadiki
+2026-07-02 15:08:37,245 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikisadiki, is_admin=False
+2026-07-02 15:08:45,816 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 15:08:46,328 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 15:09:03,309 | WARNING  | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: The machine 'sadikisadiki-17453af5' is already locked by a session (or being locked or unlocked)
+VBoxManage.exe: error: Details: code VBOX_E_INVALID_OBJECT_STATE (0x80bb0007), component MachineWrap, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "LaunchVMProcess(a->session, sessionType.raw(), ComSafeArrayAsInParam(aBstrEnv), progress.asOutParam())" at line 921 of file VBoxManageMisc.cpp
+
+2026-07-02 15:09:03,311 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-17453af5' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
+2026-07-02 15:09:03,360 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 500: Failed to start VM)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\VMs\vbox-zorin-automation\app\routers\vms.py", line 435, in start_vm
+    raise HTTPException(status_code=500, detail="Failed to start VM")
+fastapi.exceptions.HTTPException: 500: Failed to start VM
+2026-07-02 15:09:03,398 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 15:09:40,141 | WARNING  | IP: 127.0.0.1 | User: sadikisadiki | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: The machine 'sadikisadiki-73d62ccd' is already locked by a session (or being locked or unlocked)
+VBoxManage.exe: error: Details: code VBOX_E_INVALID_OBJECT_STATE (0x80bb0007), component MachineWrap, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "LaunchVMProcess(a->session, sessionType.raw(), ComSafeArrayAsInParam(aBstrEnv), progress.asOutParam())" at line 921 of file VBoxManageMisc.cpp
+
+2026-07-02 15:09:40,143 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-73d62ccd' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
+2026-07-02 15:09:40,183 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 500: Failed to start VM)
+Traceback (most recent call last):
+  File "C:\VMs\vbox-zorin-automation\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 136, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 690, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\fastapi\routing.py", line 346, in run_endpoint_function
+    return await run_in_threadpool(dependant.call, **values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\to_thread.py", line 56, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 2476, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\sadik\anaconda3\Lib\site-packages\anyio\_backends\_asyncio.py", line 967, in run
+    result = context.run(func, *args)
+  File "C:\VMs\vbox-zorin-automation\app\routers\vms.py", line 435, in start_vm
+    raise HTTPException(status_code=500, detail="Failed to start VM")
+fastapi.exceptions.HTTPException: 500: Failed to start VM
+2026-07-02 15:09:40,255 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 15:09:54,403 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Metrics cache invalidated for VM: sadikisadiki-73d62ccd
+2026-07-02 15:09:54,404 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-73d62ccd' | Résultat: Réussite
+2026-07-02 15:09:54,445 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 15:09:54,535 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Notification created: '▶️ VM Démarrée' for user ID 2
+2026-07-02 15:09:54,579 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Notification created: '▶️ VM démarrée' for user ID None
+2026-07-02 15:09:54,860 | INFO     | IP: - | User: - | watchfiles.main — 4 changes detected
+2026-07-02 15:09:55,381 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app — Metric change detected for sadikisadiki-73d62ccd (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 15:10:20,701 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 15:10:20,850 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 15:10:55,861 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-07-02 15:10:56,014 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-07-02 15:10:56,253 | INFO     | IP: - | User: - | app — Metric change detected for sadikisadiki-73d62ccd (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-07-02 15:10:56,339 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 15:16:00,135 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 15:16:00,549 | INFO     | IP: - | User: - | watchfiles.main — 3 changes detected
+2026-07-02 15:16:00,918 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:16:01,281 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:16:01,635 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:16:01,992 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:16:02,355 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:16:02,711 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:16:03,120 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:16:03,549 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-07-02 15:16:03,973 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected

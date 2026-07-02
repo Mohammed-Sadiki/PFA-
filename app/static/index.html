@@ -336,6 +336,85 @@
     .ws-dot.disconnected { background: var(--clr-danger); }
     .ws-dot.polling      { background: var(--clr-warning); animation: pulse 2s ease-in-out infinite; }
 
+    /* ─── Notification Bell ────────────────────────────────────────────── */
+    .notif-btn {
+      position: relative;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius-sm);
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.1rem;
+      transition: all var(--transition);
+      color: var(--clr-text);
+    }
+    .notif-btn:hover { background: rgba(56,189,248,0.1); border-color: rgba(56,189,248,0.3); }
+    .notif-badge {
+      position: absolute; top: -5px; right: -5px;
+      background: var(--clr-danger);
+      color: #fff; font-size: 0.65rem; font-weight: 700;
+      width: 18px; height: 18px; border-radius: 50%;
+      display: none; align-items: center; justify-content: center;
+      border: 2px solid var(--clr-bg);
+    }
+    .notif-badge.visible { display: flex; }
+
+    /* Dropdown panel */
+    .notif-dropdown {
+      position: absolute; top: calc(100% + 10px); right: 0;
+      width: 360px; max-height: 480px;
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      display: none; flex-direction: column;
+      overflow: hidden;
+      animation: slideDown 0.2s ease;
+    }
+    .notif-dropdown.open { display: flex; }
+    .notif-header {
+      padding: 0.9rem 1.1rem;
+      border-bottom: 1px solid var(--clr-border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .notif-header h4 { font-size: 0.9rem; font-weight: 700; }
+    .notif-read-all {
+      font-size: 0.75rem; color: var(--clr-primary); cursor: pointer;
+      background: none; border: none; font-family: inherit; font-weight: 600;
+      padding: 0;
+    }
+    .notif-read-all:hover { text-decoration: underline; }
+    .notif-list {
+      overflow-y: auto; flex: 1;
+      display: flex; flex-direction: column;
+    }
+    .notif-empty {
+      padding: 2rem; text-align: center;
+      color: var(--clr-muted); font-size: 0.85rem;
+    }
+    .notif-item {
+      padding: 0.85rem 1.1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      display: flex; gap: 0.8rem; align-items: flex-start;
+      cursor: pointer; transition: background var(--transition);
+    }
+    .notif-item:hover { background: rgba(255,255,255,0.04); }
+    .notif-item.unread { background: rgba(56,189,248,0.04); }
+    .notif-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+    .notif-body { flex: 1; min-width: 0; }
+    .notif-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 2px; }
+    .notif-msg { font-size: 0.78rem; color: var(--clr-muted); line-height: 1.4; }
+    .notif-time { font-size: 0.7rem; color: var(--clr-dim); margin-top: 3px; }
+    .notif-del {
+      background: none; border: none; color: var(--clr-dim);
+      font-size: 1rem; cursor: pointer; line-height: 1;
+      padding: 2px; border-radius: 4px;
+      transition: color var(--transition);
+      flex-shrink: 0;
+    }
+    .notif-del:hover { color: var(--clr-danger); }
+
     /* ─── Spinner ─────────────────────────────────────────────────────── */
     .spinner {
       display: inline-block; width: 14px; height: 14px;
@@ -402,6 +481,22 @@
       </a>
       <div class="header-actions">
         <span id="userInfo" style="display:none"></span>
+        <!-- Notification Bell -->
+        <div id="notifWrapper" style="position:relative; display:none;">
+          <button class="notif-btn" id="btnNotifBell" onclick="toggleNotifDropdown()" title="Notifications" aria-label="Notifications">
+            🔔
+            <span class="notif-badge" id="notifBadge"></span>
+          </button>
+          <div class="notif-dropdown" id="notifDropdown">
+            <div class="notif-header">
+              <h4>🔔 Notifications</h4>
+              <button class="notif-read-all" onclick="markAllNotifRead()">Tout marquer lu</button>
+            </div>
+            <div class="notif-list" id="notifList">
+              <div class="notif-empty">Aucune notification</div>
+            </div>
+          </div>
+        </div>
         <button id="btnOpenCreate" class="btn btn-primary" style="display:none">
           + New VM
         </button>
@@ -718,12 +813,14 @@ async function afterLogin() {
   document.getElementById('userInfo').innerHTML = `Signed in as <strong>${currentUser.username}</strong>`;
   document.getElementById('btnLogout').style.display = 'inline-flex';
   document.getElementById('btnOpenCreate').style.display = 'inline-flex';
+  document.getElementById('notifWrapper').style.display = 'inline-block';
   // Init slider displays
   updateRange(document.getElementById('vmCpu'),  'cpuVal',  v => v + ' core' + (v > 1 ? 's' : ''));
   updateRange(document.getElementById('vmRam'),  'ramVal',  v => v >= 1024 ? (v/1024).toFixed(1)+' GB' : v+' MB');
   updateRange(document.getElementById('vmDisk'), 'diskVal', v => v + ' GB');
   loadVMs();
   connectWS();
+  loadNotifications();
 }
 
 function logout() {
@@ -735,6 +832,8 @@ function logout() {
   document.getElementById('userInfo').style.display = 'none';
   document.getElementById('btnLogout').style.display = 'none';
   document.getElementById('btnOpenCreate').style.display = 'none';
+  document.getElementById('notifWrapper').style.display = 'none';
+  closeNotifDropdown();
   toggleCreatePanel(false);
 }
 
@@ -1076,7 +1175,149 @@ function handleWsMessage(msg) {
   if (['VM_STATUS_UPDATED', 'VM_PROVISION_FINISHED', 'VM_CREATED', 'VM_DELETED'].includes(ev)) {
     loadVMs();
   }
+  if (ev === 'NOTIFICATION_NEW') {
+    const notif = msg.data;
+    // Prepend into dropdown
+    prependNotification(notif);
+    // Show a transient toast
+    const icon = notifIcon(notif.type);
+    toast(`${icon} ${notif.title}: ${notif.message}`, notif.type === 'error' ? 'error' : (notif.type === 'success' ? 'success' : 'info'));
+  }
 }
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   Notifications Center
+───────────────────────────────────────────────────────────────────────────── */
+let _notifOpen = false;
+
+function notifIcon(type) {
+  return {success:'✅', error:'❌', warning:'⚠️', info:'ℹ️'}[type] || '🔔';
+}
+
+function relTime(iso) {
+  const diff = Date.now() - new Date(iso).getTime();
+  const s = Math.floor(diff / 1000);
+  if (s < 60) return 'il y a quelques secondes';
+  const m = Math.floor(s / 60);
+  if (m < 60) return `il y a ${m} min`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `il y a ${h}h`;
+  return `il y a ${Math.floor(h/24)}j`;
+}
+
+async function loadNotifications() {
+  try {
+    const notifs = await api('/notifications?limit=30');
+    renderNotifications(notifs);
+    updateBadge(notifs.filter(n => !n.is_read).length);
+  } catch { /* silent */ }
+}
+
+function renderNotifications(notifs) {
+  const list = document.getElementById('notifList');
+  if (!notifs.length) {
+    list.innerHTML = '<div class="notif-empty">🎉 Aucune notification</div>';
+    return;
+  }
+  list.innerHTML = notifs.map(n => notifItemHTML(n)).join('');
+}
+
+function notifItemHTML(n) {
+  const icon = notifIcon(n.type);
+  const unreadCls = n.is_read ? '' : ' unread';
+  return `
+    <div class="notif-item${unreadCls}" id="notif-${n.id}" onclick="markNotifRead(${n.id})">
+      <div class="notif-icon">${icon}</div>
+      <div class="notif-body">
+        <div class="notif-title">${n.title}</div>
+        <div class="notif-msg">${n.message}</div>
+        <div class="notif-time">${relTime(n.created_at)}</div>
+      </div>
+      <button class="notif-del" onclick="deleteNotif(event,${n.id})" title="Supprimer">×</button>
+    </div>`;
+}
+
+function prependNotification(n) {
+  const list = document.getElementById('notifList');
+  const empty = list.querySelector('.notif-empty');
+  if (empty) empty.remove();
+  list.insertAdjacentHTML('afterbegin', notifItemHTML(n));
+  // Update badge
+  const badge = document.getElementById('notifBadge');
+  const current = parseInt(badge.textContent) || 0;
+  updateBadge(current + 1);
+}
+
+function updateBadge(count) {
+  const badge = document.getElementById('notifBadge');
+  if (count > 0) {
+    badge.textContent = count > 99 ? '99+' : count;
+    badge.classList.add('visible');
+  } else {
+    badge.textContent = '';
+    badge.classList.remove('visible');
+  }
+}
+
+async function markNotifRead(id) {
+  const el = document.getElementById(`notif-${id}`);
+  if (el && el.classList.contains('unread')) {
+    el.classList.remove('unread');
+    try {
+      await api(`/notifications/${id}/read`, { method: 'PATCH' });
+      // Decrement badge
+      const badge = document.getElementById('notifBadge');
+      const cur = parseInt(badge.textContent) || 0;
+      updateBadge(Math.max(0, cur - 1));
+    } catch { /* silent */ }
+  }
+}
+
+async function markAllNotifRead() {
+  try {
+    await api('/notifications/read-all', { method: 'PATCH' });
+    document.querySelectorAll('.notif-item.unread').forEach(el => el.classList.remove('unread'));
+    updateBadge(0);
+  } catch { /* silent */ }
+}
+
+async function deleteNotif(event, id) {
+  event.stopPropagation();
+  try {
+    await api(`/notifications/${id}`, { method: 'DELETE' });
+    const el = document.getElementById(`notif-${id}`);
+    if (el) {
+      const wasUnread = el.classList.contains('unread');
+      el.remove();
+      if (wasUnread) {
+        const badge = document.getElementById('notifBadge');
+        const cur = parseInt(badge.textContent) || 0;
+        updateBadge(Math.max(0, cur - 1));
+      }
+      if (!document.querySelector('.notif-item')) {
+        document.getElementById('notifList').innerHTML = '<div class="notif-empty">🎉 Aucune notification</div>';
+      }
+    }
+  } catch { /* silent */ }
+}
+
+function toggleNotifDropdown() {
+  _notifOpen = !_notifOpen;
+  document.getElementById('notifDropdown').classList.toggle('open', _notifOpen);
+  if (_notifOpen) loadNotifications();
+}
+
+function closeNotifDropdown() {
+  _notifOpen = false;
+  document.getElementById('notifDropdown').classList.remove('open');
+}
+
+// Close dropdown on outside click
+document.addEventListener('click', (e) => {
+  if (_notifOpen && !document.getElementById('notifWrapper').contains(e.target)) {
+    closeNotifDropdown();
+  }
+});
 
 /* ─────────────────────────────────────────────────────────────────────────────
    Boot

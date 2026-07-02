@@ -25,6 +25,7 @@ from app.models.user import User
 from app.schemas.vm import VMCreate, VMOut, VMStatusOut
 from app.services.audit_service import AuditService
 from app.services.metrics_service import MetricsService
+from app.services.notification_service import NotificationService
 
 
 from app.services.vm_service import (
@@ -137,6 +138,24 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
         import threading
         # Invalidate metrics cache so the next call sees the real running status
         MetricsService.invalidate_cache(vm.name)
+        # Notify the owner that their VM is ready
+        NotificationService.create_notification(
+            db=db,
+            user_id=vm.owner_id,
+            title="✅ VM Prête",
+            message=f"Votre machine virtuelle '{vm.name}' est maintenant opérationnelle (SSH port {vm.ssh_port}).",
+            type="success",
+            details={"vm_id": vm.id, "ssh_port": vm.ssh_port, "ip_address": vm.ip_address}
+        )
+        # Notify admins that provisioning is finished
+        NotificationService.create_notification(
+            db=db,
+            user_id=None,
+            title="✅ Provisioning terminé",
+            message=f"Utilisateur : {username}\nVM : {vm.name}",
+            type="success",
+            details={"vm_id": vm.id, "owner_username": username}
+        )
         threading.Thread(target=lambda: asyncio.run(_broadcast_provision_success()), daemon=True).start()
 
 
@@ -155,6 +174,19 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
             username=username,
             details={"name": vm_name, "reason": f"GoldenMasterNotFoundError: {exc}"}
         )
+        if owner_id:
+            NotificationService.create_notification(
+                db=db, user_id=owner_id,
+                title="❌ Provisioning échoué",
+                message=f"La VM '{vm_name}' n'a pas pu être créée : image de référence introuvable.",
+                type="error", details={"vm_id": vm_id, "reason": str(exc)}
+            )
+        NotificationService.create_notification(
+            db=db, user_id=None,
+            title="⚠️ Provisioning échoué",
+            message=f"Utilisateur : {username}\nVM : {vm_name}",
+            type="error", details={"vm_id": vm_id, "owner_username": username, "reason": str(exc)}
+        )
         _mark_error(db, vm_id, str(exc))
 
     except GoldenMasterNotReadyError as exc:
@@ -170,6 +202,19 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
             user_id=owner_id,
             username=username,
             details={"name": vm_name, "reason": f"GoldenMasterNotReadyError: {exc}"}
+        )
+        if owner_id:
+            NotificationService.create_notification(
+                db=db, user_id=owner_id,
+                title="❌ Provisioning échoué",
+                message=f"La VM '{vm_name}' n'a pas pu être créée : image de référence non prête.",
+                type="error", details={"vm_id": vm_id, "reason": str(exc)}
+            )
+        NotificationService.create_notification(
+            db=db, user_id=None,
+            title="⚠️ Provisioning échoué",
+            message=f"Utilisateur : {username}\nVM : {vm_name}",
+            type="error", details={"vm_id": vm_id, "owner_username": username, "reason": str(exc)}
         )
         _mark_error(db, vm_id, str(exc))
 
@@ -187,6 +232,19 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
             username=username,
             details={"name": vm_name, "reason": f"VirtualBoxError: {exc}"}
         )
+        if owner_id:
+            NotificationService.create_notification(
+                db=db, user_id=owner_id,
+                title="❌ Provisioning échoué",
+                message=f"La VM '{vm_name}' n'a pas pu être créée : erreur VirtualBox.",
+                type="error", details={"vm_id": vm_id, "reason": str(exc)}
+            )
+        NotificationService.create_notification(
+            db=db, user_id=None,
+            title="⚠️ Provisioning échoué",
+            message=f"Utilisateur : {username}\nVM : {vm_name}",
+            type="error", details={"vm_id": vm_id, "owner_username": username, "reason": str(exc)}
+        )
         _mark_error(db, vm_id, str(exc))
 
     except Exception as exc:
@@ -202,6 +260,19 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
             user_id=owner_id,
             username=username,
             details={"name": vm_name, "reason": f"UnexpectedError: {exc}"}
+        )
+        if owner_id:
+            NotificationService.create_notification(
+                db=db, user_id=owner_id,
+                title="❌ Provisioning échoué",
+                message=f"La VM '{vm_name}' n'a pas pu être créée : erreur inattendue.",
+                type="error", details={"vm_id": vm_id, "reason": str(exc)}
+            )
+        NotificationService.create_notification(
+            db=db, user_id=None,
+            title="⚠️ Provisioning échoué",
+            message=f"Utilisateur : {username}\nVM : {vm_name}",
+            type="error", details={"vm_id": vm_id, "owner_username": username, "reason": str(exc)}
         )
         _mark_error(db, vm_id, f"Unexpected error: {exc}")
 
@@ -266,6 +337,23 @@ def create_vm(
         resource_id=vm.id,
         status="SUCCESS",
         details={"name": vm.name, "vcpu": vm.vcpu, "ram_mb": vm.ram_mb, "disk_gb": vm.disk_gb}
+    )
+    NotificationService.create_notification(
+        db=db,
+        user_id=current_user.id,
+        title="🖥️ VM en cours de création",
+        message=f"Votre machine virtuelle '{vm_name}' est en cours de provisioning. Vous serez notifié quand elle sera prête.",
+        type="info",
+        details={"vm_id": vm.id}
+    )
+    # Notify all admins that VM creation/provisioning has started
+    NotificationService.create_notification(
+        db=db,
+        user_id=None,
+        title="🖥️ Nouvelle VM en cours de création",
+        message=f"Utilisateur : {current_user.username}\nVM : {vm_name}",
+        type="info",
+        details={"vm_id": vm.id, "owner_username": current_user.username}
     )
     from app.services.websocket_manager import manager
     manager.sync_broadcast_admins({"event": "VM_CREATED", "data": {"id": vm.id, "name": vm.name, "owner": current_user.username}})
@@ -359,6 +447,23 @@ def start_vm(
         status="SUCCESS",
         details={"name": vm.name}
     )
+    NotificationService.create_notification(
+        db=db,
+        user_id=current_user.id,
+        title="▶️ VM Démarrée",
+        message=f"La machine virtuelle '{vm.name}' a été démarrée avec succès.",
+        type="success",
+        details={"vm_id": vm.id}
+    )
+    # Notify all admins that the VM has started
+    NotificationService.create_notification(
+        db=db,
+        user_id=None,
+        title="▶️ VM démarrée",
+        message=f"Utilisateur : {current_user.username}\nVM : {vm.name}",
+        type="success",
+        details={"vm_id": vm.id, "owner_username": current_user.username}
+    )
     vm_data = {"id": vm.id, "name": vm.name, "status": vm.status.value}
     from app.services.websocket_manager import manager
     manager.sync_broadcast_user(current_user.id, {"event": "VM_STATUS_UPDATED", "data": vm_data})
@@ -416,6 +521,23 @@ def stop_vm(
         status="SUCCESS",
         details={"name": vm.name}
     )
+    NotificationService.create_notification(
+        db=db,
+        user_id=current_user.id,
+        title="⏹️ VM Arrêtée",
+        message=f"La machine virtuelle '{vm.name}' a été arrêtée.",
+        type="info",
+        details={"vm_id": vm.id}
+    )
+    # Notify all admins that the VM has stopped
+    NotificationService.create_notification(
+        db=db,
+        user_id=None,
+        title="⏹️ VM arrêtée",
+        message=f"Utilisateur : {current_user.username}\nVM : {vm.name}",
+        type="info",
+        details={"vm_id": vm.id, "owner_username": current_user.username}
+    )
     vm_data = {"id": vm.id, "name": vm.name, "status": vm.status.value}
     from app.services.websocket_manager import manager
     manager.sync_broadcast_user(current_user.id, {"event": "VM_STATUS_UPDATED", "data": vm_data})
@@ -457,6 +579,23 @@ def delete_vm(
         resource_id=vm_id_deleted,
         status="SUCCESS",
         details={"name": vm_name_deleted}
+    )
+    NotificationService.create_notification(
+        db=db,
+        user_id=current_user.id,
+        title="🗑️ VM Supprimée",
+        message=f"La machine virtuelle '{vm_name_deleted}' a été supprimée définitivement.",
+        type="warning",
+        details={"vm_name": vm_name_deleted}
+    )
+    # Notify all admins that the VM has been deleted
+    NotificationService.create_notification(
+        db=db,
+        user_id=None,
+        title="🗑️ VM supprimée",
+        message=f"Utilisateur : {current_user.username}\nVM : {vm_name_deleted}",
+        type="warning",
+        details={"vm_name": vm_name_deleted, "owner_username": current_user.username}
     )
     from app.services.websocket_manager import manager
     manager.sync_broadcast_user(current_user.id, {"event": "VM_DELETED", "data": {"id": vm_id_deleted, "name": vm_name_deleted}})
