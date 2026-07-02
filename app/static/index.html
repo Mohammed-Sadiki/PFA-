@@ -792,14 +792,23 @@ async function loadVMs() {
   }
 }
 
+function formatUptime(seconds) {
+  if (!seconds || seconds <= 0) return '—';
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  return `${h}h ${m}m ${s}s`;
+}
+
 function statusBadge(status) {
   const map = {
-    RUNNING:  ['badge-running',  '● Running'],
-    STOPPED:  ['badge-stopped',  '● Stopped'],
-    PENDING:  ['badge-pending',  '● Pending'],
-    CREATING: ['badge-creating', '● Creating'],
-    ERROR:    ['badge-error',    '● Error'],
-    DELETED:  ['badge-stopped',  '● Deleted'],
+    RUNNING:  ['badge-running',  '● Active'],
+    STOPPED:  ['badge-stopped',  '● Machine arrêtée'],
+    PENDING:  ['badge-pending',  '● En attente'],
+    CREATING: ['badge-creating', '● Création…'],
+    ERROR:    ['badge-error',    '● Erreur'],
+    DELETED:  ['badge-stopped',  '● Supprimée'],
+    PAUSED:   ['badge-pending',  '● En pause'],
   };
   const [cls, label] = map[status] || ['badge-stopped', status];
   return `<span class="badge ${cls}">${label}</span>`;
@@ -814,19 +823,22 @@ function renderVMs(vms) {
     list.innerHTML = `
       <div class="card empty-state">
         <div class="empty-icon">📭</div>
-        <h3>No VMs yet</h3>
-        <p>Click <strong>+ New VM</strong> to provision your first Zorin OS Lite VM.</p>
+        <h3>Aucune machine virtuelle</h3>
+        <p>Cliquez sur <strong>+ New VM</strong> pour provisionner votre première VM Zorin OS.</p>
       </div>`;
     return;
   }
 
   list.innerHTML = vms.map(vm => {
-    const sshBtn = vm.ssh_port
+    const isRunning = vm.status === 'RUNNING';
+    const isStopped = vm.status === 'STOPPED' || vm.status === 'ERROR' || vm.status === 'PAUSED';
+
+    const sshBtn = (isRunning && vm.ssh_port)
       ? `<button class="vm-ssh" onclick="showSSH('${vm.name}','${currentUser.username}',${vm.ssh_port})"
-            title="Copy SSH command">🔑 ssh -p ${vm.ssh_port}</button>`
+            title="Copier la commande SSH">🔑 ssh -p ${vm.ssh_port}</button>`
       : '';
 
-    const canStart  = ['STOPPED','ERROR'].includes(vm.status);
+    const canStart  = ['STOPPED','ERROR','PAUSED'].includes(vm.status);
     const canStop   = vm.status === 'RUNNING';
     const canDelete = !['PENDING','CREATING'].includes(vm.status);
     const busy      = ['PENDING','CREATING'].includes(vm.status);
@@ -836,28 +848,57 @@ function renderVMs(vms) {
            ⚠ ${vm.error_message}</div>`
       : '';
 
+    // Show actual real-time CPU/RAM values if running
+    const cpuMetrics = isRunning
+      ? `<span>⚡ CPU: ${(vm.cpu_usage_percent || 0).toFixed(1)}%</span>`
+      : '';
+    const ramMetrics = isRunning
+      ? `<span>🧠 RAM: ${(vm.ram_usage_mb || 0).toFixed(0)} MB</span>`
+      : '';
+
     return `
     <div class="card vm-card" id="vm-${vm.id}">
       <div class="vm-card-main">
-        <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;margin-bottom:0.5rem;">
           <span class="vm-name">${vm.name}</span>
           ${statusBadge(vm.status)}
         </div>
-        <div class="vm-meta">
-          <span>🖥 ${vm.vcpu} vCPU</span>
-          <span>🧠 ${vm.ram_mb >= 1024 ? (vm.ram_mb/1024).toFixed(1)+'GB' : vm.ram_mb+'MB'} RAM</span>
+        
+        <div class="vm-meta" style="margin-bottom:0.5rem;">
+          <span>🖥 Alloc: ${vm.vcpu} vCPU</span>
+          <span>🧠 Alloc: ${vm.ram_mb >= 1024 ? (vm.ram_mb/1024).toFixed(1)+'GB' : vm.ram_mb+'MB'}</span>
           <span>💾 ${vm.disk_gb} GB disk</span>
           <span>🌐 ${vm.distro}</span>
-          ${vm.created_at ? `<span>📅 ${new Date(vm.created_at).toLocaleDateString()}</span>` : ''}
         </div>
+
+        ${isRunning ? `
+        <div class="vm-meta" style="border-top: 1px solid var(--clr-border); padding-top: 0.5rem; margin-bottom: 0.5rem; color: var(--clr-primary);">
+          ${cpuMetrics}
+          ${ramMetrics}
+          <span>📡 IP: ${vm.ip_address || '—'}</span>
+          <span>⏱ Uptime: ${formatUptime(vm.uptime_seconds)}</span>
+        </div>
+        ` : ''}
+
+        ${isStopped ? `
+        <div style="font-size:0.8rem;color:var(--clr-muted);margin-bottom:0.5rem;font-style:italic;">
+          ❄️ Machine inactive. Les métriques de consommation ne sont pas disponibles.
+        </div>
+        ` : ''}
+
+        <div style="font-size:0.7rem;color:var(--clr-muted);margin-bottom:0.5rem;">
+          📅 Création : ${vm.created_at ? new Date(vm.created_at).toLocaleDateString() : '—'}
+          ${isRunning ? ` | 🔄 Maj : ${new Date().toLocaleTimeString()}` : ''}
+        </div>
+
         ${sshBtn}
         ${errNote}
       </div>
       <div class="vm-actions">
         ${busy ? `<span style="font-size:0.8rem;color:var(--clr-warning);display:flex;align-items:center;gap:0.4rem"><span class="spinner" style="border-top-color:var(--clr-warning)"></span> Provisioning…</span>` : ''}
-        ${canStart  ? `<button class="btn btn-success btn-sm" onclick="vmAction(${vm.id},'start')">▶ Start</button>` : ''}
-        ${canStop   ? `<button class="btn btn-warning btn-sm" onclick="vmAction(${vm.id},'stop')">⏸ Stop</button>` : ''}
-        ${canDelete ? `<button class="btn btn-danger  btn-sm" onclick="confirmDelete(${vm.id},'${vm.name}')">🗑 Delete</button>` : ''}
+        ${canStart  ? `<button class="btn btn-success btn-sm" onclick="vmAction(${vm.id},'start')">▶ Démarrer</button>` : ''}
+        ${canStop   ? `<button class="btn btn-warning btn-sm" onclick="vmAction(${vm.id},'stop')">⏸ Arrêter</button>` : ''}
+        ${canDelete ? `<button class="btn btn-danger  btn-sm" onclick="confirmDelete(${vm.id},'${vm.name}')">🗑 Supprimer</button>` : ''}
         ${vm.status !== 'PENDING' ? `<button class="btn btn-ghost btn-sm" onclick="showLogs(${vm.id},'${vm.name}')">📋 Logs</button>` : ''}
       </div>
     </div>`;

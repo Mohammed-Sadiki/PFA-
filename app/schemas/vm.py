@@ -55,6 +55,10 @@ class VMOut(BaseModel):
     error_message: Optional[str] = None
     created_at: datetime
     started_at: Optional[datetime] = None
+    cpu_usage_percent: Optional[float] = 0.0
+    ram_usage_mb: Optional[float] = 0.0
+    uptime_seconds: Optional[int] = 0
+
 
     # Computed convenience field
     @property

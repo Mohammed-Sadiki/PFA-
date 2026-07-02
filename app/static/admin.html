@@ -1022,15 +1022,15 @@
         <table id="vms-table">
           <thead>
             <tr>
-              <th>#</th>
               <th>Nom VM</th>
-              <th>Propriétaire</th>
-              <th>Statut</th>
-              <th>Port SSH</th>
+              <th>Utilisateur</th>
+              <th>État</th>
               <th>CPU</th>
               <th>RAM</th>
-              <th>Disque</th>
-              <th>Créée le</th>
+              <th>IP</th>
+              <th>SSH</th>
+              <th>Uptime</th>
+              <th>Dernière activité</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -1457,59 +1457,98 @@ function renderActivityFeed(vms) {
 /* ─────────────────────────────────────────────────────────────────────────
    VMs PAGE
 ───────────────────────────────────────────────────────────────────────── */
+function formatUptime(seconds) {
+  if (!seconds || seconds <= 0) return '—';
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  return `${h}h ${m}m ${s}s`;
+}
+
+function statusBadge(status) {
+  const map = {
+    RUNNING:  ['badge-running',  '● Active'],
+    STOPPED:  ['badge-stopped',  '● Arrêtée'],
+    PENDING:  ['badge-pending',  '● En attente'],
+    CREATING: ['badge-creating', '● Création…'],
+    ERROR:    ['badge-error',    '● Erreur'],
+    DELETED:  ['badge-stopped',  '● Supprimée'],
+    PAUSED:   ['badge-pending',  '● En pause'],
+  };
+  const [cls, label] = map[status] || ['badge-stopped', status];
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
+   VMs PAGE
+───────────────────────────────────────────────────────────────────────── */
 async function loadVMs() {
   try {
-    allVMs = await api('/admin/vms');
+    allVMs = await api('/admin/metrics');
     renderVMsTable(allVMs);
-    document.getElementById('badge-vms').textContent = allVMs.length;
   } catch(e) {
-    toast(e.detail || 'Erreur de chargement des VMs', 'error');
+    toast(e.detail || 'Erreur de chargement des métriques des VMs', 'error');
   }
 }
 
 function renderVMsTable(vms) {
   const tbody = document.getElementById('vms-body');
   if (!vms.length) {
-    tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><div class="empty-icon">🖥️</div><p>Aucune machine virtuelle trouvée</p></div></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="11"><div class="empty-state"><div class="empty-icon">🖥️</div><p>Aucune machine virtuelle trouvée</p></div></td></tr>`;
     return;
   }
 
-  tbody.innerHTML = vms.map(vm => `
-    <tr>
-      <td class="td-muted">#${vm.id}</td>
+  tbody.innerHTML = vms.map(vm => {
+    const isRunning = vm.status === 'RUNNING';
+    const cpuStr = isRunning ? `${vm.cpu_usage_percent.toFixed(1)}% (${vm.vcpus} vCPU)` : `${vm.vcpus} vCPU`;
+    const ramStr = isRunning ? `${vm.ram_usage_mb.toFixed(0)} MB / ${vm.ram_mb} MB` : `${vm.ram_mb} MB`;
+    const lastAct = isRunning ? new Date().toLocaleTimeString() : formatDate(vm.last_updated * 1000);
+
+    return `
+    <tr id="admin-vm-${vm.name}">
       <td class="td-name">${vm.name}</td>
-      <td class="td-owner">${vm.owner_username}</td>
+      <td class="td-owner">${vm.owner_username || '—'}</td>
       <td>${statusBadge(vm.status)}</td>
+      <td class="td-muted">${cpuStr}</td>
+      <td class="td-muted">${ramStr}</td>
+      <td class="td-muted mono" style="font-size:0.8rem;">${vm.ip_address || '—'}</td>
       <td class="td-port">${vm.ssh_port ? ':' + vm.ssh_port : '—'}</td>
-      <td class="td-muted">${vm.vcpu} vCPU</td>
-      <td class="td-muted">${(vm.ram_mb / 1024).toFixed(vm.ram_mb >= 1024 ? 1 : 0)} GB</td>
-      <td class="td-muted">${vm.disk_gb} GB</td>
-      <td class="td-muted">${formatDate(vm.created_at)}</td>
+      <td class="td-muted">${formatUptime(vm.uptime_seconds)}</td>
+      <td class="td-muted" style="font-size:0.8rem;">${lastAct}</td>
       <td>
         <div class="btn-group">
-          <button class="btn btn-ghost btn-sm btn-icon" title="Détails" onclick="showVMDetail(${vm.id})">🔍</button>
-          ${vm.status === 'STOPPED' || vm.status === 'ERROR' ? `<button class="btn btn-success btn-sm" onclick="vmActionById(${vm.id},'start')">▶</button>` : ''}
-          ${vm.status === 'RUNNING' ? `<button class="btn btn-warning btn-sm" onclick="vmActionById(${vm.id},'stop')">⏸</button>` : ''}
-          <button class="btn btn-danger btn-sm btn-icon" title="Supprimer" onclick="confirmDeleteVM(${vm.id},'${vm.name}')">🗑</button>
+          <button class="btn btn-ghost btn-sm btn-icon" title="Détails" onclick="showVMDetail('${vm.name}')">🔍</button>
+          ${vm.status === 'STOPPED' || vm.status === 'ERROR' || vm.status === 'PAUSED' ? `<button class="btn btn-success btn-sm" onclick="vmActionByName('${vm.name}','start')">▶</button>` : ''}
+          ${vm.status === 'RUNNING' ? `<button class="btn btn-warning btn-sm" onclick="vmActionByName('${vm.name}','stop')">⏸</button>` : ''}
+          <button class="btn btn-danger btn-sm btn-icon" title="Supprimer" onclick="confirmDeleteVMByName('${vm.name}')">🗑</button>
         </div>
       </td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
 }
 
 function filterVMs() {
   const q = document.getElementById('vm-search').value.toLowerCase();
   const filtered = allVMs.filter(vm =>
     vm.name.toLowerCase().includes(q) ||
-    vm.owner_username.toLowerCase().includes(q) ||
+    (vm.owner_username && vm.owner_username.toLowerCase().includes(q)) ||
     vm.status.toLowerCase().includes(q)
   );
   renderVMsTable(filtered);
 }
 
-async function vmActionById(vmId, action) {
+// Find VM ID helper by name
+function getVmIdByName(name) {
+  const vm = allVMs.find(v => v.name === name);
+  return vm ? vm.id : null;
+}
+
+async function vmActionByName(name, action) {
+  const id = getVmIdByName(name);
+  if (!id) return;
   try {
-    await api(`/vms/${vmId}/${action}`, { method: 'POST' });
-    toast(`VM ${action === 'start' ? 'démarrée' : 'arrêtée'} avec succès.`, 'success');
+    await api(`/vms/${id}/${action}`, { method: 'POST' });
+    toast(`VM "${name}" ${action === 'start' ? 'démarrée' : 'arrêtée'} avec succès.`, 'success');
     await loadVMs();
     if (document.getElementById('page-dashboard').classList.contains('active')) loadDashboard();
   } catch(e) {
@@ -1517,7 +1556,9 @@ async function vmActionById(vmId, action) {
   }
 }
 
-function confirmDeleteVM(id, name) {
+function confirmDeleteVMByName(name) {
+  const id = getVmIdByName(name);
+  if (!id) return;
   document.getElementById('confirm-message').textContent = `Êtes-vous sûr de vouloir supprimer la VM "${name}" ? Cette action est irréversible et supprimera tous les fichiers associés.`;
   document.getElementById('confirm-ok-btn').onclick = async () => {
     closeModal('modal-confirm');
@@ -1536,8 +1577,8 @@ function confirmDeleteVM(id, name) {
 /* ─────────────────────────────────────────────────────────────────────────
    VM DETAIL MODAL
 ───────────────────────────────────────────────────────────────────────── */
-function showVMDetail(vmId) {
-  const vm = allVMs.find(v => v.id === vmId);
+function showVMDetail(name) {
+  const vm = allVMs.find(v => v.name === name);
   if (!vm) return;
 
   modalVMId   = vm.id;
@@ -1545,16 +1586,18 @@ function showVMDetail(vmId) {
 
   const items = [
     { label: 'Nom', value: vm.name, mono: true },
-    { label: 'Propriétaire', value: vm.owner_username },
+    { label: 'Propriétaire', value: vm.owner_username || '—' },
     { label: 'Statut', value: statusBadge(vm.status), raw: true },
-    { label: 'Distribution', value: vm.distro },
-    { label: 'CPUs', value: `${vm.vcpu} vCPU` },
-    { label: 'RAM', value: `${vm.ram_mb} MB (${(vm.ram_mb/1024).toFixed(1)} GB)` },
+    { label: 'Distribution', value: vm.distro || 'zorin-lite' },
+    { label: 'CPUs', value: `${vm.vcpus} vCPU` },
+    { label: 'Utilisation CPU', value: vm.status === 'RUNNING' ? `${vm.cpu_usage_percent.toFixed(1)}%` : '—' },
+    { label: 'RAM Allouée', value: `${vm.ram_mb} MB (${(vm.ram_mb/1024).toFixed(1)} GB)` },
+    { label: 'Utilisation RAM', value: vm.status === 'RUNNING' ? `${vm.ram_usage_mb.toFixed(1)} MB` : '—' },
     { label: 'Disque', value: `${vm.disk_gb} GB` },
     { label: 'Port SSH', value: vm.ssh_port ? `:${vm.ssh_port}` : '—', mono: true },
     { label: 'IP Adresse', value: vm.ip_address || '—', mono: true },
-    { label: 'Créée le', value: formatDate(vm.created_at) },
-    { label: 'Démarrée le', value: vm.started_at ? formatDate(vm.started_at) : '—' },
+    { label: 'Uptime', value: formatUptime(vm.uptime_seconds) },
+    { label: 'Dernière mise à jour', value: formatDate(vm.last_updated * 1000) }
   ];
 
   document.getElementById('vm-detail-content').innerHTML = items.map(item => `
@@ -1571,7 +1614,7 @@ function showVMDetail(vmId) {
     errDiv.style.display = 'none';
   }
 
-  document.getElementById('modal-start-btn').style.display = (vm.status === 'STOPPED' || vm.status === 'ERROR') ? '' : 'none';
+  document.getElementById('modal-start-btn').style.display = (vm.status === 'STOPPED' || vm.status === 'ERROR' || vm.status === 'PAUSED') ? '' : 'none';
   document.getElementById('modal-stop-btn').style.display  = vm.status === 'RUNNING' ? '' : 'none';
 
   openModal('modal-vm-detail');
@@ -1580,7 +1623,7 @@ function showVMDetail(vmId) {
 async function modalVMAction(action) {
   if (!modalVMId) return;
   closeModal('modal-vm-detail');
-  await vmActionById(modalVMId, action);
+  await vmActionByName(modalVMName, action);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────

@@ -29,15 +29,20 @@ log = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Startup: initialise DB tables and capture the event loop for WS broadcasts."""
+    """Startup: initialise DB tables, capture the event loop, and start metrics monitoring."""
     import asyncio as _asyncio
     from app.services.websocket_manager import set_main_loop
+    from app.services.metrics_service import MetricsService
+    from app.database import SessionLocal
     set_main_loop(_asyncio.get_event_loop())
     log.info("Initialising database …")
     init_db()
     log.info("Database ready.")
+    MetricsService.start_monitoring(SessionLocal)
     yield
     log.info("Shutting down.")
+    MetricsService.stop_monitoring()
+
 
 
 

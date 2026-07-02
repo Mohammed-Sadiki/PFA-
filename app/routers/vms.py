@@ -24,6 +24,8 @@ from app.routers.auth import get_current_user
 from app.models.user import User
 from app.schemas.vm import VMCreate, VMOut, VMStatusOut
 from app.services.audit_service import AuditService
+from app.services.metrics_service import MetricsService
+
 
 from app.services.vm_service import (
     VBoxVMService,
@@ -133,7 +135,10 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
             await _mgr.broadcast_stats_update(db)
 
         import threading
+        # Invalidate metrics cache so the next call sees the real running status
+        MetricsService.invalidate_cache(vm.name)
         threading.Thread(target=lambda: asyncio.run(_broadcast_provision_success()), daemon=True).start()
+
 
 
     except GoldenMasterNotFoundError as exc:
@@ -275,8 +280,16 @@ def list_vms(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
 ):
-    """Return all VMs belonging to the current user."""
-    return db.query(VM).filter(VM.owner_id == current_user.id).all()
+    """Return all VMs belonging to the current user with real-time metrics."""
+    vms = db.query(VM).filter(VM.owner_id == current_user.id).all()
+    for vm in vms:
+        metrics = MetricsService.get_real_metrics(vm, db)
+        vm.cpu_usage_percent = metrics["cpu_usage_percent"]
+        vm.ram_usage_mb = metrics["ram_usage_mb"]
+        vm.uptime_seconds = metrics["uptime_seconds"]
+        vm.ip_address = metrics["ip_address"]
+        vm.ssh_port = metrics["ssh_port"]
+    return vms
 
 
 @router.get("/{vm_id}", response_model=VMOut)
@@ -285,18 +298,14 @@ def get_vm(
     current_user: Annotated[User, Depends(get_current_user)],
     db: Session = Depends(get_db),
 ):
-    """Get full details for a single VM, refreshing live status from VirtualBox."""
+    """Get full details for a single VM, including real-time metrics from VirtualBox."""
     vm = _get_owned_vm(vm_id, current_user, db)
-
-    # Refresh status from VirtualBox if the VM exists in VBox
-    if vm.status not in (VMStatus.PENDING, VMStatus.CREATING, VMStatus.DELETED):
-        raw = vm_service.get_vm_status(vm.name)
-        if raw != "unknown":
-            live_status = _vbox_status_to_enum(raw)
-            if live_status != vm.status:
-                vm.status = live_status
-                db.commit()
-
+    metrics = MetricsService.get_real_metrics(vm, db)
+    vm.cpu_usage_percent = metrics["cpu_usage_percent"]
+    vm.ram_usage_mb = metrics["ram_usage_mb"]
+    vm.uptime_seconds = metrics["uptime_seconds"]
+    vm.ip_address = metrics["ip_address"]
+    vm.ssh_port = metrics["ssh_port"]
     return vm
 
 
@@ -340,6 +349,7 @@ def start_vm(
     vm.status = VMStatus.RUNNING
     vm.started_at = datetime.now(timezone.utc)
     db.commit()
+    MetricsService.invalidate_cache(vm.name)
     vm_log.info("Action: Démarrage de la VM '%s' | Résultat: Réussite", vm.name)
     AuditService.log_event(
         db=db,
@@ -396,6 +406,7 @@ def stop_vm(
 
     vm.status = VMStatus.STOPPED
     db.commit()
+    MetricsService.invalidate_cache(vm.name)
     vm_log.info("Action: Arrêt de la VM '%s' | Résultat: Réussite", vm.name)
     AuditService.log_event(
         db=db,
@@ -437,6 +448,7 @@ def delete_vm(
 
     db.delete(vm)
     db.commit()
+    MetricsService.invalidate_cache(vm_name_deleted)
     vm_log.info("Action: Suppression de la VM '%s' | Résultat: Réussite", vm_name_deleted)
     AuditService.log_event(
         db=db,
@@ -464,4 +476,17 @@ def get_vm_logs(
     vm = _get_owned_vm(vm_id, current_user, db)
     log_content = vm_service.get_vm_log(vm.name)
     return {"logs": log_content}
+
+
+@router.get("/{vm_id}/metrics", response_model=dict)
+def get_vm_metrics(
+    vm_id: int,
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+):
+    """Retrieve real-time metrics for a single VM, using MetricsService."""
+    vm = _get_owned_vm(vm_id, current_user, db)
+    metrics = MetricsService.get_real_metrics(vm, db)
+    return metrics
+
 

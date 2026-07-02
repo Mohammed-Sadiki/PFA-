@@ -4,3 +4,10 @@
 2026-07-02 03:28:52,808 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-e86ac8a5)
 2026-07-02 03:45:00,572 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-17453af5)
 2026-07-02 03:46:48,923 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-17453af5' | Résultat: Réussite (SSH port 22746)
+2026-07-02 03:50:16,189 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
+2026-07-02 03:50:16,317 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
+2026-07-02 03:50:16,760 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
+2026-07-02 03:50:17,223 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
+2026-07-02 04:03:02,873 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
+2026-07-02 04:06:31,786 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
+2026-07-02 04:07:46,868 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-17453af5' | Résultat: Réussite

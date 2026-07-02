@@ -24,7 +24,9 @@ from app.services.audit_service import AuditService
 from app.routers.auth import get_current_user
 from app.schemas.user import UserOut
 from app.schemas.vm import VMOut
+from app.services.metrics_service import MetricsService
 from pydantic import BaseModel
+
 
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
@@ -391,5 +393,26 @@ def get_audit_logs(
     items = query.order_by(AuditLog.created_at.desc()).offset(offset).limit(limit).all()
 
     return AuditLogResponse(items=items, total=total)
+
+
+@router.get("/metrics", response_model=List[dict])
+def get_all_vm_metrics(
+    current_user: Annotated[User, Depends(get_current_user)],
+    db: Session = Depends(get_db),
+):
+    """Retrieve real-time metrics for all VMs, including owner names."""
+    _require_admin(current_user)
+    vms = db.query(VM).all()
+    
+    results = []
+    for vm in vms:
+        metrics = MetricsService.get_real_metrics(vm, db)
+        # Add owner information
+        owner = db.get(User, vm.owner_id)
+        metrics["owner_username"] = owner.username if owner else "Inconnu"
+        results.append(metrics)
+        
+    return results
+
 
 
