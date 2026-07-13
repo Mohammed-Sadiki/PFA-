@@ -104,7 +104,7 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
             vcpu=vm.vcpu,
             ram_mb=vm.ram_mb,
             disk_gb=vm.disk_gb,
-            distro=vm.distro,
+            os_type=vm.os_type,
         )
 
         vm.status     = VMStatus.RUNNING
@@ -306,14 +306,18 @@ def create_vm(
     vm_log = logging.getLogger("app.vm")
     vm_name = f"{current_user.username}-{uuid.uuid4().hex[:8]}"
 
+    # Default to "zorin" if no os_type is specified
+    os_type = payload.os_type or "zorin"
+
     vm = VM(
         name=vm_name,
         owner_id=current_user.id,
-        distro="zorin-lite",
+        distro=os_type,
         vcpu=payload.vcpu,
         ram_mb=payload.ram_mb,
         disk_gb=payload.disk_gb,
         status=VMStatus.PENDING,
+        os_type=os_type,  # Save the selected os_type (zorin, ubuntu, or windows11)
     )
     db.add(vm)
     db.commit()

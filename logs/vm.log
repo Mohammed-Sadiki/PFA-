@@ -18,3 +18,62 @@
 2026-07-02 15:09:03,311 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-17453af5' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
 2026-07-02 15:09:40,143 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-73d62ccd' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
 2026-07-02 15:09:54,404 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-73d62ccd' | Résultat: Réussite
+2026-07-06 10:56:18,297 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-7deed087)
+2026-07-06 10:58:51,676 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-7deed087' | Résultat: Réussite (SSH port 22059)
+2026-07-06 11:26:11,097 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-4347dceb)
+2026-07-06 11:26:11,295 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-463f0520)
+2026-07-06 11:26:23,354 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-4347dceb' | Résultat: Échec (Erreur VirtualBox : clonevm failed for 'admin-4347dceb')
+2026-07-06 11:26:24,032 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-463f0520' | Résultat: Échec (Erreur VirtualBox : clonevm failed for 'admin-463f0520')
+2026-07-06 11:33:36,428 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-4cb25239)
+2026-07-06 11:35:16,377 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-4cb25239' | Résultat: Réussite (SSH port 22470)
+2026-07-06 11:35:30,545 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-4cb25239' | Résultat: Réussite
+2026-07-11 16:47:35,009 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-47d2013d)
+2026-07-11 16:50:26,455 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-47d2013d' | Résultat: Réussite (SSH port 22945)
+2026-07-11 16:52:01,387 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-47d2013d' | Résultat: Réussite
+2026-07-11 16:52:06,235 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-47d2013d' | Résultat: Réussite
+2026-07-11 16:52:08,109 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-47d2013d' | Résultat: Réussite
+2026-07-11 17:01:36,198 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-c7c87963)
+2026-07-11 17:01:37,538 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-c7c87963' | Résultat: Échec (Master de référence introuvable : Golden master 'ubuntu-24-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.)
+2026-07-12 00:51:57,147 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-c7c87963' | Résultat: Réussite
+2026-07-12 00:52:23,315 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-2a30a7bf)
+2026-07-12 00:52:24,863 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-2a30a7bf' | Résultat: Échec (Master de référence introuvable : Golden master 'ubuntu-24-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.)
+2026-07-12 01:03:02,375 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-2a30a7bf' | Résultat: Réussite
+2026-07-12 01:03:14,188 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-8d12b362)
+2026-07-12 01:05:42,774 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-8d12b362' | Résultat: Réussite (SSH port 22859)
+2026-07-12 01:06:00,441 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-8d12b362' | Résultat: Réussite
+2026-07-12 01:06:02,743 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-8d12b362' | Résultat: Réussite
+2026-07-12 01:06:35,581 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-453080d6)
+2026-07-12 01:06:36,425 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-453080d6' | Résultat: Échec (Master de référence non prêt : Golden master VDI is only 0 MB — OS is not installed. Run C:\VMs\install_golden_master.ps1, complete the installation, then run C:\VMs\finalize_golden_master.ps1.)
+2026-07-12 02:25:44,855 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-453080d6' | Résultat: Réussite
+2026-07-12 02:26:00,207 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-6bedeb93)
+2026-07-12 02:26:01,504 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-6bedeb93' | Résultat: Échec (Master de référence non prêt : Golden master VDI is only 0 MB — OS is not installed. Run C:\VMs\install_golden_master.ps1, complete the installation, then run C:\VMs\finalize_golden_master.ps1.)
+2026-07-12 02:29:25,556 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-6bedeb93' | Résultat: Réussite
+2026-07-12 02:30:26,924 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-57f7ecac)
+2026-07-12 02:31:47,897 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-57f7ecac' | Résultat: Échec (Erreur VirtualBox : Failed to attach cloud-init ISO for 'sadikisadiki-57f7ecac' (rc=1))
+2026-07-12 02:46:17,579 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-57f7ecac' | Résultat: Réussite
+2026-07-12 02:46:39,541 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-17453af5' | Résultat: Réussite
+2026-07-12 02:46:44,639 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-73d62ccd' | Résultat: Réussite
+2026-07-12 02:46:48,843 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-ca421041)
+2026-07-12 02:49:04,328 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-ca421041' | Résultat: Réussite (SSH port 22955)
+2026-07-12 02:49:11,088 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-ca421041' | Résultat: Réussite
+2026-07-12 02:49:22,938 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-f9e41035)
+2026-07-12 02:50:35,975 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-f9e41035' | Résultat: Échec (Erreur VirtualBox : modifyvm (cpu/ram/boot) failed for 'sadikisadiki-f9e41035' (rc=1))
+2026-07-12 02:58:41,291 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-f9e41035' | Résultat: Réussite
+2026-07-12 02:58:41,749 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-f9e41035' | Résultat: Réussite
+2026-07-13 11:44:35,540 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-fad6b731)
+2026-07-13 11:45:58,247 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-fad6b731' | Résultat: Échec (Erreur VirtualBox : Failed to attach cloud-init ISO for 'sadikisadiki-fad6b731' (rc=1))
+2026-07-13 12:00:00,057 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-d97677f0)
+2026-07-13 12:00:21,881 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-1313f50d)
+2026-07-13 12:02:00,550 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-d97677f0' | Résultat: Échec (Erreur VirtualBox : VBoxManage timed out after 120s)
+2026-07-13 12:02:22,289 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-1313f50d' | Résultat: Échec (Erreur VirtualBox : VBoxManage timed out after 120s)
+2026-07-13 12:14:37,676 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-7deed087' | Résultat: Réussite
+2026-07-13 12:14:41,265 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-4cb25239' | Résultat: Réussite
+2026-07-13 12:14:43,909 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-fad6b731' | Résultat: Réussite
+2026-07-13 12:14:49,616 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-d97677f0' | Résultat: Réussite
+2026-07-13 12:14:54,848 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Suppression de la VM 'sadikisadiki-1313f50d' | Résultat: Réussite
+2026-07-13 12:15:09,529 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-744690d0)
+2026-07-13 12:17:13,009 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-744690d0' | Résultat: Réussite (SSH port 22621)
+2026-07-13 12:45:20,712 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Arrêt de la VM 'sadikisadiki-744690d0' | Résultat: Déjà arrêtée
+2026-07-13 12:45:47,542 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-744690d0' | Résultat: Réussite
+2026-07-13 13:06:16,834 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-e23113ad)
+2026-07-13 13:11:09,595 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-e23113ad' | Résultat: Échec (Erreur VirtualBox : VBoxManage timed out after 120s)

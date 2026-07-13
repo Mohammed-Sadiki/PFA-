@@ -29,8 +29,10 @@ class VM(Base):
     vm_path       = Column(String(500), nullable=True)  # path to .vbox file
     ssh_port      = Column(Integer, nullable=True)       # host-side forwarded port
     error_message = Column(String(1000), nullable=True)
+    os_type       = Column(String(50), default="zorin", server_default="zorin", nullable=False)  # OS type (zorin, ubuntu, windows11)
     created_at    = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     started_at    = Column(DateTime, nullable=True)
 
     # Relationship: many VMs → one user
     owner = relationship("User", back_populates="vms")
+

@@ -58,6 +58,7 @@ class AdminVMOut(BaseModel):
     ssh_port: int | None = None
     ip_address: str | None = None
     error_message: str | None = None
+    os_type: str
     created_at: str
     started_at: str | None = None
 
@@ -125,6 +126,7 @@ def list_all_vms(
             ssh_port=vm.ssh_port,
             ip_address=vm.ip_address,
             error_message=vm.error_message,
+            os_type=vm.os_type,
             created_at=vm.created_at.isoformat() if vm.created_at else None,
             started_at=vm.started_at.isoformat() if vm.started_at else None,
         ))

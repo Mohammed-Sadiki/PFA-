@@ -1,6 +1,6 @@
 from pydantic import BaseModel, field_validator
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Literal
 from app.models.vm import VMStatus
 from app.config import get_settings
 
@@ -12,6 +12,7 @@ class VMCreate(BaseModel):
     ram_mb: int = _s.DEFAULT_RAM_MB
     disk_gb: int = _s.DEFAULT_DISK_GB
     password: str  # password for the VM guest user account
+    os_type: Optional[Literal["zorin", "ubuntu", "windows11"]] = None
 
     @field_validator("vcpu")
     @classmethod
@@ -53,6 +54,7 @@ class VMOut(BaseModel):
     ip_address: Optional[str] = None
     ssh_port: Optional[int] = None
     error_message: Optional[str] = None
+    os_type: str
     created_at: datetime
     started_at: Optional[datetime] = None
     cpu_usage_percent: Optional[float] = 0.0
