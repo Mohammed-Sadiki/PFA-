@@ -26,10 +26,10 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md', c
   if (!isOpen) return null
 
   const sizes = {
-    sm: 'max-w-md',
-    md: 'max-w-lg',
-    lg: 'max-w-2xl',
-    xl: 'max-w-4xl',
+    sm:   'max-w-md',
+    md:   'max-w-lg',
+    lg:   'max-w-2xl',
+    xl:   'max-w-4xl',
     full: 'max-w-full mx-4',
   }
 
@@ -40,22 +40,37 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md', c
       onClick={(e) => { if (e.target === overlayRef.current) onClose() }}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-dark-950/80 backdrop-blur-sm animate-fade-in" />
+      <div
+        className="absolute inset-0 animate-fade-in backdrop-blur-sm"
+        style={{ backgroundColor: 'var(--overlay)' }}
+      />
 
       {/* Modal */}
-      <div className={clsx(
-        'relative w-full animate-slide-up',
-        'bg-dark-900 border border-dark-700 rounded-2xl shadow-2xl',
-        sizes[size],
-        className
-      )}>
+      <div
+        className={clsx(
+          'relative w-full animate-slide-up rounded-2xl shadow-2xl',
+          sizes[size],
+          className
+        )}
+        style={{
+          backgroundColor: 'var(--modal)',
+          border: '1px solid var(--border-strong)',
+          boxShadow: 'var(--shadow-modal)',
+        }}
+      >
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between p-6 border-b border-dark-700">
-            <h2 className="text-lg font-semibold text-dark-100">{title}</h2>
+          <div
+            className="flex items-center justify-between p-6"
+            style={{ borderBottom: '1px solid var(--border)' }}
+          >
+            <h2 className="text-lg font-semibold" style={{ color: 'var(--foreground)' }}>{title}</h2>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg text-dark-400 hover:text-dark-100 hover:bg-dark-700 transition-all"
+              className="p-1.5 rounded-lg transition-all"
+              style={{ color: 'var(--muted-foreground)' }}
+              onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--muted)'; e.currentTarget.style.color = 'var(--foreground)' }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--muted-foreground)' }}
             >
               <X size={18} />
             </button>
@@ -72,12 +87,18 @@ export default function Modal({ isOpen, onClose, title, children, size = 'md', c
 }
 
 // Confirmation modal shortcut
-export function ConfirmModal({ isOpen, onClose, onConfirm, title, description, confirmLabel = 'Confirm', confirmVariant = 'danger', loading = false }) {
+export function ConfirmModal({
+  isOpen, onClose, onConfirm,
+  title, description,
+  confirmLabel = 'Confirm',
+  confirmVariant = 'danger',
+  loading = false
+}) {
   return (
     <Modal isOpen={isOpen} onClose={onClose} title={title} size="sm">
       <div className="p-6 pt-4">
         {description && (
-          <p className="text-sm text-dark-400 mb-6">{description}</p>
+          <p className="text-sm mb-6" style={{ color: 'var(--muted-foreground)' }}>{description}</p>
         )}
         <div className="flex gap-3 justify-end">
           <Button variant="ghost" onClick={onClose} disabled={loading}>

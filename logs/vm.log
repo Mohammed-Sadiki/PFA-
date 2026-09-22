@@ -77,3 +77,9 @@
 2026-07-13 12:45:47,542 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-744690d0' | Résultat: Réussite
 2026-07-13 13:06:16,834 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-e23113ad)
 2026-07-13 13:11:09,595 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-e23113ad' | Résultat: Échec (Erreur VirtualBox : VBoxManage timed out after 120s)
+2026-09-22 20:06:44,723 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-878a8d76)
+2026-09-22 20:08:15,247 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-878a8d76' | Résultat: Réussite (SSH port 22295)
+2026-09-22 20:30:43,054 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikisadiki-f6f29e40)
+2026-09-22 20:30:43,438 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-f6f29e40' | Résultat: Échec (Master de référence introuvable : Golden master 'windows11-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.)
+2026-09-22 20:58:01,347 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-744690d0' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
+2026-09-22 20:58:24,742 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-878a8d76' | Résultat: Réussite

@@ -2,6 +2,153 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ═══════════════════════════════════════════════════════════════════
+   DESIGN SYSTEM — CSS Custom Properties
+   Source de vérité unique pour les deux thèmes
+   ═══════════════════════════════════════════════════════════════════ */
+
+/* ── DARK MODE (défaut) ─────────────────────────────────────────── */
+:root,
+.dark {
+  /* Surfaces — Hiérarchie profonde navy */
+  --background:      #070e1b;   /* background général */
+  --surface:         #0b1525;   /* surface légèrement plus claire */
+  --card:            #0f1e35;   /* cartes */
+  --card-hover:      #142440;   /* hover sur les cartes */
+  --modal:           #0d1a30;   /* fenêtres modales */
+  --overlay:         rgba(3, 8, 20, 0.75);
+
+  /* Textes */
+  --foreground:         #e8edf5;    /* texte principal — blanc cassé */
+  --muted-foreground:   #8a9ab5;    /* texte secondaire — gris bleuté */
+  --placeholder:        #4a5878;    /* placeholder inputs */
+
+  /* Bordures */
+  --border:             rgba(255, 255, 255, 0.07);
+  --border-strong:      rgba(255, 255, 255, 0.12);
+
+  /* Inputs */
+  --input-bg:           rgba(255, 255, 255, 0.04);
+  --input-border:       rgba(255, 255, 255, 0.1);
+  --input-border-focus: rgba(59, 130, 246, 0.6);
+
+  /* Sidebar */
+  --sidebar-bg:                #080f1f;
+  --sidebar-border:            rgba(255, 255, 255, 0.06);
+  --sidebar-item-hover-bg:     rgba(255, 255, 255, 0.05);
+  --sidebar-item-active-bg:    rgba(59, 130, 246, 0.12);
+  --sidebar-item-active-text:  #60a5fa;
+  --sidebar-text:              #8a9ab5;
+
+  /* Navbar */
+  --navbar-bg:         rgba(7, 14, 27, 0.88);
+  --navbar-border:     rgba(255, 255, 255, 0.06);
+
+  /* Muted background */
+  --muted:  rgba(255, 255, 255, 0.04);
+
+  /* Scrollbar */
+  --scrollbar-track:  #0b1525;
+  --scrollbar-thumb:  #1e2d45;
+  --scrollbar-hover:  #263650;
+
+  /* Skeleton */
+  --skeleton-bg:      #0f1e35;
+  --skeleton-shine:   rgba(255, 255, 255, 0.04);
+
+  /* Shadows */
+  --shadow-card:   0 4px 12px rgba(0, 0, 0, 0.4), 0 1px 4px rgba(0, 0, 0, 0.3);
+  --shadow-modal:  0 25px 60px rgba(0, 0, 0, 0.7);
+  --shadow-popup:  0 8px 24px rgba(0, 0, 0, 0.5);
+
+  /* Semantic colors */
+  --success:     #10b981;
+  --success-bg:  rgba(16, 185, 129, 0.1);
+  --success-border: rgba(16, 185, 129, 0.25);
+  --warning:     #f59e0b;
+  --warning-bg:  rgba(245, 158, 11, 0.1);
+  --warning-border: rgba(245, 158, 11, 0.25);
+  --danger:      #ef4444;
+  --danger-bg:   rgba(239, 68, 68, 0.1);
+  --danger-border: rgba(239, 68, 68, 0.25);
+  --primary:     #3b82f6;
+  --primary-hover: #2563eb;
+  --primary-bg:  rgba(59, 130, 246, 0.1);
+  --primary-border: rgba(59, 130, 246, 0.25);
+}
+
+/* ── LIGHT MODE ─────────────────────────────────────────────────── */
+.light {
+  /* Surfaces — Hiérarchie claire */
+  --background:      #f0f4f8;   /* background général — gris très léger */
+  --surface:         #f8fafc;   /* surface — presque blanc */
+  --card:            #ffffff;   /* cartes — blanc pur */
+  --card-hover:      #f1f5f9;   /* hover */
+  --modal:           #ffffff;
+  --overlay:         rgba(15, 23, 42, 0.5);
+
+  /* Textes */
+  --foreground:         #0f172a;    /* texte principal — dark navy */
+  --muted-foreground:   #64748b;    /* texte secondaire — ardoise */
+  --placeholder:        #94a3b8;
+
+  /* Bordures */
+  --border:             #e2e8f0;
+  --border-strong:      #cbd5e1;
+
+  /* Inputs */
+  --input-bg:           #ffffff;
+  --input-border:       #d1d9e6;
+  --input-border-focus: rgba(59, 130, 246, 0.5);
+
+  /* Sidebar */
+  --sidebar-bg:                #ffffff;
+  --sidebar-border:            #e8edf4;
+  --sidebar-item-hover-bg:     #f1f5f9;
+  --sidebar-item-active-bg:    rgba(59, 130, 246, 0.08);
+  --sidebar-item-active-text:  #2563eb;
+  --sidebar-text:              #64748b;
+
+  /* Navbar */
+  --navbar-bg:         rgba(255, 255, 255, 0.9);
+  --navbar-border:     #e8edf4;
+
+  /* Muted background */
+  --muted:  #f1f5f9;
+
+  /* Scrollbar */
+  --scrollbar-track:  #f1f5f9;
+  --scrollbar-thumb:  #cbd5e1;
+  --scrollbar-hover:  #94a3b8;
+
+  /* Skeleton */
+  --skeleton-bg:      #e2e8f0;
+  --skeleton-shine:   rgba(255, 255, 255, 0.7);
+
+  /* Shadows */
+  --shadow-card:   0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-modal:  0 25px 60px rgba(0, 0, 0, 0.15);
+  --shadow-popup:  0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Semantic colors */
+  --success:     #059669;
+  --success-bg:  rgba(5, 150, 105, 0.08);
+  --success-border: rgba(5, 150, 105, 0.2);
+  --warning:     #d97706;
+  --warning-bg:  rgba(217, 119, 6, 0.08);
+  --warning-border: rgba(217, 119, 6, 0.2);
+  --danger:      #dc2626;
+  --danger-bg:   rgba(220, 38, 38, 0.08);
+  --danger-border: rgba(220, 38, 38, 0.2);
+  --primary:     #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-bg:  rgba(37, 99, 235, 0.08);
+  --primary-border: rgba(37, 99, 235, 0.2);
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   BASE STYLES
+   ═══════════════════════════════════════════════════════════════════ */
 @layer base {
   * {
     box-sizing: border-box;
@@ -12,63 +159,99 @@
     font-size: 16px;
   }
 
-  body {
-    @apply font-sans antialiased;
-    @apply bg-dark-950 text-dark-100;
-    @apply transition-colors duration-300;
+  /* Transition douce lors du changement de thème */
+  html.theme-transitioning *,
+  html.theme-transitioning *::before,
+  html.theme-transitioning *::after {
+    transition:
+      background-color 0.35s ease,
+      color 0.35s ease,
+      border-color 0.35s ease,
+      box-shadow 0.35s ease,
+      fill 0.35s ease !important;
   }
 
-  /* Custom scrollbar */
+  body {
+    @apply font-sans antialiased;
+    background-color: var(--background);
+    color: var(--foreground);
+    min-height: 100vh;
+  }
+
+  /* ── Scrollbar custom ──────────────────────────────────────────── */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    @apply bg-dark-900;
+    background: var(--scrollbar-track);
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-dark-700 rounded-full;
+    background: var(--scrollbar-thumb);
+    border-radius: 99px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-dark-600;
+    background: var(--scrollbar-hover);
+  }
+
+  /* ── Select option colors ──────────────────────────────────────── */
+  option {
+    background-color: var(--card);
+    color: var(--foreground);
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   COMPONENTS
+   ═══════════════════════════════════════════════════════════════════ */
 @layer components {
-  /* ── Glass card ─────────────────────────────────────────── */
+
+  /* ── Card base ──────────────────────────────────────────────────── */
+  .card {
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
+    border-radius: 1rem;
+  }
+  .card:hover {
+    background-color: var(--card-hover);
+  }
+
+  /* ── Glass card ─────────────────────────────────────────────────── */
   .glass {
-    @apply bg-dark-900/60 backdrop-blur-md border border-white/5;
-    @apply shadow-card;
+    background-color: var(--card);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-card);
   }
 
-  .glass-light {
-    @apply bg-white/80 backdrop-blur-md border border-dark-200/50;
-    @apply shadow-card;
-  }
-
-  /* ── Gradient text ──────────────────────────────────────── */
+  /* ── Gradient text ──────────────────────────────────────────────── */
   .gradient-text {
     @apply bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent;
   }
 
-  /* ── Skeleton loading ───────────────────────────────────── */
+  /* ── Skeleton loading ───────────────────────────────────────────── */
   .skeleton {
-    @apply relative overflow-hidden rounded-lg bg-dark-800;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    background-color: var(--skeleton-bg);
   }
   .skeleton::after {
     content: '';
-    @apply absolute inset-0;
+    position: absolute;
+    inset: 0;
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.04),
+      var(--skeleton-shine),
       transparent
     );
-    animation: skeleton 1.5s ease-in-out infinite;
+    animation: skeletonAnim 1.5s ease-in-out infinite;
     background-size: 200px 100%;
   }
 
-  /* ── Status dot pulse ───────────────────────────────────── */
+  /* ── Status dot ─────────────────────────────────────────────────── */
   .status-dot {
     @apply inline-block w-2 h-2 rounded-full;
   }
@@ -77,60 +260,122 @@
     box-shadow: 0 0 6px rgba(52, 211, 153, 0.6);
   }
   .status-dot.stopped {
-    @apply bg-dark-500;
+    background-color: var(--muted-foreground);
+    opacity: 0.5;
   }
   .status-dot.error {
     @apply bg-red-400;
     box-shadow: 0 0 6px rgba(248, 113, 113, 0.6);
   }
-  .status-dot.creating, .status-dot.pending {
+  .status-dot.creating,
+  .status-dot.pending {
     @apply bg-amber-400;
     animation: pulse 1.2s ease-in-out infinite;
   }
 
-  /* ── Input base ─────────────────────────────────────────── */
+  /* ── Input base ─────────────────────────────────────────────────── */
   .input-base {
-    @apply w-full bg-dark-800/80 border border-dark-700 rounded-xl;
-    @apply text-dark-100 placeholder-dark-500;
-    @apply px-4 py-3 text-sm;
-    @apply transition-all duration-200;
-    @apply focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20;
+    width: 100%;
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 0.75rem;
+    color: var(--foreground);
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+    outline: none;
+  }
+  .input-base::placeholder {
+    color: var(--placeholder);
+  }
+  .input-base:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+  }
+  .input-base:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
-  /* Light mode overrides */
-  .light .input-base {
-    @apply bg-white border-dark-200 text-dark-900 placeholder-dark-400;
-    @apply focus:border-primary-500;
-  }
-
-  /* ── Sidebar link ───────────────────────────────────────── */
+  /* ── Sidebar nav item ───────────────────────────────────────────── */
   .nav-item {
-    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium;
-    @apply text-dark-400 hover:text-dark-100 hover:bg-white/5;
-    @apply transition-all duration-200 cursor-pointer;
-    @apply relative overflow-hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--sidebar-text);
+    transition: all 0.2s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+  }
+  .nav-item:hover {
+    background-color: var(--sidebar-item-hover-bg);
+    color: var(--foreground);
   }
   .nav-item.active {
-    @apply text-primary-400 bg-primary-500/10;
+    background-color: var(--sidebar-item-active-bg);
+    color: var(--sidebar-item-active-text);
+    font-weight: 600;
   }
   .nav-item.active::before {
     content: '';
-    @apply absolute left-0 top-2 bottom-2 w-0.5 bg-primary-400 rounded-r;
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 3px;
+    background-color: var(--sidebar-item-active-text);
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ── Theme toggle button ────────────────────────────────────────── */
+  .theme-toggle {
+    position: relative;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border);
+    background-color: var(--muted);
+    color: var(--muted-foreground);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    overflow: hidden;
+  }
+  .theme-toggle:hover {
+    background-color: var(--card-hover);
+    color: var(--foreground);
+    border-color: var(--border-strong);
+  }
+  .theme-toggle:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+  .theme-toggle .toggle-icon {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s;
+  }
+  .theme-toggle:active .toggle-icon {
+    transform: rotate(30deg) scale(0.9);
   }
 }
 
+/* ═══════════════════════════════════════════════════════════════════
+   UTILITIES
+   ═══════════════════════════════════════════════════════════════════ */
 @layer utilities {
-  /* ── Ring glow ──────────────────────────────────────────── */
   .ring-glow {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
   }
-
-  /* ── Text balance ───────────────────────────────────────── */
   .text-balance {
     text-wrap: balance;
   }
-
-  /* ── Shimmer effect ─────────────────────────────────────── */
   .shimmer {
     background: linear-gradient(
       90deg,
@@ -141,46 +386,88 @@
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
+  /* Masquer la scrollbar visible mais garder le scroll */
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
 
-/* ── Global animations ──────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════════
+   KEYFRAMES
+   ═══════════════════════════════════════════════════════════════════ */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
+  0%   { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
 
-@keyframes skeleton {
-  0% { transform: translateX(-100%); }
+@keyframes skeletonAnim {
+  0%   { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
 
-/* ── Light mode body ────────────────────────────────────────── */
-.light body, body.light {
-  @apply bg-dark-50 text-dark-900;
-}
-
-/* ── RTL support for Arabic ─────────────────────────────────── */
-[dir="rtl"] .nav-item.active::before {
-  @apply left-auto right-0;
-}
-
-/* ── Transition page ────────────────────────────────────────── */
+/* ── Page transition ────────────────────────────────────────────── */
 .page-enter {
   animation: fadeIn 0.25s ease-out;
 }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
 
-/* ── Range slider ───────────────────────────────────────────── */
+/* ── RTL support ────────────────────────────────────────────────── */
+[dir="rtl"] .nav-item.active::before {
+  left: auto;
+  right: 0;
+  border-radius: 2px 0 0 2px;
+}
+
+/* ── Range slider ───────────────────────────────────────────────── */
 input[type="range"] {
   @apply appearance-none bg-transparent cursor-pointer w-full;
 }
 input[type="range"]::-webkit-slider-runnable-track {
-  @apply h-1.5 rounded-full bg-dark-700;
+  height: 0.375rem;
+  border-radius: 99px;
+  background-color: var(--border);
 }
 input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
-  @apply w-4 h-4 rounded-full bg-primary-500 shadow-glow-sm;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background-color: var(--primary);
+  box-shadow: var(--shadow-card);
   margin-top: -5px;
+  transition: background-color 0.2s;
 }
 input[type="range"]:focus::-webkit-slider-thumb {
-  @apply bg-primary-400;
+  background-color: #60a5fa;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   RECHARTS — Adaptation au thème
+   ═══════════════════════════════════════════════════════════════════ */
+.recharts-cartesian-axis-tick-value {
+  fill: var(--muted-foreground);
+  font-size: 12px;
+}
+.recharts-cartesian-grid line {
+  stroke: var(--border);
+}
+.recharts-tooltip-wrapper .recharts-default-tooltip {
+  background-color: var(--modal) !important;
+  border: 1px solid var(--border-strong) !important;
+  border-radius: 0.75rem !important;
+  box-shadow: var(--shadow-popup) !important;
+  color: var(--foreground) !important;
+}
+.recharts-tooltip-item {
+  color: var(--muted-foreground) !important;
+}
+.recharts-legend-item-text {
+  color: var(--muted-foreground) !important;
 }

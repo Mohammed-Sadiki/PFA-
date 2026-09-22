@@ -18,56 +18,14 @@ import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis,
   CartesianGrid, Tooltip, LineChart, Line
 } from 'recharts'
-
-function MetricGauge({ label, value, max, unit, color = 'blue' }) {
-  const pct = max > 0 ? Math.min(100, (value / max) * 100) : 0
-  const colors = {
-    blue: 'stroke-primary-500',
-    green: 'stroke-emerald-500',
-    amber: 'stroke-amber-500',
-    red: 'stroke-red-500',
-  }
-  const textColors = {
-    blue: 'text-primary-400',
-    green: 'text-emerald-400',
-    amber: 'text-amber-400',
-    red: 'text-red-400',
-  }
-  const c = 60
-  const r = 24
-  const circ = 2 * Math.PI * r
-  const dash = (pct / 100) * circ
-
-  return (
-    <div className="flex flex-col items-center gap-2 bg-dark-800/60 rounded-2xl p-4">
-      <svg width={64} height={64} viewBox="0 0 64 64">
-        <circle cx={c / 2 + 2} cy={c / 2 + 2} r={r} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={4} />
-        <circle
-          cx={c / 2 + 2} cy={c / 2 + 2} r={r} fill="none"
-          strokeWidth={4} strokeLinecap="round"
-          strokeDasharray={`${dash} ${circ}`}
-          strokeDashoffset={circ / 4}
-          className={`${colors[color]} transition-all duration-500`}
-        />
-        <text x="50%" y="50%" textAnchor="middle" dy="0.35em"
-          className={`text-xs font-bold fill-current ${textColors[color]}`}
-          style={{ fontSize: '10px', fill: 'currentColor' }}>
-          {pct.toFixed(0)}%
-        </text>
-      </svg>
-      <div className="text-center">
-        <p className="text-xs font-semibold text-dark-200">{label}</p>
-        <p className="text-[10px] text-dark-500">{value?.toFixed(0)} / {max} {unit}</p>
-      </div>
-    </div>
-  )
-}
+import { useTheme } from '../contexts/ThemeContext'
 
 export default function VMDetailPage() {
   const { id } = useParams()
   const { t } = useTranslation()
   const navigate = useNavigate()
   const toast = useToast()
+  const { isDark } = useTheme()
 
   const [vm, setVM] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -171,22 +129,33 @@ export default function VMDetailPage() {
 
   if (!vm) return null
 
+  const gridColor = isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.04)'
+  const tickColor = isDark ? '#94a3b8' : '#64748b' // slate-400 / slate-500
+  const tooltipBg = isDark ? '#1e293b' : '#ffffff' // slate-800 / white
+  const tooltipBorder = isDark ? '#334155' : '#e2e8f0' // slate-700 / slate-200
+  const tooltipColor = isDark ? '#f8fafc' : '#0f172a' // slate-50 / slate-900
+
   return (
     <Layout>
       <div className="p-4 md:p-6 lg:p-8 max-w-5xl mx-auto space-y-6">
         {/* Back + header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3">
-            <button onClick={() => navigate('/vms')}
-              className="p-2 rounded-xl text-dark-400 hover:text-dark-100 hover:bg-dark-800 transition-all">
+            <button
+              onClick={() => navigate('/vms')}
+              className="p-2 rounded-xl transition-all"
+              style={{ color: 'var(--muted-foreground)' }}
+              onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--muted)'; e.currentTarget.style.color = 'var(--foreground)' }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--muted-foreground)' }}
+            >
               <ArrowLeft size={18} />
             </button>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl font-bold text-dark-100 font-mono">{vm.name}</h1>
+                <h1 className="text-xl font-bold font-mono" style={{ color: 'var(--foreground)' }}>{vm.name}</h1>
                 <StatusBadge status={vm.status} />
               </div>
-              <p className="text-sm text-dark-500 mt-0.5 capitalize">{vm.os_type} · ID #{vm.id}</p>
+              <p className="text-sm mt-0.5 capitalize" style={{ color: 'var(--muted-foreground)' }}>{vm.os_type} · ID #{vm.id}</p>
             </div>
           </div>
 
@@ -197,13 +166,13 @@ export default function VMDetailPage() {
               onClick={() => fetchVM(true)} disabled={!!actionLoading}>
               {t('common.refresh')}
             </Button>
-            {vm.status === 'stopped' && (
+            {(vm.status || '').toLowerCase() === 'stopped' && (
               <Button size="sm" variant="success" icon={<Play size={14} />}
                 onClick={handleStart} loading={actionLoading === 'start'} disabled={!!actionLoading}>
                 {t('vm.start')}
               </Button>
             )}
-            {vm.status === 'running' && (
+            {(vm.status || '').toLowerCase() === 'running' && (
               <Button size="sm" variant="warning" icon={<Square size={14} />}
                 onClick={handleStop} loading={actionLoading === 'stop'} disabled={!!actionLoading}>
                 {t('vm.stop')}
@@ -217,91 +186,120 @@ export default function VMDetailPage() {
         </div>
 
         {/* Error banner */}
-        {vm.status === 'error' && vm.error_message && (
-          <div className="flex items-start gap-3 p-4 rounded-xl bg-red-500/10 border border-red-500/20 animate-fade-in">
-            <AlertTriangle size={18} className="text-red-400 shrink-0 mt-0.5" />
+        {(vm.status || '').toLowerCase() === 'error' && vm.error_message && (
+          <div
+            className="flex items-start gap-3 p-4 rounded-xl animate-fade-in"
+            style={{
+              backgroundColor: 'var(--danger-bg)',
+              border: '1px solid var(--danger-border)'
+            }}
+          >
+            <AlertTriangle size={18} className="shrink-0 mt-0.5" style={{ color: 'var(--danger)' }} />
             <div>
-              <p className="text-sm font-semibold text-red-400">Erreur de provisioning</p>
-              <p className="text-sm text-red-300/80 mt-0.5">{vm.error_message}</p>
+              <p className="text-sm font-semibold" style={{ color: 'var(--danger)' }}>Erreur de provisioning</p>
+              <p className="text-sm mt-0.5" style={{ color: 'var(--danger)' }}>{vm.error_message}</p>
             </div>
           </div>
         )}
 
         {/* Stats cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <div className="bg-dark-900 border border-dark-700 rounded-2xl p-4 flex flex-col gap-1">
-            <div className="flex items-center gap-2 text-dark-500 text-xs"><Cpu size={14} /> vCPU</div>
-            <p className="text-2xl font-bold text-dark-100">{vm.vcpu}</p>
-            {vm.cpu_usage_percent > 0 && <p className="text-xs text-primary-400">{vm.cpu_usage_percent.toFixed(1)}% utilisé</p>}
+          <div
+            className="rounded-2xl p-4 flex flex-col gap-1"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--muted-foreground)' }}><Cpu size={14} /> vCPU</div>
+            <p className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{vm.vcpu}</p>
+            {vm.cpu_usage_percent > 0 && <p className="text-xs" style={{ color: 'var(--primary)' }}>{vm.cpu_usage_percent.toFixed(1)}% utilisé</p>}
           </div>
-          <div className="bg-dark-900 border border-dark-700 rounded-2xl p-4 flex flex-col gap-1">
-            <div className="flex items-center gap-2 text-dark-500 text-xs"><MemoryStick size={14} /> RAM</div>
-            <p className="text-2xl font-bold text-dark-100">{vm.ram_mb} <span className="text-sm text-dark-500">MB</span></p>
-            {vm.ram_usage_mb > 0 && <p className="text-xs text-emerald-400">{vm.ram_usage_mb.toFixed(0)} MB utilisé</p>}
+          <div
+            className="rounded-2xl p-4 flex flex-col gap-1"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--muted-foreground)' }}><MemoryStick size={14} /> RAM</div>
+            <p className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{vm.ram_mb} <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>MB</span></p>
+            {vm.ram_usage_mb > 0 && <p className="text-xs" style={{ color: 'var(--success)' }}>{vm.ram_usage_mb.toFixed(0)} MB utilisé</p>}
           </div>
-          <div className="bg-dark-900 border border-dark-700 rounded-2xl p-4 flex flex-col gap-1">
-            <div className="flex items-center gap-2 text-dark-500 text-xs"><HardDrive size={14} /> Disque</div>
-            <p className="text-2xl font-bold text-dark-100">{vm.disk_gb} <span className="text-sm text-dark-500">GB</span></p>
+          <div
+            className="rounded-2xl p-4 flex flex-col gap-1"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--muted-foreground)' }}><HardDrive size={14} /> Disque</div>
+            <p className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{vm.disk_gb} <span className="text-sm" style={{ color: 'var(--muted-foreground)' }}>GB</span></p>
           </div>
-          <div className="bg-dark-900 border border-dark-700 rounded-2xl p-4 flex flex-col gap-1">
-            <div className="flex items-center gap-2 text-dark-500 text-xs"><Clock size={14} /> Uptime</div>
-            <p className="text-2xl font-bold text-dark-100">{uptime(vm.uptime_seconds)}</p>
+          <div
+            className="rounded-2xl p-4 flex flex-col gap-1"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--muted-foreground)' }}><Clock size={14} /> Uptime</div>
+            <p className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{uptime(vm.uptime_seconds)}</p>
           </div>
         </div>
 
         {/* Connection info + Metrics chart */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {/* Network / SSH */}
-          <div className="bg-dark-900 border border-dark-700 rounded-2xl p-5 space-y-4">
-            <h3 className="text-sm font-semibold text-dark-200 flex items-center gap-2">
-              <Network size={16} className="text-primary-400" /> Réseau & Connexion
+          <div
+            className="rounded-2xl p-5 space-y-4"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <h3 className="text-sm font-semibold flex items-center gap-2" style={{ color: 'var(--foreground)' }}>
+              <Network size={16} style={{ color: 'var(--primary)' }} /> Réseau & Connexion
             </h3>
             <div className="space-y-3">
               {vm.ip_address && (
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-dark-500">Adresse IP</span>
-                  <code className="text-xs font-mono text-dark-200 bg-dark-800 px-2 py-1 rounded">{vm.ip_address}</code>
+                  <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Adresse IP</span>
+                  <code className="text-xs font-mono px-2 py-1 rounded" style={{ backgroundColor: 'var(--muted)', color: 'var(--foreground)' }}>{vm.ip_address}</code>
                 </div>
               )}
               {vm.ssh_port && (
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-dark-500">Port SSH</span>
-                  <code className="text-xs font-mono text-dark-200 bg-dark-800 px-2 py-1 rounded">{vm.ssh_port}</code>
+                  <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Port SSH</span>
+                  <code className="text-xs font-mono px-2 py-1 rounded" style={{ backgroundColor: 'var(--muted)', color: 'var(--foreground)' }}>{vm.ssh_port}</code>
                 </div>
               )}
               <div className="flex justify-between items-center">
-                <span className="text-xs text-dark-500">Créé le</span>
-                <span className="text-xs text-dark-300">{new Date(vm.created_at).toLocaleString()}</span>
+                <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Créé le</span>
+                <span className="text-xs" style={{ color: 'var(--foreground)' }}>{new Date(vm.created_at).toLocaleString()}</span>
               </div>
               {vm.started_at && (
                 <div className="flex justify-between items-center">
-                  <span className="text-xs text-dark-500">Démarré le</span>
-                  <span className="text-xs text-dark-300">{new Date(vm.started_at).toLocaleString()}</span>
+                  <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>Démarré le</span>
+                  <span className="text-xs" style={{ color: 'var(--foreground)' }}>{new Date(vm.started_at).toLocaleString()}</span>
                 </div>
               )}
             </div>
 
             {vm.ssh_port && (
-              <div className="flex items-center gap-2 bg-dark-800/60 rounded-xl px-3 py-2 mt-2">
-                <Terminal size={13} className="text-dark-500 shrink-0" />
-                <code className="text-xs text-dark-300 font-mono truncate flex-1">
+              <div className="flex items-center gap-2 rounded-xl px-3 py-2 mt-2" style={{ backgroundColor: 'var(--muted)' }}>
+                <Terminal size={13} className="shrink-0" style={{ color: 'var(--muted-foreground)' }} />
+                <code className="text-xs font-mono truncate flex-1" style={{ color: 'var(--muted-foreground)' }}>
                   ssh -p {vm.ssh_port} &lt;user&gt;@127.0.0.1
                 </code>
-                <button onClick={copySSH}
-                  className="text-dark-500 hover:text-primary-400 transition-colors shrink-0">
-                  {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
+                <button
+                  onClick={copySSH}
+                  className="transition-colors shrink-0"
+                  style={{ color: copied ? 'var(--success)' : 'var(--muted-foreground)' }}
+                  onMouseEnter={e => { if (!copied) e.currentTarget.style.color = 'var(--primary)' }}
+                  onMouseLeave={e => { if (!copied) e.currentTarget.style.color = 'var(--muted-foreground)' }}
+                >
+                  {copied ? <Check size={13} /> : <Copy size={13} />}
                 </button>
               </div>
             )}
           </div>
 
           {/* Resource chart */}
-          <div className="bg-dark-900 border border-dark-700 rounded-2xl p-5">
-            <h3 className="text-sm font-semibold text-dark-200 flex items-center gap-2 mb-4">
-              <Activity size={16} className="text-primary-400" /> Métriques en temps réel
+          <div
+            className="rounded-2xl p-5"
+            style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+          >
+            <h3 className="text-sm font-semibold flex items-center gap-2 mb-4" style={{ color: 'var(--foreground)' }}>
+              <Activity size={16} style={{ color: 'var(--primary)' }} /> Métriques en temps réel
             </h3>
             {metricsHistory.length < 2 ? (
-              <div className="flex items-center justify-center h-32 text-dark-600 text-sm">
+              <div className="flex items-center justify-center h-32 text-sm" style={{ color: 'var(--muted-foreground)' }}>
                 En attente de données...
               </div>
             ) : (
@@ -317,12 +315,12 @@ export default function VMDetailPage() {
                       <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
-                  <XAxis dataKey="time" tick={{ fontSize: 10, fill: '#475569' }} tickLine={false} />
-                  <YAxis tick={{ fontSize: 10, fill: '#475569' }} tickLine={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke={gridColor} />
+                  <XAxis dataKey="time" tick={{ fontSize: 10, fill: tickColor }} tickLine={false} />
+                  <YAxis tick={{ fontSize: 10, fill: tickColor }} tickLine={false} />
                   <Tooltip
-                    contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: '12px', fontSize: '12px' }}
-                    labelStyle={{ color: '#94a3b8' }}
+                    contentStyle={{ background: tooltipBg, border: `1px solid ${tooltipBorder}`, borderRadius: '12px', fontSize: '12px', color: tooltipColor }}
+                    labelStyle={{ color: tickColor }}
                   />
                   <Area type="monotone" dataKey="cpu" stroke="#3b82f6" fill="url(#cpuGrad)" strokeWidth={2} name="CPU %" />
                   <Area type="monotone" dataKey="ram" stroke="#10b981" fill="url(#ramGrad)" strokeWidth={2} name="RAM MB" />
@@ -333,10 +331,16 @@ export default function VMDetailPage() {
         </div>
 
         {/* Logs section */}
-        <div className="bg-dark-900 border border-dark-700 rounded-2xl overflow-hidden">
-          <div className="flex items-center justify-between px-5 py-4 border-b border-dark-700">
-            <h3 className="text-sm font-semibold text-dark-200 flex items-center gap-2">
-              <FileText size={16} className="text-primary-400" /> {t('vm.logs')}
+        <div
+          className="rounded-2xl overflow-hidden"
+          style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+        >
+          <div
+            className="flex items-center justify-between px-5 py-4"
+            style={{ borderBottom: '1px solid var(--border)' }}
+          >
+            <h3 className="text-sm font-semibold flex items-center gap-2" style={{ color: 'var(--foreground)' }}>
+              <FileText size={16} style={{ color: 'var(--primary)' }} /> {t('vm.logs')}
             </h3>
             <Button size="sm" variant="ghost"
               icon={<FileText size={14} />}
@@ -345,7 +349,13 @@ export default function VMDetailPage() {
             </Button>
           </div>
           {showLogs && (
-            <pre className="p-4 text-xs font-mono text-dark-300 bg-dark-950 overflow-auto max-h-64 whitespace-pre-wrap">
+            <pre
+              className="p-4 text-xs font-mono overflow-auto max-h-64 whitespace-pre-wrap"
+              style={{
+                backgroundColor: 'var(--sidebar-bg)', // using darker bg if dark mode, light if light mode
+                color: 'var(--foreground)'
+              }}
+            >
               {logs || 'Aucun log disponible.'}
             </pre>
           )}

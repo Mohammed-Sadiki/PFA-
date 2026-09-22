@@ -4,17 +4,18 @@ import { clsx } from 'clsx'
 import { useToastEmitter } from '../../hooks/useToast'
 
 const icons = {
-  success: <CheckCircle size={18} className="text-emerald-400 shrink-0" />,
-  error:   <XCircle size={18} className="text-red-400 shrink-0" />,
-  warning: <AlertCircle size={18} className="text-amber-400 shrink-0" />,
-  info:    <Info size={18} className="text-blue-400 shrink-0" />,
+  success: <CheckCircle size={18} className="text-emerald-500 shrink-0" />,
+  error:   <XCircle    size={18} className="text-red-500 shrink-0" />,
+  warning: <AlertCircle size={18} className="text-amber-500 shrink-0" />,
+  info:    <Info       size={18} className="text-blue-500 shrink-0" />,
 }
 
-const styles = {
-  success: 'border-emerald-500/30 bg-dark-900',
-  error:   'border-red-500/30 bg-dark-900',
-  warning: 'border-amber-500/30 bg-dark-900',
-  info:    'border-blue-500/30 bg-dark-900',
+// Couleurs de la bordure gauche (indicateur de type)
+const borderColors = {
+  success: '#10b981',
+  error:   '#ef4444',
+  warning: '#f59e0b',
+  info:    '#3b82f6',
 }
 
 function ToastItem({ toast, onRemove }) {
@@ -29,23 +30,33 @@ function ToastItem({ toast, onRemove }) {
   }, [toast.id, onRemove])
 
   return (
-    <div className={clsx(
-      'flex items-start gap-3 p-4 rounded-xl border shadow-lg',
-      'w-80 max-w-full',
-      'transition-all duration-300',
-      visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8',
-      styles[toast.type] || styles.info
-    )}>
+    <div
+      className={clsx(
+        'flex items-start gap-3 p-4 rounded-xl',
+        'w-80 max-w-full',
+        'transition-all duration-300',
+        visible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8',
+      )}
+      style={{
+        backgroundColor: 'var(--modal)',
+        border: `1px solid var(--border-strong)`,
+        borderLeft: `3px solid ${borderColors[toast.type] || borderColors.info}`,
+        boxShadow: 'var(--shadow-popup)',
+      }}
+    >
       {icons[toast.type] || icons.info}
       <div className="flex-1 min-w-0">
         {toast.title && (
-          <p className="text-sm font-semibold text-dark-100 mb-0.5">{toast.title}</p>
+          <p className="text-sm font-semibold mb-0.5" style={{ color: 'var(--foreground)' }}>{toast.title}</p>
         )}
-        <p className="text-sm text-dark-300">{toast.message}</p>
+        <p className="text-sm" style={{ color: 'var(--muted-foreground)' }}>{toast.message}</p>
       </div>
       <button
         onClick={() => { setVisible(false); setTimeout(() => onRemove(toast.id), 300) }}
-        className="p-0.5 text-dark-500 hover:text-dark-200 transition-colors shrink-0"
+        className="p-0.5 rounded transition-colors shrink-0"
+        style={{ color: 'var(--muted-foreground)' }}
+        onMouseEnter={e => e.currentTarget.style.color = 'var(--foreground)'}
+        onMouseLeave={e => e.currentTarget.style.color = 'var(--muted-foreground)'}
       >
         <X size={14} />
       </button>

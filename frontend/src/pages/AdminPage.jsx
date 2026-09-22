@@ -97,12 +97,12 @@ export default function AdminPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-dark-100 flex items-center gap-2">
-              <ShieldCheck size={24} className="text-primary-400" />
+            <h1 className="text-2xl font-bold flex items-center gap-2" style={{ color: 'var(--foreground)' }}>
+              <ShieldCheck size={24} className="text-primary-500" />
               {t('admin.title')}
             </h1>
             {pendingUsers.length > 0 && (
-              <p className="text-sm text-amber-400 mt-1">
+              <p className="text-sm mt-1" style={{ color: 'var(--warning)' }}>
                 ⚠️ {pendingUsers.length} compte{pendingUsers.length > 1 ? 's' : ''} en attente d'approbation
               </p>
             )}
@@ -113,17 +113,18 @@ export default function AdminPage() {
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-1 bg-dark-900 border border-dark-700 rounded-xl p-1">
+        <div className="flex gap-1 rounded-xl p-1" style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}>
           {TABS.map((t_) => (
             <button
               key={t_}
               onClick={() => setTab(t_)}
-              className={clsx(
-                'flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all',
-                tab === t_
-                  ? 'bg-primary-600 text-white shadow'
-                  : 'text-dark-400 hover:text-dark-200'
-              )}
+              className="flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all"
+              style={{
+                backgroundColor: tab === t_ ? 'var(--primary)' : 'transparent',
+                color: tab === t_ ? 'white' : 'var(--muted-foreground)',
+              }}
+              onMouseEnter={e => { if (tab !== t_) { e.currentTarget.style.color = 'var(--foreground)' } }}
+              onMouseLeave={e => { if (tab !== t_) { e.currentTarget.style.color = 'var(--muted-foreground)' } }}
             >
               {t_ === 'stats' ? '📊 Stats' :
                t_ === 'users' ? `👥 Utilisateurs${pendingUsers.length > 0 ? ` (${pendingUsers.length})` : ''}` :
@@ -135,7 +136,7 @@ export default function AdminPage() {
         {/* Search */}
         {(tab === 'users' || tab === 'vms') && (
           <div className="relative max-w-sm">
-            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-500" />
+            <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--placeholder)' }} />
             <input value={search} onChange={(e) => setSearch(e.target.value)}
               placeholder="Rechercher..."
               className="input-base pl-9" />
@@ -161,16 +162,19 @@ export default function AdminPage() {
           <div className="space-y-4">
             {/* Pending users */}
             {pendingUsers.length > 0 && (
-              <div className="bg-amber-500/5 border border-amber-500/20 rounded-2xl p-4 space-y-3">
-                <h3 className="text-sm font-semibold text-amber-400">⏳ {t('admin.pendingUsers')}</h3>
+              <div
+                className="rounded-2xl p-4 space-y-3"
+                style={{ backgroundColor: 'var(--warning-bg)', border: '1px solid var(--warning-border)' }}
+              >
+                <h3 className="text-sm font-semibold" style={{ color: 'var(--warning)' }}>⏳ {t('admin.pendingUsers')}</h3>
                 {pendingUsers.map((u) => (
-                  <div key={u.id} className="flex items-center gap-3 bg-dark-900/60 rounded-xl px-4 py-3">
-                    <div className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 font-bold text-sm">
+                  <div key={u.id} className="flex items-center gap-3 rounded-xl px-4 py-3" style={{ backgroundColor: 'var(--card)' }}>
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm" style={{ backgroundColor: 'var(--warning-bg)', color: 'var(--warning)' }}>
                       {u.username[0].toUpperCase()}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-semibold text-dark-200">{u.username}</p>
-                      <p className="text-xs text-dark-500 truncate">{u.email}</p>
+                      <p className="text-sm font-semibold" style={{ color: 'var(--foreground)' }}>{u.username}</p>
+                      <p className="text-xs truncate" style={{ color: 'var(--muted-foreground)' }}>{u.email}</p>
                     </div>
                     <div className="flex gap-2">
                       <Button size="xs" variant="success" icon={<UserCheck size={12} />}
@@ -190,39 +194,48 @@ export default function AdminPage() {
             )}
 
             {/* All users table */}
-            <div className="bg-dark-900 border border-dark-700 rounded-2xl overflow-hidden">
-              <div className="px-4 py-3 border-b border-dark-700 text-xs font-semibold text-dark-400 uppercase tracking-wider grid grid-cols-12">
+            <div className="rounded-2xl overflow-hidden" style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}>
+              <div
+                className="px-4 py-3 text-xs font-semibold uppercase tracking-wider grid grid-cols-12"
+                style={{ borderBottom: '1px solid var(--border)', color: 'var(--muted-foreground)' }}
+              >
                 <span className="col-span-4">Utilisateur</span>
                 <span className="col-span-3">Email</span>
                 <span className="col-span-2">Rôle</span>
                 <span className="col-span-1">Statut</span>
                 <span className="col-span-2 text-right">Actions</span>
               </div>
-              <div className="divide-y divide-dark-800">
+              <div>
                 {loading ? (
                   [1,2,3].map((i) => (
-                    <div key={i} className="px-4 py-3 grid grid-cols-12 gap-2">
+                    <div key={i} className="px-4 py-3 grid grid-cols-12 gap-2" style={{ borderBottom: i < 3 ? '1px solid var(--border)' : 'none' }}>
                       {[1,2,3,4,5].map((j) => <div key={j} className="skeleton h-4 rounded col-span-2" />)}
                     </div>
                   ))
-                ) : filteredUsers.map((u) => (
-                  <div key={u.id} className="px-4 py-3 grid grid-cols-12 items-center gap-2 hover:bg-dark-800/40 transition-all">
+                ) : filteredUsers.map((u, idx, arr) => (
+                  <div
+                    key={u.id}
+                    className="px-4 py-3 grid grid-cols-12 items-center gap-2 transition-all"
+                    style={{ borderBottom: idx < arr.length - 1 ? '1px solid var(--border)' : 'none' }}
+                    onMouseEnter={e => e.currentTarget.style.backgroundColor = 'var(--muted)'}
+                    onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+                  >
                     <div className="col-span-4 flex items-center gap-2 min-w-0">
-                      <div className="w-7 h-7 rounded-lg bg-primary-500/15 flex items-center justify-center text-primary-400 text-xs font-bold shrink-0">
+                      <div className="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-bold shrink-0" style={{ backgroundColor: 'var(--primary-bg)', color: 'var(--primary)' }}>
                         {u.username[0].toUpperCase()}
                       </div>
-                      <span className="text-sm text-dark-200 font-medium truncate">{u.username}</span>
+                      <span className="text-sm font-medium truncate" style={{ color: 'var(--foreground)' }}>{u.username}</span>
                     </div>
-                    <span className="col-span-3 text-xs text-dark-400 truncate">{u.email}</span>
+                    <span className="col-span-3 text-xs truncate" style={{ color: 'var(--muted-foreground)' }}>{u.email}</span>
                     <span className="col-span-2">
                       {u.is_admin
-                        ? <span className="text-xs font-semibold text-amber-400 flex items-center gap-1"><Crown size={12} /> Admin</span>
-                        : <span className="text-xs text-dark-500">User</span>}
+                        ? <span className="text-xs font-semibold flex items-center gap-1" style={{ color: 'var(--warning)' }}><Crown size={12} /> Admin</span>
+                        : <span className="text-xs" style={{ color: 'var(--muted-foreground)' }}>User</span>}
                     </span>
                     <span className="col-span-1">
                       {u.is_verified
-                        ? <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" title="Vérifié" />
-                        : <span className="w-2 h-2 rounded-full bg-amber-400 inline-block" title="En attente" />}
+                        ? <span className="w-2 h-2 rounded-full inline-block" style={{ backgroundColor: 'var(--success)' }} title="Vérifié" />
+                        : <span className="w-2 h-2 rounded-full inline-block" style={{ backgroundColor: 'var(--warning)' }} title="En attente" />}
                     </span>
                     <div className="col-span-2 flex gap-1.5 justify-end">
                       <Button size="xs" variant="ghost"
@@ -244,30 +257,39 @@ export default function AdminPage() {
 
         {/* Tab: VMs */}
         {tab === 'vms' && (
-          <div className="bg-dark-900 border border-dark-700 rounded-2xl overflow-hidden">
-            <div className="px-4 py-3 border-b border-dark-700 text-xs font-semibold text-dark-400 uppercase tracking-wider grid grid-cols-12">
+          <div className="rounded-2xl overflow-hidden" style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}>
+            <div
+              className="px-4 py-3 text-xs font-semibold uppercase tracking-wider grid grid-cols-12"
+              style={{ borderBottom: '1px solid var(--border)', color: 'var(--muted-foreground)' }}
+            >
               <span className="col-span-4">VM</span>
               <span className="col-span-2">Propriétaire</span>
               <span className="col-span-2">Specs</span>
               <span className="col-span-2">Statut</span>
               <span className="col-span-2">IP / SSH</span>
             </div>
-            <div className="divide-y divide-dark-800">
+            <div>
               {loading ? [1,2,3].map((i) => (
-                <div key={i} className="px-4 py-3 grid grid-cols-12 gap-2">
+                <div key={i} className="px-4 py-3 grid grid-cols-12 gap-2" style={{ borderBottom: i < 3 ? '1px solid var(--border)' : 'none' }}>
                   {[1,2,3,4,5].map((j) => <div key={j} className="skeleton h-4 rounded col-span-2" />)}
                 </div>
-              )) : filteredVMs.map((vm) => (
-                <div key={vm.id} className="px-4 py-3 grid grid-cols-12 items-center gap-2 hover:bg-dark-800/40 transition-all">
+              )) : filteredVMs.map((vm, idx, arr) => (
+                <div
+                  key={vm.id}
+                  className="px-4 py-3 grid grid-cols-12 items-center gap-2 transition-all"
+                  style={{ borderBottom: idx < arr.length - 1 ? '1px solid var(--border)' : 'none' }}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = 'var(--muted)'}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+                >
                   <div className="col-span-4 min-w-0">
-                    <p className="text-sm font-medium text-dark-200 truncate font-mono">{vm.name}</p>
-                    <p className="text-xs text-dark-500 capitalize">{vm.os_type}</p>
+                    <p className="text-sm font-medium truncate font-mono" style={{ color: 'var(--foreground)' }}>{vm.name}</p>
+                    <p className="text-xs capitalize" style={{ color: 'var(--muted-foreground)' }}>{vm.os_type}</p>
                   </div>
-                  <span className="col-span-2 text-xs text-dark-400">{vm.owner_username}</span>
-                  <span className="col-span-2 text-xs text-dark-500">{vm.vcpu}v · {vm.ram_mb}MB</span>
+                  <span className="col-span-2 text-xs" style={{ color: 'var(--muted-foreground)' }}>{vm.owner_username}</span>
+                  <span className="col-span-2 text-xs" style={{ color: 'var(--muted-foreground)' }}>{vm.vcpu}v · {vm.ram_mb}MB</span>
                   <span className="col-span-2"><StatusBadge status={vm.status} /></span>
-                  <div className="col-span-2 text-xs font-mono text-dark-400">
-                    {vm.ip_address || '—'}{vm.ssh_port && <span className="ml-1 text-dark-600">:{vm.ssh_port}</span>}
+                  <div className="col-span-2 text-xs font-mono" style={{ color: 'var(--muted-foreground)' }}>
+                    {vm.ip_address || '—'}{vm.ssh_port && <span style={{ color: 'var(--foreground)' }}>:{vm.ssh_port}</span>}
                   </div>
                 </div>
               ))}
@@ -277,34 +299,53 @@ export default function AdminPage() {
 
         {/* Tab: Audit logs */}
         {tab === 'audit' && (
-          <div className="bg-dark-900 border border-dark-700 rounded-2xl overflow-hidden">
-            <div className="px-4 py-3 border-b border-dark-700 flex items-center justify-between">
-              <span className="text-xs font-semibold text-dark-400 uppercase tracking-wider">
+          <div className="rounded-2xl overflow-hidden" style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}>
+            <div
+              className="px-4 py-3 flex items-center justify-between"
+              style={{ borderBottom: '1px solid var(--border)' }}
+            >
+              <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--muted-foreground)' }}>
                 {auditTotal} entrées
               </span>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-xs">
                 <thead>
-                  <tr className="border-b border-dark-800">
+                  <tr>
                     {['Date', 'Utilisateur', 'Action', 'Statut', 'IP', 'Détails'].map((h) => (
-                      <th key={h} className="px-4 py-2 text-left text-dark-500 font-semibold uppercase tracking-wider">{h}</th>
+                      <th
+                        key={h}
+                        className="px-4 py-2 text-left font-semibold uppercase tracking-wider"
+                        style={{ borderBottom: '1px solid var(--border)', color: 'var(--muted-foreground)' }}
+                      >
+                        {h}
+                      </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-dark-800">
-                  {auditLogs.map((log) => (
-                    <tr key={log.id} className="hover:bg-dark-800/40 transition-all">
-                      <td className="px-4 py-2 text-dark-500 whitespace-nowrap">{new Date(log.created_at).toLocaleString()}</td>
-                      <td className="px-4 py-2 text-dark-300">{log.username || '—'}</td>
-                      <td className="px-4 py-2"><code className="text-primary-400 bg-primary-500/10 px-1.5 py-0.5 rounded text-[10px]">{log.action}</code></td>
+                <tbody>
+                  {auditLogs.map((log, idx, arr) => (
+                    <tr
+                      key={log.id}
+                      className="transition-all"
+                      style={{ borderBottom: idx < arr.length - 1 ? '1px solid var(--border)' : 'none' }}
+                      onMouseEnter={e => e.currentTarget.style.backgroundColor = 'var(--muted)'}
+                      onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+                    >
+                      <td className="px-4 py-2 whitespace-nowrap" style={{ color: 'var(--muted-foreground)' }}>{new Date(log.created_at).toLocaleString()}</td>
+                      <td className="px-4 py-2" style={{ color: 'var(--foreground)' }}>{log.username || '—'}</td>
                       <td className="px-4 py-2">
-                        <span className={clsx('font-semibold', log.status === 'SUCCESS' ? 'text-emerald-400' : 'text-red-400')}>
+                        <code className="px-1.5 py-0.5 rounded text-[10px]" style={{ backgroundColor: 'var(--primary-bg)', color: 'var(--primary)' }}>
+                          {log.action}
+                        </code>
+                      </td>
+                      <td className="px-4 py-2">
+                        <span className="font-semibold" style={{ color: log.status === 'SUCCESS' ? 'var(--success)' : 'var(--danger)' }}>
                           {log.status}
                         </span>
                       </td>
-                      <td className="px-4 py-2 font-mono text-dark-500">{log.ip_address || '—'}</td>
-                      <td className="px-4 py-2 text-dark-500 max-w-xs truncate" title={log.details}>{log.details || '—'}</td>
+                      <td className="px-4 py-2 font-mono" style={{ color: 'var(--muted-foreground)' }}>{log.ip_address || '—'}</td>
+                      <td className="px-4 py-2 max-w-xs truncate" title={log.details} style={{ color: 'var(--muted-foreground)' }}>{log.details || '—'}</td>
                     </tr>
                   ))}
                 </tbody>

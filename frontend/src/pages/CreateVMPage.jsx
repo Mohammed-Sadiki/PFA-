@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import {
   PlusCircle, Cpu, MemoryStick, HardDrive,
   Lock, Monitor, ChevronRight, CheckCircle,
-  ArrowLeft, Zap, Server
+  ArrowLeft, Zap, Server, AppWindow
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { createVM } from '../api/vms'
@@ -13,9 +13,9 @@ import { useToast } from '../hooks/useToast'
 import { clsx } from 'clsx'
 
 const OS_OPTIONS = [
-  { value: 'zorin', label: 'Zorin OS Lite', icon: '🐧', desc: 'Léger, rapide et élégant' },
-  { value: 'ubuntu', label: 'Ubuntu Server', icon: '🐧', desc: 'Serveur Linux populaire' },
-  { value: 'windows11', label: 'Windows 11', icon: '🪟', desc: 'Bureau Windows moderne' },
+  { value: 'zorin', label: 'Zorin OS Lite', icon: <Monitor size={32} strokeWidth={1.5} />, desc: 'Léger, rapide et élégant' },
+  { value: 'ubuntu', label: 'Ubuntu Server', icon: <Server size={32} strokeWidth={1.5} />, desc: 'Serveur Linux populaire' },
+  { value: 'windows11', label: 'Windows 11', icon: <AppWindow size={32} strokeWidth={1.5} />, desc: 'Bureau Windows moderne' },
 ]
 
 function RangeField({ label, value, min, max, step = 1, onChange, unit, icon }) {
@@ -23,21 +23,21 @@ function RangeField({ label, value, min, max, step = 1, onChange, unit, icon }) 
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <label className="text-xs font-semibold text-dark-400 uppercase tracking-wider flex items-center gap-1.5">
-          {icon} {label}
+        <label className="text-xs font-semibold uppercase tracking-wider flex items-center gap-1.5" style={{ color: 'var(--muted-foreground)' }}>
+          <span style={{ color: 'var(--muted-foreground)' }}>{icon}</span> {label}
         </label>
-        <span className="text-sm font-bold text-primary-400 font-mono">{value} {unit}</span>
+        <span className="text-sm font-bold font-mono" style={{ color: 'var(--primary)' }}>{value} {unit}</span>
       </div>
       <div className="relative">
         <input
           type="range" min={min} max={max} step={step} value={value}
           onChange={(e) => onChange(Number(e.target.value))}
-          className="w-full accent-primary-500"
+          className="w-full"
           style={{
-            background: `linear-gradient(to right, #3b82f6 ${pct}%, rgba(255,255,255,0.08) ${pct}%)`
+            background: `linear-gradient(to right, var(--primary) ${pct}%, var(--muted) ${pct}%)`
           }}
         />
-        <div className="flex justify-between text-[10px] text-dark-600 mt-1">
+        <div className="flex justify-between text-[10px] mt-1" style={{ color: 'var(--muted-foreground)' }}>
           <span>{min} {unit}</span>
           <span>{max} {unit}</span>
         </div>
@@ -112,13 +112,18 @@ export default function CreateVMPage() {
       <div className="p-4 md:p-6 lg:p-8 max-w-2xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-3 mb-8">
-          <button onClick={() => step === 2 ? setStep(1) : navigate('/vms')}
-            className="p-2 rounded-xl text-dark-400 hover:text-dark-100 hover:bg-dark-800 transition-all">
+          <button
+            onClick={() => step === 2 ? setStep(1) : navigate('/vms')}
+            className="p-2 rounded-xl transition-all"
+            style={{ color: 'var(--muted-foreground)' }}
+            onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--muted)'; e.currentTarget.style.color = 'var(--foreground)' }}
+            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--muted-foreground)' }}
+          >
             <ArrowLeft size={18} />
           </button>
           <div>
-            <h1 className="text-2xl font-bold text-dark-100">{t('create.title')}</h1>
-            <p className="text-dark-400 text-sm mt-0.5">{t('create.subtitle')}</p>
+            <h1 className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>{t('create.title')}</h1>
+            <p className="text-sm mt-0.5" style={{ color: 'var(--muted-foreground)' }}>{t('create.subtitle')}</p>
           </div>
         </div>
 
@@ -126,24 +131,33 @@ export default function CreateVMPage() {
         <div className="flex items-center gap-3 mb-8">
           {[1, 2].map((s) => (
             <div key={s} className="flex items-center gap-2">
-              <div className={clsx(
-                'w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all',
-                step >= s
-                  ? 'bg-primary-600 text-white'
-                  : 'bg-dark-800 text-dark-500 border border-dark-700'
-              )}>
+              <div
+                className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all"
+                style={{
+                  backgroundColor: step >= s ? 'var(--primary)' : 'var(--muted)',
+                  color: step >= s ? 'white' : 'var(--muted-foreground)',
+                  border: step < s ? '1px solid var(--border)' : 'none',
+                }}
+              >
                 {step > s ? <CheckCircle size={16} /> : s}
               </div>
-              <span className={clsx('text-sm', step >= s ? 'text-dark-200' : 'text-dark-500')}>
+              <span className="text-sm" style={{ color: step >= s ? 'var(--foreground)' : 'var(--muted-foreground)' }}>
                 {s === 1 ? t('create.step1') : t('create.step3')}
               </span>
-              {s < 2 && <ChevronRight size={16} className="text-dark-700 mx-1" />}
+              {s < 2 && <ChevronRight size={16} style={{ color: 'var(--placeholder)' }} className="mx-1" />}
             </div>
           ))}
         </div>
 
         {error && (
-          <div className="mb-6 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm animate-fade-in">
+          <div
+            className="mb-6 px-4 py-3 rounded-xl text-sm animate-fade-in"
+            style={{
+              backgroundColor: 'var(--danger-bg)',
+              border: '1px solid var(--danger-border)',
+              color: 'var(--danger)',
+            }}
+          >
             {error}
           </div>
         )}
@@ -153,7 +167,7 @@ export default function CreateVMPage() {
           <div className="space-y-6 animate-fade-in">
             {/* OS Selection */}
             <div>
-              <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-3">
+              <label className="block text-xs font-semibold uppercase tracking-wider mb-3" style={{ color: 'var(--muted-foreground)' }}>
                 {t('create.osType')}
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -161,14 +175,26 @@ export default function CreateVMPage() {
                   <button
                     key={os.value}
                     onClick={() => set('os_type')(os.value)}
-                    className={clsx(
-                      'flex flex-col items-center gap-2 p-4 rounded-2xl border text-center transition-all',
-                      form.os_type === os.value
-                        ? 'bg-primary-500/10 border-primary-500/40 text-primary-400'
-                        : 'bg-dark-800/50 border-dark-700 text-dark-400 hover:border-dark-500 hover:bg-dark-800'
-                    )}
+                    className="flex flex-col items-center gap-2 p-4 rounded-2xl transition-all text-center"
+                    style={{
+                      backgroundColor: form.os_type === os.value ? 'var(--primary-bg)' : 'var(--muted)',
+                      border: `1px solid ${form.os_type === os.value ? 'var(--primary-border)' : 'var(--border)'}`,
+                      color: form.os_type === os.value ? 'var(--primary)' : 'var(--muted-foreground)'
+                    }}
+                    onMouseEnter={e => {
+                      if (form.os_type !== os.value) {
+                        e.currentTarget.style.borderColor = 'var(--border-strong)'
+                        e.currentTarget.style.color = 'var(--foreground)'
+                      }
+                    }}
+                    onMouseLeave={e => {
+                      if (form.os_type !== os.value) {
+                        e.currentTarget.style.borderColor = 'var(--border)'
+                        e.currentTarget.style.color = 'var(--muted-foreground)'
+                      }
+                    }}
                   >
-                    <span className="text-3xl">{os.icon}</span>
+                    <span className="mb-1">{os.icon}</span>
                     <div>
                       <p className="text-sm font-semibold">{os.label}</p>
                       <p className="text-xs opacity-70 mt-0.5">{os.desc}</p>
@@ -184,9 +210,12 @@ export default function CreateVMPage() {
             </div>
 
             {/* Resources */}
-            <div className="bg-dark-900 border border-dark-700 rounded-2xl p-5 space-y-6">
-              <h3 className="text-sm font-semibold text-dark-200 flex items-center gap-2">
-                <Server size={16} className="text-primary-400" /> Ressources
+            <div
+              className="rounded-2xl p-5 space-y-6"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
+              <h3 className="text-sm font-semibold flex items-center gap-2" style={{ color: 'var(--foreground)' }}>
+                <Server size={16} style={{ color: 'var(--primary)' }} /> Ressources
               </h3>
               <RangeField
                 label={t('create.vcpu')} value={form.vcpu}
@@ -209,12 +238,15 @@ export default function CreateVMPage() {
             </div>
 
             {/* VM Password */}
-            <div className="bg-dark-900 border border-dark-700 rounded-2xl p-5 space-y-4">
-              <h3 className="text-sm font-semibold text-dark-200 flex items-center gap-2">
-                <Lock size={16} className="text-primary-400" /> Accès SSH
+            <div
+              className="rounded-2xl p-5 space-y-4"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
+              <h3 className="text-sm font-semibold flex items-center gap-2" style={{ color: 'var(--foreground)' }}>
+                <Lock size={16} style={{ color: 'var(--primary)' }} /> Accès SSH
               </h3>
               <div>
-                <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: 'var(--muted-foreground)' }}>
                   {t('create.vmPassword')}
                 </label>
                 <input
@@ -223,10 +255,10 @@ export default function CreateVMPage() {
                   placeholder="Min. 8 caractères"
                   className="input-base"
                 />
-                <p className="text-xs text-dark-500 mt-1">{t('create.vmPasswordDesc')}</p>
+                <p className="text-xs mt-1" style={{ color: 'var(--placeholder)' }}>{t('create.vmPasswordDesc')}</p>
               </div>
               <div>
-                <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-1.5">
+                <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: 'var(--muted-foreground)' }}>
                   {t('auth.confirmPassword')}
                 </label>
                 <input
@@ -247,34 +279,44 @@ export default function CreateVMPage() {
         {/* Step 2 — Summary */}
         {step === 2 && (
           <div className="space-y-6 animate-fade-in">
-            <div className="bg-dark-900 border border-dark-700 rounded-2xl p-6 space-y-4">
-              <h3 className="text-base font-semibold text-dark-100">{t('create.summary')}</h3>
+            <div
+              className="rounded-2xl p-6 space-y-4"
+              style={{ backgroundColor: 'var(--card)', border: '1px solid var(--border)' }}
+            >
+              <h3 className="text-base font-semibold" style={{ color: 'var(--foreground)' }}>{t('create.summary')}</h3>
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { label: 'OS', value: selectedOS?.label, icon: selectedOS?.icon },
-                  { label: 'vCPU', value: `${form.vcpu} vCPU`, icon: '⚡' },
-                  { label: 'RAM', value: `${form.ram_mb} MB`, icon: '💾' },
-                  { label: 'Disque', value: `${form.disk_gb} GB`, icon: '💿' },
-                  { label: 'SSH', value: 'Port auto-assigné', icon: '🔐' },
-                  { label: 'Réseau', value: 'NAT (VirtualBox)', icon: '🌐' },
+                  { label: 'vCPU', value: `${form.vcpu} vCPU`, icon: <Cpu size={20} strokeWidth={1.5} /> },
+                  { label: 'RAM', value: `${form.ram_mb} MB`, icon: <MemoryStick size={20} strokeWidth={1.5} /> },
+                  { label: 'Disque', value: `${form.disk_gb} GB`, icon: <HardDrive size={20} strokeWidth={1.5} /> },
+                  { label: 'SSH', value: 'Port auto-assigné', icon: <Lock size={20} strokeWidth={1.5} /> },
+                  { label: 'Réseau', value: 'NAT (VirtualBox)', icon: <Server size={20} strokeWidth={1.5} /> },
                 ].map(({ label, value, icon }) => (
-                  <div key={label} className="flex items-center gap-3 bg-dark-800/60 rounded-xl px-3 py-3">
-                    <span className="text-lg">{icon}</span>
+                  <div key={label} className="flex items-center gap-3 rounded-xl px-3 py-3" style={{ backgroundColor: 'var(--muted)' }}>
+                    <span style={{ color: 'var(--primary)' }}>{icon}</span>
                     <div>
-                      <p className="text-[10px] text-dark-500 uppercase tracking-wider">{label}</p>
-                      <p className="text-sm font-semibold text-dark-200">{value}</p>
+                      <p className="text-[10px] uppercase tracking-wider" style={{ color: 'var(--muted-foreground)' }}>{label}</p>
+                      <p className="text-sm font-semibold" style={{ color: 'var(--foreground)' }}>{value}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-2 p-3 bg-primary-500/5 border border-primary-500/15 rounded-xl text-xs text-dark-400">
+              <div
+                className="mt-2 p-3 rounded-xl text-xs"
+                style={{
+                  backgroundColor: 'var(--primary-bg)',
+                  border: '1px solid var(--primary-border)',
+                  color: 'var(--primary)'
+                }}
+              >
                 💡 La VM sera créée en arrière-plan. Vous recevrez une notification quand elle sera prête (~30 secondes).
               </div>
             </div>
 
             <div className="flex gap-3">
-              <Button variant="ghost" size="lg" onClick={() => setStep(1)} className="flex-1">
+              <Button variant="secondary" size="lg" onClick={() => setStep(1)} className="flex-1">
                 <ArrowLeft size={16} /> {t('create.back')}
               </Button>
               <Button

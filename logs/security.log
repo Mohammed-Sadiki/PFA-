@@ -62,3 +62,11 @@
 2026-09-22 19:58:20,731 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Changement de rôle de l'utilisateur 'anass1' (is_admin: False) | Résultat: Réussite
 2026-09-22 19:58:24,933 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Changement de rôle de l'utilisateur 'admin' (is_admin: False) | Résultat: Réussite
 2026-09-22 19:58:56,476 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-09-22 20:03:25,500 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
+2026-09-22 20:33:59,768 | WARNING  | IP: 127.0.0.1 | User: sadikimohamed | app.security — Action: Connexion de l'utilisateur 'sadikimohamed' | Résultat: Échec (Identifiants incorrects)
+2026-09-22 20:34:18,574 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-09-22 20:50:30,058 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-09-22 21:11:40,140 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-09-22 21:14:51,225 | WARNING  | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Échec (Identifiants incorrects)
+2026-09-22 21:14:58,068 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
+2026-09-22 21:16:45,011 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite

@@ -24,7 +24,13 @@ export default function Skeleton({ className, lines = 1 }) {
 
 export function SkeletonCard() {
   return (
-    <div className="bg-dark-900 border border-dark-700 rounded-2xl p-5 space-y-4">
+    <div
+      className="rounded-2xl p-5 space-y-4"
+      style={{
+        backgroundColor: 'var(--card)',
+        border: '1px solid var(--border)',
+      }}
+    >
       <div className="flex items-center justify-between">
         <Skeleton className="h-5 w-32" />
         <Skeleton className="h-6 w-20 rounded-full" />
@@ -46,7 +52,13 @@ export function SkeletonCard() {
 
 export function SkeletonStatCard() {
   return (
-    <div className="bg-dark-900 border border-dark-700 rounded-2xl p-5">
+    <div
+      className="rounded-2xl p-5"
+      style={{
+        backgroundColor: 'var(--card)',
+        border: '1px solid var(--border)',
+      }}
+    >
       <div className="flex items-center justify-between mb-4">
         <Skeleton className="h-10 w-10 rounded-xl" />
         <Skeleton className="h-5 w-12 rounded" />

@@ -34,37 +34,56 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-dark-950 flex items-center justify-center p-4 relative overflow-hidden">
+    <div
+      className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--background)' }}
+    >
       {/* Background gradient blobs */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary-600/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-violet-600/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-violet-600/8 rounded-full blur-3xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-primary-500/5 rounded-full blur-2xl" />
-        {/* Grid */}
-        <div className="absolute inset-0 opacity-20"
+        {/* Subtle grid */}
+        <div
+          className="absolute inset-0"
           style={{
-            backgroundImage: 'linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)',
-            backgroundSize: '60px 60px'
-          }} />
+            opacity: 0.15,
+            backgroundImage: 'linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)',
+            backgroundSize: '60px 60px',
+          }}
+        />
       </div>
 
       <div className="w-full max-w-md animate-fade-in relative">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl
-            bg-gradient-to-br from-primary-500 to-primary-700 shadow-glow mb-4">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 shadow-glow mb-4">
             <Cpu size={28} className="text-white" />
           </div>
-          <h1 className="text-2xl font-bold text-dark-100">Zorin VM Cloud</h1>
-          <p className="text-dark-400 text-sm mt-1">VM Management Platform</p>
+          <h1 className="text-2xl font-bold" style={{ color: 'var(--foreground)' }}>Zorin VM Cloud</h1>
+          <p className="text-sm mt-1" style={{ color: 'var(--muted-foreground)' }}>VM Management Platform</p>
         </div>
 
         {/* Card */}
-        <div className="bg-dark-900 border border-dark-700 rounded-2xl p-6 shadow-2xl">
-          <h2 className="text-lg font-semibold text-dark-100 mb-6">{t('auth.login')}</h2>
+        <div
+          className="rounded-2xl p-6"
+          style={{
+            backgroundColor: 'var(--card)',
+            border: '1px solid var(--border-strong)',
+            boxShadow: 'var(--shadow-modal)',
+          }}
+        >
+          <h2 className="text-lg font-semibold mb-6" style={{ color: 'var(--foreground)' }}>{t('auth.login')}</h2>
 
           {error && (
-            <div className="mb-4 px-4 py-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm animate-fade-in">
+            <div
+              className="mb-4 px-4 py-3 rounded-xl text-sm animate-fade-in"
+              style={{
+                backgroundColor: 'var(--danger-bg)',
+                border: '1px solid var(--danger-border)',
+                color: 'var(--danger)',
+              }}
+            >
               {error}
             </div>
           )}
@@ -72,11 +91,11 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Username */}
             <div>
-              <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: 'var(--muted-foreground)' }}>
                 {t('auth.username')}
               </label>
               <div className="relative">
-                <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-500" />
+                <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--placeholder)' }} />
                 <input
                   type="text"
                   id="login-username"
@@ -92,11 +111,11 @@ export default function LoginPage() {
 
             {/* Password */}
             <div>
-              <label className="block text-xs font-semibold text-dark-400 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-semibold uppercase tracking-wider mb-1.5" style={{ color: 'var(--muted-foreground)' }}>
                 {t('auth.password')}
               </label>
               <div className="relative">
-                <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-dark-500" />
+                <Lock size={16} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--placeholder)' }} />
                 <input
                   type={showPwd ? 'text' : 'password'}
                   id="login-password"
@@ -110,7 +129,10 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPwd(!showPwd)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-dark-500 hover:text-dark-300 transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 transition-colors"
+                  style={{ color: 'var(--placeholder)' }}
+                  onMouseEnter={e => e.currentTarget.style.color = 'var(--muted-foreground)'}
+                  onMouseLeave={e => e.currentTarget.style.color = 'var(--placeholder)'}
                 >
                   {showPwd ? <EyeOff size={16} /> : <Eye size={16} />}
                 </button>
@@ -131,9 +153,9 @@ export default function LoginPage() {
         </div>
 
         {/* Register link */}
-        <p className="text-center text-sm text-dark-500 mt-4">
+        <p className="text-center text-sm mt-4" style={{ color: 'var(--muted-foreground)' }}>
           {t('auth.noAccount')}{' '}
-          <Link to="/register" className="text-primary-400 hover:text-primary-300 font-medium transition-colors">
+          <Link to="/register" className="text-primary-500 hover:text-primary-400 font-medium transition-colors">
             {t('auth.registerButton')}
           </Link>
         </p>

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import {
   Play, Square, Trash2, Terminal, Eye,
   Cpu, MemoryStick, HardDrive, Network, Calendar,
-  Copy, Check, RotateCcw
+  Copy, Check, Monitor, Server, AppWindow
 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { startVM, stopVM, deleteVM } from '../../api/vms'
@@ -14,17 +14,20 @@ import { useToast } from '../../hooks/useToast'
 import { clsx } from 'clsx'
 
 const OS_ICONS = {
-  zorin: '🐧',
-  ubuntu: '🐧',
-  windows11: '🪟',
+  zorin:    <Monitor size={20} strokeWidth={2} />,
+  ubuntu:   <Server size={20} strokeWidth={2} />,
+  windows11:<AppWindow size={20} strokeWidth={2} />,
 }
 
 function MetricChip({ icon, label, value }) {
   return (
-    <div className="flex flex-col items-center gap-0.5 bg-dark-800/60 rounded-xl px-3 py-2 min-w-0">
-      <div className="text-dark-500">{icon}</div>
-      <p className="text-xs font-bold text-dark-200">{value}</p>
-      <p className="text-[10px] text-dark-500">{label}</p>
+    <div
+      className="flex flex-col items-center gap-0.5 rounded-xl px-3 py-2 min-w-0"
+      style={{ backgroundColor: 'var(--muted)' }}
+    >
+      <div style={{ color: 'var(--muted-foreground)' }}>{icon}</div>
+      <p className="text-xs font-bold" style={{ color: 'var(--foreground)' }}>{value}</p>
+      <p className="text-[10px]" style={{ color: 'var(--muted-foreground)' }}>{label}</p>
     </div>
   )
 }
@@ -33,13 +36,14 @@ export default function VMCard({ vm, onRefresh }) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const toast = useToast()
-  const [loading, setLoading] = useState(null) // 'start' | 'stop' | 'delete'
+  const [loading, setLoading] = useState(null)
   const [showDelete, setShowDelete] = useState(false)
   const [copied, setCopied] = useState(false)
 
-  const isRunning = vm.status === 'running'
-  const isStopped = vm.status === 'stopped'
-  const isBusy = ['creating', 'pending'].includes(vm.status)
+  const statusStr = (vm.status || '').toLowerCase()
+  const isRunning = statusStr === 'running'
+  const isStopped = statusStr === 'stopped'
+  const isBusy    = ['creating', 'pending'].includes(statusStr)
 
   const handleStart = async () => {
     setLoading('start')
@@ -49,9 +53,7 @@ export default function VMCard({ vm, onRefresh }) {
       onRefresh?.()
     } catch (err) {
       toast.error(err?.response?.data?.detail || t('common.error'))
-    } finally {
-      setLoading(null)
-    }
+    } finally { setLoading(null) }
   }
 
   const handleStop = async () => {
@@ -62,9 +64,7 @@ export default function VMCard({ vm, onRefresh }) {
       onRefresh?.()
     } catch (err) {
       toast.error(err?.response?.data?.detail || t('common.error'))
-    } finally {
-      setLoading(null)
-    }
+    } finally { setLoading(null) }
   }
 
   const handleDelete = async () => {
@@ -76,9 +76,7 @@ export default function VMCard({ vm, onRefresh }) {
       onRefresh?.()
     } catch (err) {
       toast.error(err?.response?.data?.detail || t('common.error'))
-    } finally {
-      setLoading(null)
-    }
+    } finally { setLoading(null) }
   }
 
   const copySSH = () => {
@@ -95,26 +93,38 @@ export default function VMCard({ vm, onRefresh }) {
       : `${Math.floor(vm.uptime_seconds / 60)}m`
     : '—'
 
+  // Couleur de la bordure selon le statut
+  const borderColor =
+    statusStr === 'running' ? 'rgba(16,185,129,0.25)' :
+    statusStr === 'error'   ? 'rgba(239,68,68,0.25)'  :
+    'var(--border)'
+
   return (
     <>
-      <div className={clsx(
-        'bg-dark-900 border rounded-2xl p-5 flex flex-col gap-4',
-        'transition-all duration-200 hover:border-dark-600 hover:shadow-card-lg',
-        vm.status === 'running' ? 'border-emerald-500/20' :
-        vm.status === 'error' ? 'border-red-500/20' :
-        'border-dark-700'
-      )}>
+      <div
+        className="rounded-2xl p-5 flex flex-col gap-4 transition-all duration-200"
+        style={{
+          backgroundColor: 'var(--card)',
+          border: `1px solid ${borderColor}`,
+          boxShadow: 'var(--shadow-card)',
+        }}
+        onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--card-hover)' }}
+        onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'var(--card)' }}
+      >
         {/* Header */}
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-10 h-10 rounded-xl bg-dark-800 flex items-center justify-center text-xl shrink-0">
-              {OS_ICONS[vm.os_type] || '🖥️'}
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0"
+              style={{ backgroundColor: 'var(--muted)' }}
+            >
+              {OS_ICONS[vm.os_type] || <Monitor size={20} strokeWidth={2} />}
             </div>
             <div className="min-w-0">
-              <h3 className="text-sm font-semibold text-dark-100 truncate" title={vm.name}>
+              <h3 className="text-sm font-semibold truncate" title={vm.name} style={{ color: 'var(--foreground)' }}>
                 {vm.name}
               </h3>
-              <p className="text-xs text-dark-500 capitalize">{vm.os_type}</p>
+              <p className="text-xs capitalize" style={{ color: 'var(--muted-foreground)' }}>{vm.os_type}</p>
             </div>
           </div>
           <StatusBadge status={vm.status} />
@@ -148,36 +158,47 @@ export default function VMCard({ vm, onRefresh }) {
 
         {/* SSH command */}
         {vm.ssh_port && (
-          <div className="flex items-center gap-2 bg-dark-800/60 rounded-xl px-3 py-2">
-            <Terminal size={13} className="text-dark-500 shrink-0" />
-            <code className="text-xs text-dark-300 font-mono truncate flex-1">
+          <div
+            className="flex items-center gap-2 rounded-xl px-3 py-2"
+            style={{ backgroundColor: 'var(--muted)' }}
+          >
+            <Terminal size={13} className="shrink-0" style={{ color: 'var(--muted-foreground)' }} />
+            <code className="text-xs font-mono truncate flex-1" style={{ color: 'var(--muted-foreground)' }}>
               ssh -p {vm.ssh_port} &lt;user&gt;@127.0.0.1
             </code>
             <button
               onClick={copySSH}
-              className="text-dark-500 hover:text-primary-400 transition-colors shrink-0"
+              className="shrink-0 transition-colors"
               title={t('vm.copySSH')}
+              style={{ color: 'var(--muted-foreground)' }}
+              onMouseEnter={e => e.currentTarget.style.color = 'var(--primary)'}
+              onMouseLeave={e => e.currentTarget.style.color = copied ? '#10b981' : 'var(--muted-foreground)'}
             >
-              {copied ? <Check size={13} className="text-emerald-400" /> : <Copy size={13} />}
+              {copied
+                ? <Check size={13} style={{ color: 'var(--success)' }} />
+                : <Copy size={13} />
+              }
             </button>
           </div>
         )}
 
         {/* Info row */}
-        <div className="flex items-center gap-2 text-xs text-dark-500">
+        <div className="flex items-center gap-2 text-xs" style={{ color: 'var(--muted-foreground)' }}>
           <Calendar size={12} />
           <span>{new Date(vm.created_at).toLocaleDateString()}</span>
           {vm.uptime_seconds > 0 && (
-            <span className="ml-auto text-emerald-500/70">↑ {uptimeStr}</span>
+            <span className="ml-auto" style={{ color: 'var(--success)' }}>↑ {uptimeStr}</span>
           )}
         </div>
 
         {/* Actions */}
-        <div className="flex flex-wrap gap-2 border-t border-dark-800 pt-3">
+        <div
+          className="flex flex-wrap gap-2 pt-3"
+          style={{ borderTop: '1px solid var(--border)' }}
+        >
           {isStopped && (
             <Button
-              size="sm"
-              variant="success"
+              size="sm" variant="success"
               icon={<Play size={14} />}
               onClick={handleStart}
               loading={loading === 'start'}
@@ -188,8 +209,7 @@ export default function VMCard({ vm, onRefresh }) {
           )}
           {isRunning && (
             <Button
-              size="sm"
-              variant="warning"
+              size="sm" variant="warning"
               icon={<Square size={14} />}
               onClick={handleStop}
               loading={loading === 'stop'}
@@ -199,16 +219,14 @@ export default function VMCard({ vm, onRefresh }) {
             </Button>
           )}
           <Button
-            size="sm"
-            variant="ghost"
+            size="sm" variant="ghost"
             icon={<Eye size={14} />}
             onClick={() => navigate(`/vms/${vm.id}`)}
           >
             {t('vm.details')}
           </Button>
           <Button
-            size="sm"
-            variant="danger"
+            size="sm" variant="danger"
             icon={<Trash2 size={14} />}
             onClick={() => setShowDelete(true)}
             disabled={!!loading || isBusy}
@@ -219,8 +237,15 @@ export default function VMCard({ vm, onRefresh }) {
         </div>
 
         {/* Error message */}
-        {vm.status === 'error' && vm.error_message && (
-          <p className="text-xs text-red-400 bg-red-500/5 border border-red-500/15 rounded-lg px-3 py-2">
+        {statusStr === 'error' && vm.error_message && (
+          <p
+            className="text-xs rounded-lg px-3 py-2"
+            style={{
+              color: 'var(--danger)',
+              backgroundColor: 'var(--danger-bg)',
+              border: '1px solid var(--danger-border)',
+            }}
+          >
             ⚠️ {vm.error_message}
           </p>
         )}
