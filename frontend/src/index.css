@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    @apply bg-dark-950 text-dark-100;
+    @apply transition-colors duration-300;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-900;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-dark-700 rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-dark-600;
+  }
+}
+
+@layer components {
+  /* ── Glass card ─────────────────────────────────────────── */
+  .glass {
+    @apply bg-dark-900/60 backdrop-blur-md border border-white/5;
+    @apply shadow-card;
+  }
+
+  .glass-light {
+    @apply bg-white/80 backdrop-blur-md border border-dark-200/50;
+    @apply shadow-card;
+  }
+
+  /* ── Gradient text ──────────────────────────────────────── */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-400 to-primary-600 bg-clip-text text-transparent;
+  }
+
+  /* ── Skeleton loading ───────────────────────────────────── */
+  .skeleton {
+    @apply relative overflow-hidden rounded-lg bg-dark-800;
+  }
+  .skeleton::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.04),
+      transparent
+    );
+    animation: skeleton 1.5s ease-in-out infinite;
+    background-size: 200px 100%;
+  }
+
+  /* ── Status dot pulse ───────────────────────────────────── */
+  .status-dot {
+    @apply inline-block w-2 h-2 rounded-full;
+  }
+  .status-dot.running {
+    @apply bg-emerald-400;
+    box-shadow: 0 0 6px rgba(52, 211, 153, 0.6);
+  }
+  .status-dot.stopped {
+    @apply bg-dark-500;
+  }
+  .status-dot.error {
+    @apply bg-red-400;
+    box-shadow: 0 0 6px rgba(248, 113, 113, 0.6);
+  }
+  .status-dot.creating, .status-dot.pending {
+    @apply bg-amber-400;
+    animation: pulse 1.2s ease-in-out infinite;
+  }
+
+  /* ── Input base ─────────────────────────────────────────── */
+  .input-base {
+    @apply w-full bg-dark-800/80 border border-dark-700 rounded-xl;
+    @apply text-dark-100 placeholder-dark-500;
+    @apply px-4 py-3 text-sm;
+    @apply transition-all duration-200;
+    @apply focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20;
+  }
+
+  /* Light mode overrides */
+  .light .input-base {
+    @apply bg-white border-dark-200 text-dark-900 placeholder-dark-400;
+    @apply focus:border-primary-500;
+  }
+
+  /* ── Sidebar link ───────────────────────────────────────── */
+  .nav-item {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium;
+    @apply text-dark-400 hover:text-dark-100 hover:bg-white/5;
+    @apply transition-all duration-200 cursor-pointer;
+    @apply relative overflow-hidden;
+  }
+  .nav-item.active {
+    @apply text-primary-400 bg-primary-500/10;
+  }
+  .nav-item.active::before {
+    content: '';
+    @apply absolute left-0 top-2 bottom-2 w-0.5 bg-primary-400 rounded-r;
+  }
+}
+
+@layer utilities {
+  /* ── Ring glow ──────────────────────────────────────────── */
+  .ring-glow {
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
+
+  /* ── Text balance ───────────────────────────────────────── */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* ── Shimmer effect ─────────────────────────────────────── */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.05) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+/* ── Global animations ──────────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes skeleton {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* ── Light mode body ────────────────────────────────────────── */
+.light body, body.light {
+  @apply bg-dark-50 text-dark-900;
+}
+
+/* ── RTL support for Arabic ─────────────────────────────────── */
+[dir="rtl"] .nav-item.active::before {
+  @apply left-auto right-0;
+}
+
+/* ── Transition page ────────────────────────────────────────── */
+.page-enter {
+  animation: fadeIn 0.25s ease-out;
+}
+
+/* ── Range slider ───────────────────────────────────────────── */
+input[type="range"] {
+  @apply appearance-none bg-transparent cursor-pointer w-full;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  @apply h-1.5 rounded-full bg-dark-700;
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  @apply w-4 h-4 rounded-full bg-primary-500 shadow-glow-sm;
+  margin-top: -5px;
+}
+input[type="range"]:focus::-webkit-slider-thumb {
+  @apply bg-primary-400;
+}

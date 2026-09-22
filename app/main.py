@@ -136,16 +136,41 @@ app.include_router(notifications.router)
 
 # ── Static files / SPA ────────────────────────────────────────────────────────
 _static_dir = Path(__file__).parent / "static"
+
+# API path prefixes that should NEVER be caught by the SPA fallback
+_API_PREFIXES = ("auth", "vms", "admin", "notifications", "ws", "api")
+
 if _static_dir.exists():
+    # Mount /assets and /static directories so the React build chunks are served
+    _assets_dir = _static_dir / "assets"
+    if _assets_dir.exists():
+        app.mount("/assets", StaticFiles(directory=str(_assets_dir)), name="assets")
+
+    # Mount /static for any legacy static files
     app.mount("/static", StaticFiles(directory=str(_static_dir)), name="static")
+
+    @app.get("/favicon.svg", include_in_schema=False)
+    def serve_favicon():
+        return FileResponse(str(_static_dir / "favicon.svg"))
 
     @app.get("/", include_in_schema=False)
     def serve_frontend():
         return FileResponse(str(_static_dir / "index.html"))
 
-    @app.get("/admin", include_in_schema=False)
-    def serve_admin():
-        return FileResponse(str(_static_dir / "admin.html"))
+    # SPA fallback: serve index.html for all non-API client-side routes
+    @app.get("/{full_path:path}", include_in_schema=False)
+    def spa_fallback(full_path: str):
+        # Do not intercept API / backend routes
+        first_segment = full_path.split("/")[0]
+        if first_segment in _API_PREFIXES:
+            from fastapi import HTTPException
+            raise HTTPException(status_code=404, detail="Not found")
+        index = _static_dir / "index.html"
+        if index.exists():
+            return FileResponse(str(index))
+        from fastapi import HTTPException
+        raise HTTPException(status_code=404, detail="Frontend not built yet")
+
 
 else:
     @app.get("/", include_in_schema=False)
