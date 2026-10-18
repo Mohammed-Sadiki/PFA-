@@ -11,7 +11,7 @@ def reset_users():
         if not admin:
             admin = User(
                 username="admin",
-                email="admin@upf.ac.ma",
+                email="admin@gmail.com",
                 hashed_password=hash_password("Admin@2024"),
                 is_verified=True,
                 is_admin=True
@@ -20,6 +20,7 @@ def reset_users():
             db.commit()
             print("Compte 'admin' créé avec succès (Mot de passe: Admin@2024)")
         else:
+            admin.email = "admin@gmail.com"
             admin.hashed_password = hash_password("Admin@2024")
             admin.is_verified = True
             admin.is_admin = True

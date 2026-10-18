@@ -60,7 +60,7 @@ export default function VMListPage() {
   }, [fetchVMs])
 
   const filtered = vms
-    .filter((vm) => statusFilter === 'all' || vm.status === statusFilter)
+    .filter((vm) => statusFilter === 'all' || vm.status?.toLowerCase() === statusFilter.toLowerCase())
     .filter((vm) => !search || vm.name.toLowerCase().includes(search.toLowerCase()))
     .sort((a, b) => {
       switch (sort) {
@@ -72,10 +72,12 @@ export default function VMListPage() {
     })
 
   const counts = {
-    all:     vms.length,
-    running: vms.filter((v) => v.status === 'running').length,
-    stopped: vms.filter((v) => v.status === 'stopped').length,
-    error:   vms.filter((v) => v.status === 'error').length,
+    all:      vms.length,
+    running:  vms.filter((v) => v.status?.toLowerCase() === 'running').length,
+    stopped:  vms.filter((v) => v.status?.toLowerCase() === 'stopped').length,
+    error:    vms.filter((v) => v.status?.toLowerCase() === 'error').length,
+    creating: vms.filter((v) => v.status?.toLowerCase() === 'creating').length,
+    pending:  vms.filter((v) => v.status?.toLowerCase() === 'pending').length,
   }
 
   // Style actif / inactif pour les tabs de filtre

@@ -51,12 +51,29 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
     return jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
 
 
+from sqlalchemy import func, or_
+
+
 def get_user_by_username(db: Session, username: str) -> User | None:
-    return db.query(User).filter(User.username == username).first()
+    return db.query(User).filter(func.lower(User.username) == username.strip().lower()).first()
+
+
+def get_user_by_identifier(db: Session, identifier: str) -> User | None:
+    clean = identifier.strip().lower()
+    user = db.query(User).filter(
+        or_(
+            func.lower(User.username) == clean,
+            func.lower(User.email) == clean
+        )
+    ).first()
+    # Support admin login aliases
+    if not user and clean in ("admin@gmail.com", "admin@upf.ac.ma", "admin"):
+        user = db.query(User).filter(func.lower(User.username) == "admin").first()
+    return user
 
 
 def authenticate_user(db: Session, username: str, password: str) -> User | None:
-    user = get_user_by_username(db, username)
+    user = get_user_by_identifier(db, username)
     if not user or not verify_password(password, user.hashed_password):
         return None
     return user

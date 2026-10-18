@@ -22,7 +22,7 @@ log = logging.getLogger(__name__)
 
 # Maps os_type (sent by the frontend) to the corresponding VirtualBox VM name.
 OS_TYPE_TO_GOLDEN_MASTER: dict[str, str] = {
-    "zorin":     "zorin-lite-master",
+    "zorin":     "zorin-24-master",
     "ubuntu":    "ubuntu-24-master",
     "windows11": "windows11-master",
 }
@@ -85,6 +85,26 @@ class VBoxVMService:
             raise VBoxCommandError(
                 f"VBoxManage not found at '{self.vbox}'. Is VirtualBox installed?", ""
             )
+
+    def _get_attached_vdi_path(self, vm_name: str) -> str | None:
+        """
+        Find the actual VDI path attached to a VM by querying showvminfo.
+        This works cross-platform (Windows & Linux) because VirtualBox may
+        name the cloned disk differently from the VM name.
+        """
+        stdout, _, rc = self._run_vbox("showvminfo", vm_name, "--machinereadable")
+        if rc != 0:
+            return None
+        for line in stdout.splitlines():
+            line = line.strip()
+            if "ImageUUID" in line or "=" not in line:
+                continue
+            key, _, value = line.partition("=")
+            value = value.strip().strip('"')
+            if any(value.lower().endswith(ext) for ext in (".vdi", ".vmdk", ".vhd", ".qcow2")):
+                log.info("[%s] _get_attached_vdi_path: found disk at '%s'", vm_name, value)
+                return value
+        return None
 
     def _golden_master_exists(self, master_name: str) -> bool:
         stdout, _, rc = self._run_vbox("showvminfo", master_name, "--machinereadable")
@@ -387,7 +407,16 @@ class VBoxVMService:
 
         # ══ STEP 4 — Resize disk (if needed) ════════════════════════════════════
         if disk_gb != 15:
-            vdi_path = str(Path(self.vm_base_dir) / vm_name / f"{vm_name}.vdi")
+            # Detect the actual VDI path from VirtualBox (cross-platform: works on Windows & Linux).
+            # VirtualBox may name the cloned disk after the source master, not after vm_name.
+            vdi_path = self._get_attached_vdi_path(vm_name)
+            if not vdi_path:
+                # Fallback: conventional path guess
+                vdi_path = str(Path(self.vm_base_dir) / vm_name / f"{vm_name}.vdi")
+                log.warning(
+                    "[%s] [STEP 4] Could not detect VDI path via showvminfo; "
+                    "falling back to conventional path: %s", vm_name, vdi_path
+                )
             size_mb = disk_gb * 1024
             log.info("[%s] [STEP 4] Resizing disk to %d MB (vdi=%s) ...", vm_name, size_mb, vdi_path)
             try:

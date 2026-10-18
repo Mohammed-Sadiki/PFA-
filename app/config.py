@@ -43,20 +43,22 @@ class Settings(BaseSettings):
             
         return v
 
-    # VirtualBox
+    # VirtualBox — chemins à surcharger via .env selon l'OS hôte
+    # Windows : C:\Program Files\Oracle\VirtualBox\VBoxManage.exe
+    # Linux   : /usr/bin/VBoxManage
     VBOXMANAGE_PATH: str = r"C:\Program Files\Oracle\VirtualBox\VBoxManage.exe"
     VM_BASE_DIR: str = r"C:\VMs\vms"
     GOLDEN_MASTER_DIR: str = r"C:\VMs\golden-masters"
     CLOUD_INIT_TEMP: str = r"C:\VMs\cloud-init-temp"
-    GOLDEN_MASTER_NAME: str = "zorin-lite-master"
-    VM_START_TYPE: str = "headless"  # "headless" or "gui"
+    GOLDEN_MASTER_NAME: str = "ubuntu-24-master"
+    VM_START_TYPE: str = "gui"  # "headless" pour serveur, "gui" pour desktop
 
     # VM Defaults / Limits
     DEFAULT_VCPU: int = 1
     DEFAULT_RAM_MB: int = 1024
     DEFAULT_DISK_GB: int = 15
-    DEFAULT_DISTRO: str = "zorin-lite"
-    AVAILABLE_DISTROS: List[str] = ["zorin-lite"]
+    DEFAULT_DISTRO: str = "zorin"
+    AVAILABLE_DISTROS: List[str] = ["zorin"]
 
     MIN_VCPU: int = 1
     MAX_VCPU: int = 4

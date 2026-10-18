@@ -83,3 +83,22 @@
 2026-09-22 20:30:43,438 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Provisioning de la VM 'sadikisadiki-f6f29e40' | Résultat: Échec (Master de référence introuvable : Golden master 'windows11-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.)
 2026-09-22 20:58:01,347 | ERROR    | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-744690d0' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
 2026-09-22 20:58:24,742 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.vm — Action: Démarrage de la VM 'sadikisadiki-878a8d76' | Résultat: Réussite
+2026-10-02 13:01:16,494 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikimohammed-6875795f)
+2026-10-02 13:01:16,631 | ERROR    | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Provisioning de la VM 'sadikimohammed-6875795f' | Résultat: Échec (Master de référence introuvable : Golden master 'ubuntu-24-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.)
+2026-10-02 16:29:50,232 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikimohammed-7764c6c2)
+2026-10-02 16:29:54,066 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Suppression de la VM 'sadikimohammed-6875795f' | Résultat: Réussite
+2026-10-02 16:30:47,264 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Provisioning de la VM 'sadikimohammed-7764c6c2' | Résultat: Réussite (SSH port 22281)
+2026-10-02 16:47:41,922 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Démarrage de la VM 'sadikimohammed-7764c6c2' | Résultat: Réussite
+2026-10-02 16:50:56,651 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Arrêt de la VM 'sadikimohammed-7764c6c2' | Résultat: Réussite
+2026-10-02 17:30:18,273 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-466e702c)
+2026-10-02 17:30:24,547 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Suppression de la VM 'admin-463f0520' | Résultat: Réussite
+2026-10-02 17:30:26,768 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Suppression de la VM 'admin-4347dceb' | Résultat: Réussite
+2026-10-02 17:31:10,247 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-466e702c' | Résultat: Réussite (SSH port 22874)
+2026-10-02 17:34:12,303 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-03 15:03:44,242 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-d9529a11)
+2026-10-03 15:03:44,385 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-d9529a11' | Résultat: Échec (Master de référence introuvable : Golden master 'windows11-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.)
+2026-10-04 16:15:35,540 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-572245ea)
+2026-10-04 16:15:35,675 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-572245ea' | Résultat: Échec (Master de référence introuvable : Golden master 'zorin-lite-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.)
+2026-10-04 16:23:40,972 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Suppression de la VM 'admin-572245ea' | Résultat: Réussite
+2026-10-04 16:24:05,130 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-dd3a244b)
+2026-10-04 16:25:20,099 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-dd3a244b' | Résultat: Réussite (SSH port 22195)

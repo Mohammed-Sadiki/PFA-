@@ -28761,3 +28761,1974 @@ fastapi.exceptions.HTTPException: 401: Incorrect username or password
 2026-09-22 22:02:09,145 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
 2026-09-22 22:02:09,500 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
 2026-09-22 22:02:09,851 | INFO     | IP: - | User: - | watchfiles.main — 1 change detected
+2026-10-02 12:58:56,713 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-02 12:58:56,715 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-02 12:58:56,720 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-02 13:00:04,409 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-10-02 13:00:04,528 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 13:01:16,494 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikimohammed-6875795f)
+2026-10-02 13:01:16,525 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '🖥️ VM en cours de création' for user ID 8
+2026-10-02 13:01:16,546 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '🖥️ Nouvelle VM en cours de création' for user ID None
+2026-10-02 13:01:16,588 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-6875795f] ════════════════ PROVISIONING START (os_type=ubuntu) ════════════════
+2026-10-02 13:01:16,589 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-6875795f] [STEP 0] Resolving Golden Master for os_type='ubuntu' ...
+2026-10-02 13:01:16,589 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-6875795f] [STEP 0] OK — Golden Master resolved: 'ubuntu-24-master'
+2026-10-02 13:01:16,590 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-6875795f] [STEP 1] Verifying Golden Master 'ubuntu-24-master' in VirtualBox ...
+2026-10-02 13:01:16,628 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'ubuntu-24-master'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMNameOrUuid).raw(), machine.asOutParam())" at line 3249 of file VBoxManageInfo.cpp
+
+2026-10-02 13:01:16,630 | ERROR    | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-6875795f] [STEP 1] FAILED — Golden Master check
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\services\vm_service.py", line 298, in clone_vm
+    raise GoldenMasterNotFoundError(
+    ...<2 lines>...
+    )
+app.services.vm_service.GoldenMasterNotFoundError: Golden master 'ubuntu-24-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.
+
+2026-10-02 13:01:16,631 | ERROR    | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Provisioning de la VM 'sadikimohammed-6875795f' | Résultat: Échec (Master de référence introuvable : Golden master 'ubuntu-24-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.)
+2026-10-02 13:01:16,654 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '❌ Provisioning échoué' for user ID 8
+2026-10-02 13:01:16,665 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '⚠️ Provisioning échoué' for user ID None
+2026-10-02 13:04:10,719 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikimohammed
+2026-10-02 13:04:16,354 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 13:05:25,913 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikimohammed
+2026-10-02 15:48:47,683 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 76, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 82, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-02 15:48:47,686 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 76, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 82, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-02 15:48:54,599 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-10-02 15:48:54,765 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 16:03:01,678 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikimohammed
+2026-10-02 16:03:04,716 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 16:29:11,371 | WARNING  | IP: 127.0.0.1 | User: admin@myssjobs.com | app.security — Action: Connexion de l'utilisateur 'admin@myssjobs.com' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 16:29:11,501 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 145, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-02 16:29:15,412 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikimohammed
+2026-10-02 16:29:17,928 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 16:29:18,030 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikimohammed
+2026-10-02 16:29:18,042 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 16:29:21,045 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 16:29:50,232 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: sadikimohammed-7764c6c2)
+2026-10-02 16:29:50,265 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '🖥️ VM en cours de création' for user ID 8
+2026-10-02 16:29:50,279 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '🖥️ Nouvelle VM en cours de création' for user ID None
+2026-10-02 16:29:50,311 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] ════════════════ PROVISIONING START (os_type=ubuntu) ════════════════
+2026-10-02 16:29:50,311 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 0] Resolving Golden Master for os_type='ubuntu' ...
+2026-10-02 16:29:50,311 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 0] OK — Golden Master resolved: 'ubuntu-24-master'
+2026-10-02 16:29:50,312 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 1] Verifying Golden Master 'ubuntu-24-master' in VirtualBox ...
+2026-10-02 16:29:50,447 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [ubuntu-24-master] _golden_master_vdi_size: found disk at slot 'SATA-0-0': C:\\Users\\MSI\\VirtualBox VMs\\ubuntu-24-master\\TP1.vdi
+2026-10-02 16:29:50,495 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [ubuntu-24-master] _golden_master_vdi_size: 'capacity' = 31486 MB (33015463936 bytes)
+2026-10-02 16:29:50,495 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 1] Golden Master VDI size: 31486 MB
+2026-10-02 16:29:50,496 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 1] OK — Golden Master verified (31486 MB)
+2026-10-02 16:29:50,498 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 2] Checking for 'clean-template' snapshot on 'ubuntu-24-master' ...
+2026-10-02 16:29:50,558 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — VBoxManage exited 1
+STDOUT: This machine does not have any snapshots
+
+STDERR: 
+2026-10-02 16:29:50,558 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 2] Snapshot 'clean-template' found: False
+2026-10-02 16:29:50,559 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 2] Running clonevm (timeout=300s) ...
+2026-10-02 16:29:53,971 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'sadikimohammed-6875795f'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMNameOrUuid).raw(), machine.asOutParam())" at line 3249 of file VBoxManageInfo.cpp
+
+2026-10-02 16:29:54,034 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'sadikimohammed-6875795f'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMName).raw(), machine.asOutParam())" at line 230 of file VBoxManageMisc.cpp
+
+2026-10-02 16:29:54,066 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Metrics cache invalidated for VM: sadikimohammed-6875795f
+2026-10-02 16:29:54,066 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Suppression de la VM 'sadikimohammed-6875795f' | Résultat: Réussite
+2026-10-02 16:29:54,114 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '🗑️ VM Supprimée' for user ID 8
+2026-10-02 16:29:54,131 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '🗑️ VM supprimée' for user ID None
+2026-10-02 16:30:15,912 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 2] clonevm stdout: Machine has been successfully cloned as "sadikimohammed-7764c6c2"
+2026-10-02 16:30:15,913 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 2] clonevm stderr: 0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+2026-10-02 16:30:15,913 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 2] clonevm return code: 0
+2026-10-02 16:30:15,913 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 2] OK — VM cloned successfully
+2026-10-02 16:30:15,914 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 2] Expected .vbox path: C:\VMs\vms\sadikimohammed-7764c6c2\sadikimohammed-7764c6c2.vbox
+2026-10-02 16:30:15,914 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 3] Waiting for VM lock to release after clone ...
+2026-10-02 16:30:15,998 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 3] modifyvm attempt 1 — rc=0 | stderr: (empty)
+2026-10-02 16:30:15,998 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 3] OK — CPU/RAM/boot configured
+2026-10-02 16:30:15,999 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 4] Resizing disk to 25600 MB (vdi=C:\VMs\vms\sadikimohammed-7764c6c2\sadikimohammed-7764c6c2.vdi) ...
+2026-10-02 16:30:16,068 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find file for the medium 'C:\VMs\vms\sadikimohammed-7764c6c2\sadikimohammed-7764c6c2.vdi' (VERR_FILE_NOT_FOUND)
+VBoxManage.exe: error: Details: code VBOX_E_FILE_ERROR (0x80bb0004), component MediumWrap, interface IMedium, callee IUnknown
+VBoxManage.exe: error: Context: "OpenMedium(Bstr(pszFilenameOrUuid).raw(), enmDevType, enmAccessMode, fForceNewUuidOnOpen, pMedium.asOutParam())" at line 201 of file VBoxManageDisk.cpp
+
+2026-10-02 16:30:16,068 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 4] modifymedium stdout: (empty)
+2026-10-02 16:30:16,069 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 4] modifymedium stderr: VBoxManage.exe: error: Could not find file for the medium 'C:\VMs\vms\sadikimohammed-7764c6c2\sadikimohammed-7764c6c2.vdi' (VERR_FILE_NOT_FOUND)
+VBoxManage.exe: error: Details: code VBOX_E_FILE_ERROR (0x80bb0004), component MediumWrap, interface IMedium, callee IUnknown
+VBoxManage.exe: error: Context: "OpenMedium(Bstr(pszFilenameOrUuid).raw(), enmDevType, enmAccessMode, fForceNewUuidOnOpen, pMedium.asOutParam())" at line 201 of file VBoxManageDisk.cpp
+2026-10-02 16:30:16,069 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 4] modifymedium return code: 1
+2026-10-02 16:30:16,069 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 4] WARNING — Disk resize failed (non-fatal, continuing)
+NoneType: None
+
+2026-10-02 16:30:16,070 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 5] Generating cloud-init ISO (username=sadikimohammed) ...
+2026-10-02 16:30:18,147 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.cloudinit_service — Creating cloud-init ISO at C:\VMs\cloud-init-temp\sadikimohammed-7764c6c2\sadikimohammed-7764c6c2-cidata.iso
+2026-10-02 16:30:18,183 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.cloudinit_service — Cloud-init ISO created: C:\VMs\cloud-init-temp\sadikimohammed-7764c6c2\sadikimohammed-7764c6c2-cidata.iso
+2026-10-02 16:30:18,184 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 5] OK — ISO generated: C:\VMs\cloud-init-temp\sadikimohammed-7764c6c2\sadikimohammed-7764c6c2-cidata.iso
+2026-10-02 16:30:18,184 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 6] Resolving IDE controller name on cloned VM ...
+2026-10-02 16:30:18,249 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 6] Found existing IDE controller: 'IDE' — no storagectl needed
+2026-10-02 16:30:18,249 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 6] Detaching any existing medium on IDE:1:0 ...
+2026-10-02 16:30:18,313 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: No storage device attached to device slot 0 on port 1 of controller 'IDE'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component SessionMachine, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "DetachDevice(Bstr(pszCtl).raw(), port, device)" at line 413 of file VBoxManageStorageController.cpp
+
+2026-10-02 16:30:18,313 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 6] detach rc=1 | stderr: VBoxManage.exe: error: No storage device attached to device slot 0 on port 1 of controller 'IDE'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component SessionMachine, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "DetachDevice(Bstr(pszCtl).raw(), port, device)" at line 413 of file VBoxManageStorageController.cpp
+2026-10-02 16:30:18,314 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 6] Attaching ISO to IDE:1:0 — C:\VMs\cloud-init-temp\sadikimohammed-7764c6c2\sadikimohammed-7764c6c2-cidata.iso
+2026-10-02 16:30:18,373 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 6] attach rc=0 | stderr: (empty)
+2026-10-02 16:30:18,374 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 6] OK — ISO attached at IDE:1:0
+2026-10-02 16:30:18,374 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 7] Picking SSH port and configuring NAT forwarding ...
+2026-10-02 16:30:18,620 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 7] Selected SSH port: 22281
+2026-10-02 16:30:18,689 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 7] modifyvm (natpf1) rc=0 | stderr: (empty)
+2026-10-02 16:30:18,689 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 7] OK — NAT rule: host:22281 → guest:22
+2026-10-02 16:30:18,689 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 8] Starting VM (type=gui) ...
+2026-10-02 16:30:42,254 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 8] startvm stdout: Waiting for VM "sadikimohammed-7764c6c2" to power on...
+VM "sadikimohammed-7764c6c2" has been successfully started.
+2026-10-02 16:30:42,255 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 8] startvm stderr: (empty)
+2026-10-02 16:30:42,255 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 8] startvm return code: 0
+2026-10-02 16:30:42,255 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] [STEP 8] OK — VM started
+2026-10-02 16:30:43,652 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:30:47,256 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] ════════════════ PROVISIONING COMPLETE (ssh_port=22281) ═══════════════
+2026-10-02 16:30:47,264 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Provisioning de la VM 'sadikimohammed-7764c6c2' | Résultat: Réussite (SSH port 22281)
+2026-10-02 16:30:47,272 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Metrics cache invalidated for VM: sadikimohammed-7764c6c2
+2026-10-02 16:30:47,280 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '✅ VM Prête' for user ID 8
+2026-10-02 16:30:47,288 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '✅ Provisioning terminé' for user ID None
+2026-10-02 16:32:40,687 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 1.2%, RAM: 2693.6MB). Broadcasting.
+2026-10-02 16:32:47,613 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:35:01,718 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 8.9%, RAM: 3780.4MB). Broadcasting.
+2026-10-02 16:35:08,388 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:38:08,684 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 8.9%, RAM: 3821.2MB). Broadcasting.
+2026-10-02 16:38:15,314 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:39:08,676 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 9.9%, RAM: 3821.3MB). Broadcasting.
+2026-10-02 16:39:15,581 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:45:57,669 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 3.6%, RAM: 3816.0MB). Broadcasting.
+2026-10-02 16:46:04,397 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:46:44,661 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:46:57,593 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: PAUSED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:46:58,734 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikimohammed
+2026-10-02 16:46:58,735 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikimohammed
+2026-10-02 16:47:01,775 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 16:47:01,812 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 16:47:10,742 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:47:23,757 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: PAUSED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:47:36,719 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: CREATING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:47:41,922 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Metrics cache invalidated for VM: sadikimohammed-7764c6c2
+2026-10-02 16:47:41,922 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Démarrage de la VM 'sadikimohammed-7764c6c2' | Résultat: Réussite
+2026-10-02 16:47:41,948 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '▶️ VM Démarrée' for user ID 8
+2026-10-02 16:47:41,962 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '▶️ VM démarrée' for user ID None
+2026-10-02 16:47:42,209 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:48:45,709 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikimohammed
+2026-10-02 16:48:47,195 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-10-02 16:48:47,280 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 16:48:48,748 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 16:49:58,751 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 2.0%, RAM: 3580.1MB). Broadcasting.
+2026-10-02 16:50:12,808 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:50:19,677 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 2.7%, RAM: 3579.7MB). Broadcasting.
+2026-10-02 16:50:26,803 | INFO     | IP: - | User: - | app — Metric change detected for sadikimohammed-7764c6c2 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 16:50:43,935 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] Sending ACPI power button event...
+2026-10-02 16:50:54,934 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] ACPI shutdown timed out or failed. Forcing poweroff...
+2026-10-02 16:50:56,637 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.services.vm_service — [sadikimohammed-7764c6c2] VM stopped after forced poweroff.
+2026-10-02 16:50:56,651 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Metrics cache invalidated for VM: sadikimohammed-7764c6c2
+2026-10-02 16:50:56,651 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.vm — Action: Arrêt de la VM 'sadikimohammed-7764c6c2' | Résultat: Réussite
+2026-10-02 16:50:56,680 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '⏹️ VM Arrêtée' for user ID 8
+2026-10-02 16:50:56,695 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Notification created: '⏹️ VM arrêtée' for user ID None
+2026-10-02 16:50:56,852 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app — Metric change detected for sadikimohammed-7764c6c2 (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 17:12:19,991 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-02 17:12:19,994 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-02 17:12:20,001 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-02 17:15:35,436 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 17:15:35,458 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 145, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-02 17:15:38,870 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 17:15:38,892 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 145, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-02 17:15:46,112 | WARNING  | IP: 127.0.0.1 | User: admin@myssjobs.com | app.security — Action: Connexion de l'utilisateur 'admin@myssjobs.com' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 17:15:46,132 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 145, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-02 17:16:17,595 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 17:16:17,608 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 145, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-02 17:16:18,883 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 17:16:18,902 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 145, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-02 17:16:24,530 | WARNING  | IP: 127.0.0.1 | User: - | slowapi — ratelimit 5 per 15 minute (127.0.0.1) exceeded at endpoint: /auth/login
+2026-10-02 17:16:24,541 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 429: 5 per 15 minute)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 768, in sync_wrapper
+    self._check_request_limit(request, func, False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 635, in _check_request_limit
+    self.__evaluate_limits(request, _endpoint_key, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 533, in __evaluate_limits
+    raise RateLimitExceeded(failed_limit)
+slowapi.errors.RateLimitExceeded: 429: 5 per 15 minute
+2026-10-02 17:16:24,547 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:17:08,851 | WARNING  | IP: 127.0.0.1 | User: - | slowapi — ratelimit 5 per 15 minute (127.0.0.1) exceeded at endpoint: /auth/login
+2026-10-02 17:17:08,852 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 429: 5 per 15 minute)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 768, in sync_wrapper
+    self._check_request_limit(request, func, False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 635, in _check_request_limit
+    self.__evaluate_limits(request, _endpoint_key, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 533, in __evaluate_limits
+    raise RateLimitExceeded(failed_limit)
+slowapi.errors.RateLimitExceeded: 429: 5 per 15 minute
+2026-10-02 17:17:08,859 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:17:12,706 | WARNING  | IP: 127.0.0.1 | User: - | slowapi — ratelimit 5 per 15 minute (127.0.0.1) exceeded at endpoint: /auth/login
+2026-10-02 17:17:12,707 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 429: 5 per 15 minute)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 768, in sync_wrapper
+    self._check_request_limit(request, func, False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 635, in _check_request_limit
+    self.__evaluate_limits(request, _endpoint_key, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 533, in __evaluate_limits
+    raise RateLimitExceeded(failed_limit)
+slowapi.errors.RateLimitExceeded: 429: 5 per 15 minute
+2026-10-02 17:17:12,715 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:17:13,344 | WARNING  | IP: 127.0.0.1 | User: - | slowapi — ratelimit 5 per 15 minute (127.0.0.1) exceeded at endpoint: /auth/login
+2026-10-02 17:17:13,345 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 429: 5 per 15 minute)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 768, in sync_wrapper
+    self._check_request_limit(request, func, False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 635, in _check_request_limit
+    self.__evaluate_limits(request, _endpoint_key, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 533, in __evaluate_limits
+    raise RateLimitExceeded(failed_limit)
+slowapi.errors.RateLimitExceeded: 429: 5 per 15 minute
+2026-10-02 17:17:13,351 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:17:21,466 | WARNING  | IP: 127.0.0.1 | User: - | slowapi — ratelimit 5 per 15 minute (127.0.0.1) exceeded at endpoint: /auth/login
+2026-10-02 17:17:21,466 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 429: 5 per 15 minute)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 768, in sync_wrapper
+    self._check_request_limit(request, func, False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 635, in _check_request_limit
+    self.__evaluate_limits(request, _endpoint_key, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 533, in __evaluate_limits
+    raise RateLimitExceeded(failed_limit)
+slowapi.errors.RateLimitExceeded: 429: 5 per 15 minute
+2026-10-02 17:17:21,475 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:17:51,115 | WARNING  | IP: 127.0.0.1 | User: - | slowapi — ratelimit 5 per 15 minute (127.0.0.1) exceeded at endpoint: /auth/login
+2026-10-02 17:17:51,116 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 429: 5 per 15 minute)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 768, in sync_wrapper
+    self._check_request_limit(request, func, False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 635, in _check_request_limit
+    self.__evaluate_limits(request, _endpoint_key, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 533, in __evaluate_limits
+    raise RateLimitExceeded(failed_limit)
+slowapi.errors.RateLimitExceeded: 429: 5 per 15 minute
+2026-10-02 17:17:51,122 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:18:05,396 | WARNING  | IP: 127.0.0.1 | User: - | slowapi — ratelimit 5 per 15 minute (127.0.0.1) exceeded at endpoint: /auth/login
+2026-10-02 17:18:05,397 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 429: 5 per 15 minute)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 768, in sync_wrapper
+    self._check_request_limit(request, func, False)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 635, in _check_request_limit
+    self.__evaluate_limits(request, _endpoint_key, all_limits)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 533, in __evaluate_limits
+    raise RateLimitExceeded(failed_limit)
+slowapi.errors.RateLimitExceeded: 429: 5 per 15 minute
+2026-10-02 17:18:05,404 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:21:18,890 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-02 17:21:18,893 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-02 17:21:18,900 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-02 17:22:13,307 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-10-02 17:27:46,133 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-10-02 17:27:46,371 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 17:28:35,760 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikimohammed
+2026-10-02 17:28:38,779 | INFO     | IP: - | User: - | app — WebSocket connected: user=sadikimohammed, is_admin=False
+2026-10-02 17:28:51,597 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-02 17:28:51,713 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 17:30:18,273 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-466e702c)
+2026-10-02 17:30:18,326 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🖥️ VM en cours de création' for user ID 7
+2026-10-02 17:30:18,349 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🖥️ Nouvelle VM en cours de création' for user ID None
+2026-10-02 17:30:18,380 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] ════════════════ PROVISIONING START (os_type=ubuntu) ════════════════
+2026-10-02 17:30:18,381 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 0] Resolving Golden Master for os_type='ubuntu' ...
+2026-10-02 17:30:18,381 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 0] OK — Golden Master resolved: 'ubuntu-24-master'
+2026-10-02 17:30:18,381 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 1] Verifying Golden Master 'ubuntu-24-master' in VirtualBox ...
+2026-10-02 17:30:18,537 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [ubuntu-24-master] _golden_master_vdi_size: found disk at slot 'SATA-0-0': C:\\Users\\MSI\\VirtualBox VMs\\ubuntu-24-master\\TP1.vdi
+2026-10-02 17:30:18,592 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [ubuntu-24-master] _golden_master_vdi_size: 'capacity' = 31486 MB (33015463936 bytes)
+2026-10-02 17:30:18,592 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 1] Golden Master VDI size: 31486 MB
+2026-10-02 17:30:18,593 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 1] OK — Golden Master verified (31486 MB)
+2026-10-02 17:30:18,594 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 2] Checking for 'clean-template' snapshot on 'ubuntu-24-master' ...
+2026-10-02 17:30:18,758 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: This machine does not have any snapshots
+
+STDERR: 
+2026-10-02 17:30:18,758 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 2] Snapshot 'clean-template' found: False
+2026-10-02 17:30:18,758 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 2] Running clonevm (timeout=300s) ...
+2026-10-02 17:30:24,440 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'admin-463f0520'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMNameOrUuid).raw(), machine.asOutParam())" at line 3249 of file VBoxManageInfo.cpp
+
+2026-10-02 17:30:24,523 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'admin-463f0520'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMName).raw(), machine.asOutParam())" at line 230 of file VBoxManageMisc.cpp
+
+2026-10-02 17:30:24,546 | INFO     | IP: 127.0.0.1 | User: admin | app — Metrics cache invalidated for VM: admin-463f0520
+2026-10-02 17:30:24,547 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Suppression de la VM 'admin-463f0520' | Résultat: Réussite
+2026-10-02 17:30:24,617 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🗑️ VM Supprimée' for user ID 7
+2026-10-02 17:30:24,645 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🗑️ VM supprimée' for user ID None
+2026-10-02 17:30:26,518 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'admin-4347dceb'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMNameOrUuid).raw(), machine.asOutParam())" at line 3249 of file VBoxManageInfo.cpp
+
+2026-10-02 17:30:26,734 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'admin-4347dceb'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMName).raw(), machine.asOutParam())" at line 230 of file VBoxManageMisc.cpp
+
+2026-10-02 17:30:26,767 | INFO     | IP: 127.0.0.1 | User: admin | app — Metrics cache invalidated for VM: admin-4347dceb
+2026-10-02 17:30:26,768 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Suppression de la VM 'admin-4347dceb' | Résultat: Réussite
+2026-10-02 17:30:26,828 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🗑️ VM Supprimée' for user ID 7
+2026-10-02 17:30:26,843 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🗑️ VM supprimée' for user ID None
+2026-10-02 17:30:44,363 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 2] clonevm stdout: Machine has been successfully cloned as "admin-466e702c"
+2026-10-02 17:30:44,364 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 2] clonevm stderr: 0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+2026-10-02 17:30:44,364 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 2] clonevm return code: 0
+2026-10-02 17:30:44,364 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 2] OK — VM cloned successfully
+2026-10-02 17:30:44,364 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 2] Expected .vbox path: C:\VMs\vms\admin-466e702c\admin-466e702c.vbox
+2026-10-02 17:30:44,365 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 3] Waiting for VM lock to release after clone ...
+2026-10-02 17:30:44,431 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 3] modifyvm attempt 1 — rc=0 | stderr: (empty)
+2026-10-02 17:30:44,431 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 3] OK — CPU/RAM/boot configured
+2026-10-02 17:30:44,432 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 4] Resizing disk to 30720 MB (vdi=C:\VMs\vms\admin-466e702c\admin-466e702c.vdi) ...
+2026-10-02 17:30:44,492 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find file for the medium 'C:\VMs\vms\admin-466e702c\admin-466e702c.vdi' (VERR_FILE_NOT_FOUND)
+VBoxManage.exe: error: Details: code VBOX_E_FILE_ERROR (0x80bb0004), component MediumWrap, interface IMedium, callee IUnknown
+VBoxManage.exe: error: Context: "OpenMedium(Bstr(pszFilenameOrUuid).raw(), enmDevType, enmAccessMode, fForceNewUuidOnOpen, pMedium.asOutParam())" at line 201 of file VBoxManageDisk.cpp
+
+2026-10-02 17:30:44,493 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 4] modifymedium stdout: (empty)
+2026-10-02 17:30:44,493 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 4] modifymedium stderr: VBoxManage.exe: error: Could not find file for the medium 'C:\VMs\vms\admin-466e702c\admin-466e702c.vdi' (VERR_FILE_NOT_FOUND)
+VBoxManage.exe: error: Details: code VBOX_E_FILE_ERROR (0x80bb0004), component MediumWrap, interface IMedium, callee IUnknown
+VBoxManage.exe: error: Context: "OpenMedium(Bstr(pszFilenameOrUuid).raw(), enmDevType, enmAccessMode, fForceNewUuidOnOpen, pMedium.asOutParam())" at line 201 of file VBoxManageDisk.cpp
+2026-10-02 17:30:44,493 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 4] modifymedium return code: 1
+2026-10-02 17:30:44,494 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 4] WARNING — Disk resize failed (non-fatal, continuing)
+NoneType: None
+
+2026-10-02 17:30:44,494 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 5] Generating cloud-init ISO (username=admin) ...
+2026-10-02 17:30:46,069 | INFO     | IP: 127.0.0.1 | User: admin | app.services.cloudinit_service — Creating cloud-init ISO at C:\VMs\cloud-init-temp\admin-466e702c\admin-466e702c-cidata.iso
+2026-10-02 17:30:46,081 | INFO     | IP: 127.0.0.1 | User: admin | app.services.cloudinit_service — Cloud-init ISO created: C:\VMs\cloud-init-temp\admin-466e702c\admin-466e702c-cidata.iso
+2026-10-02 17:30:46,081 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 5] OK — ISO generated: C:\VMs\cloud-init-temp\admin-466e702c\admin-466e702c-cidata.iso
+2026-10-02 17:30:46,082 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 6] Resolving IDE controller name on cloned VM ...
+2026-10-02 17:30:46,234 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 6] Found existing IDE controller: 'IDE' — no storagectl needed
+2026-10-02 17:30:46,234 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 6] Detaching any existing medium on IDE:1:0 ...
+2026-10-02 17:30:46,320 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: No storage device attached to device slot 0 on port 1 of controller 'IDE'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component SessionMachine, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "DetachDevice(Bstr(pszCtl).raw(), port, device)" at line 413 of file VBoxManageStorageController.cpp
+
+2026-10-02 17:30:46,321 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 6] detach rc=1 | stderr: VBoxManage.exe: error: No storage device attached to device slot 0 on port 1 of controller 'IDE'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component SessionMachine, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "DetachDevice(Bstr(pszCtl).raw(), port, device)" at line 413 of file VBoxManageStorageController.cpp
+2026-10-02 17:30:46,321 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 6] Attaching ISO to IDE:1:0 — C:\VMs\cloud-init-temp\admin-466e702c\admin-466e702c-cidata.iso
+2026-10-02 17:30:46,395 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 6] attach rc=0 | stderr: (empty)
+2026-10-02 17:30:46,395 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 6] OK — ISO attached at IDE:1:0
+2026-10-02 17:30:46,396 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 7] Picking SSH port and configuring NAT forwarding ...
+2026-10-02 17:30:46,707 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 7] Selected SSH port: 22874
+2026-10-02 17:30:46,767 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 7] modifyvm (natpf1) rc=0 | stderr: (empty)
+2026-10-02 17:30:46,768 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 7] OK — NAT rule: host:22874 → guest:22
+2026-10-02 17:30:46,768 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 8] Starting VM (type=gui) ...
+2026-10-02 17:31:05,197 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 8] startvm stdout: Waiting for VM "admin-466e702c" to power on...
+VM "admin-466e702c" has been successfully started.
+2026-10-02 17:31:05,198 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 8] startvm stderr: (empty)
+2026-10-02 17:31:05,198 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 8] startvm return code: 0
+2026-10-02 17:31:05,198 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] [STEP 8] OK — VM started
+2026-10-02 17:31:10,169 | INFO     | IP: - | User: - | app — Metric change detected for admin-466e702c (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 17:31:10,208 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] ════════════════ PROVISIONING COMPLETE (ssh_port=22874) ═══════════════
+2026-10-02 17:31:10,247 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-466e702c' | Résultat: Réussite (SSH port 22874)
+2026-10-02 17:31:10,280 | INFO     | IP: 127.0.0.1 | User: admin | app — Metrics cache invalidated for VM: admin-466e702c
+2026-10-02 17:31:10,349 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '✅ VM Prête' for user ID 7
+2026-10-02 17:31:10,385 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '✅ Provisioning terminé' for user ID None
+2026-10-02 17:33:09,593 | INFO     | IP: - | User: - | app — Metric change detected for admin-466e702c (Status: RUNNING, IP: 10.0.2.15, CPU: 1.4%, RAM: 2656.6MB). Broadcasting.
+2026-10-02 17:33:16,343 | INFO     | IP: - | User: - | app — Metric change detected for admin-466e702c (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 17:33:29,607 | INFO     | IP: - | User: - | app — Metric change detected for admin-466e702c (Status: RUNNING, IP: 10.0.2.15, CPU: 2.4%, RAM: 2656.8MB). Broadcasting.
+2026-10-02 17:33:36,274 | INFO     | IP: - | User: - | app — Metric change detected for admin-466e702c (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 17:33:59,522 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] Sending ACPI power button event...
+2026-10-02 17:34:10,771 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] ACPI shutdown timed out or failed. Forcing poweroff...
+2026-10-02 17:34:12,283 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-466e702c] VM stopped after forced poweroff.
+2026-10-02 17:34:12,294 | INFO     | IP: 127.0.0.1 | User: admin | app — Metrics cache invalidated for VM: admin-466e702c
+2026-10-02 17:34:12,303 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-02 17:34:12,354 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '⏹️ VM Arrêtée' for user ID 7
+2026-10-02 17:34:12,392 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '⏹️ VM arrêtée' for user ID None
+2026-10-02 17:34:12,536 | INFO     | IP: 127.0.0.1 | User: admin | app — Metric change detected for admin-466e702c (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-02 17:59:41,176 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 17:59:41,185 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=sadikimohammed
+2026-10-02 19:25:09,341 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 76, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 82, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-02 19:25:09,352 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 76, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 82, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-02 19:25:09,495 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 76, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 82, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-02 19:25:09,499 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 76, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 82, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-02 19:25:12,690 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-02 19:25:13,100 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 19:35:35,883 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 19:37:12,217 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 19:53:26,721 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 19:53:27,131 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 19:53:27,172 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 19:53:27,215 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 19:53:27,437 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 19:53:27,470 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 19:53:27,526 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 19:53:27,576 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 19:53:30,208 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 19:53:30,491 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 19:53:30,589 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 20:03:39,115 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 20:03:39,121 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 20:03:39,137 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 20:03:39,147 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 20:14:01,358 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 20:14:01,385 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 20:14:01,445 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 20:14:01,473 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 20:14:01,764 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 20:14:01,781 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 20:14:01,783 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 20:14:01,783 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 20:14:02,245 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 20:14:02,318 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 20:14:02,328 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 20:14:02,341 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 20:14:02,375 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 20:14:05,206 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 20:14:05,355 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 20:14:05,382 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=False
+2026-10-02 21:18:30,234 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 21:18:30,235 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 21:18:30,235 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-02 21:18:30,236 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-03 14:38:40,545 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-03 14:38:40,549 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-03 14:38:40,558 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-03 14:41:21,213 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 14:41:30,393 | WARNING  | IP: 127.0.0.1 | User: admin@gmail.com | app.security — Action: Connexion de l'utilisateur 'admin@gmail.com' | Résultat: Échec (Identifiants incorrects)
+2026-10-03 14:41:30,405 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 145, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-03 14:42:02,867 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 14:42:12,694 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 14:43:43,183 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-03 14:43:43,186 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-03 14:43:43,193 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-03 14:44:25,055 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 14:44:32,045 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 14:44:49,086 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-10-03 14:44:49,086 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-10-03 14:44:50,423 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-03 14:44:50,426 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-03 14:44:50,432 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-03 15:01:03,499 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-03 15:01:03,502 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-03 15:01:03,508 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-03 15:02:17,432 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 15:02:17,680 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-03 15:03:44,242 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-d9529a11)
+2026-10-03 15:03:44,278 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🖥️ VM en cours de création' for user ID 7
+2026-10-03 15:03:44,294 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🖥️ Nouvelle VM en cours de création' for user ID None
+2026-10-03 15:03:44,330 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-d9529a11] ════════════════ PROVISIONING START (os_type=windows11) ════════════════
+2026-10-03 15:03:44,331 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-d9529a11] [STEP 0] Resolving Golden Master for os_type='windows11' ...
+2026-10-03 15:03:44,331 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-d9529a11] [STEP 0] OK — Golden Master resolved: 'windows11-master'
+2026-10-03 15:03:44,332 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-d9529a11] [STEP 1] Verifying Golden Master 'windows11-master' in VirtualBox ...
+2026-10-03 15:03:44,381 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'windows11-master'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMNameOrUuid).raw(), machine.asOutParam())" at line 3249 of file VBoxManageInfo.cpp
+
+2026-10-03 15:03:44,383 | ERROR    | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-d9529a11] [STEP 1] FAILED — Golden Master check
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\services\vm_service.py", line 298, in clone_vm
+    raise GoldenMasterNotFoundError(
+    ...<2 lines>...
+    )
+app.services.vm_service.GoldenMasterNotFoundError: Golden master 'windows11-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.
+
+2026-10-03 15:03:44,385 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-d9529a11' | Résultat: Échec (Master de référence introuvable : Golden master 'windows11-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.)
+2026-10-03 15:03:44,417 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '❌ Provisioning échoué' for user ID 7
+2026-10-03 15:03:44,431 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '⚠️ Provisioning échoué' for user ID None
+2026-10-03 15:30:47,000 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:12:51,408 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 93, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 99, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-04 16:12:51,420 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 93, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 99, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-04 16:12:51,488 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 93, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 99, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-04 16:12:51,494 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 93, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 99, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-04 16:13:12,844 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-04 16:13:12,897 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 162, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-04 16:13:25,310 | WARNING  | IP: 127.0.0.1 | User: admin@gmail.com | app.security — Action: Connexion de l'utilisateur 'admin@gmail.com' | Résultat: Échec (Identifiants incorrects)
+2026-10-04 16:13:25,336 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 162, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-04 16:13:49,031 | WARNING  | IP: 127.0.0.1 | User: anass | app.security — Action: Connexion de l'utilisateur 'anass' | Résultat: Échec (Identifiants incorrects)
+2026-10-04 16:13:49,053 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 162, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-04 16:14:05,169 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-10-04 16:14:05,171 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-10-04 16:14:11,630 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-04 16:14:11,634 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-04 16:14:11,642 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-04 16:14:15,110 | WARNING  | IP: 127.0.0.1 | User: anass | app.security — Action: Connexion de l'utilisateur 'anass' | Résultat: Échec (Identifiants incorrects)
+2026-10-04 16:14:15,136 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 162, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-04 16:14:30,237 | WARNING  | IP: 127.0.0.1 | User: asmin | app.security — Action: Connexion de l'utilisateur 'asmin' | Résultat: Échec (Identifiants incorrects)
+2026-10-04 16:14:30,255 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Incorrect username or password)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 727, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 362, in run_endpoint_function
+    return await run_in_threadpool(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+        _run_sync_endpoint, function=dependant.call, arguments=values
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\starlette\concurrency.py", line 34, in run_in_threadpool
+    return await anyio.to_thread.run_sync(func)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\to_thread.py", line 65, in run_sync
+    return await get_async_backend().run_sync_in_worker_thread(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        func, args, abandon_on_cancel=abandon_on_cancel, limiter=limiter
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2706, in run_sync_in_worker_thread
+    return await future
+           ^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 1100, in run
+    result = context.run(func, *args)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\telemetry\_api.py", line 240, in _run_sync_endpoint
+    return function(**arguments)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\slowapi\extension.py", line 770, in sync_wrapper
+    response = func(*args, **kwargs)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 162, in login
+    raise HTTPException(
+    ...<3 lines>...
+    )
+fastapi.exceptions.HTTPException: 401: Incorrect username or password
+2026-10-04 16:14:42,868 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-04 16:14:43,178 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:15:35,540 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-572245ea)
+2026-10-04 16:15:35,572 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🖥️ VM en cours de création' for user ID 7
+2026-10-04 16:15:35,585 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🖥️ Nouvelle VM en cours de création' for user ID None
+2026-10-04 16:15:35,623 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-572245ea] ════════════════ PROVISIONING START (os_type=zorin) ════════════════
+2026-10-04 16:15:35,628 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-572245ea] [STEP 0] Resolving Golden Master for os_type='zorin' ...
+2026-10-04 16:15:35,629 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-572245ea] [STEP 0] OK — Golden Master resolved: 'zorin-lite-master'
+2026-10-04 16:15:35,629 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-572245ea] [STEP 1] Verifying Golden Master 'zorin-lite-master' in VirtualBox ...
+2026-10-04 16:15:35,671 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'zorin-lite-master'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMNameOrUuid).raw(), machine.asOutParam())" at line 3249 of file VBoxManageInfo.cpp
+
+2026-10-04 16:15:35,675 | ERROR    | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-572245ea] [STEP 1] FAILED — Golden Master check
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\services\vm_service.py", line 298, in clone_vm
+    raise GoldenMasterNotFoundError(
+    ...<2 lines>...
+    )
+app.services.vm_service.GoldenMasterNotFoundError: Golden master 'zorin-lite-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.
+
+2026-10-04 16:15:35,675 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-572245ea' | Résultat: Échec (Master de référence introuvable : Golden master 'zorin-lite-master' not found in VirtualBox. Please run install_golden_master.ps1 then finalize_golden_master.ps1.)
+2026-10-04 16:15:35,699 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '❌ Provisioning échoué' for user ID 7
+2026-10-04 16:15:35,711 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '⚠️ Provisioning échoué' for user ID None
+2026-10-04 16:20:10,220 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:20:10,329 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-10-04 16:20:10,332 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-10-04 16:20:12,386 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-04 16:20:12,390 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-04 16:20:12,397 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-04 16:20:14,047 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:20:22,813 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:20:22,930 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-10-04 16:20:22,936 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-10-04 16:20:24,698 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-04 16:20:24,701 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-04 16:20:24,707 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-04 16:20:26,028 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:22:21,825 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-04 16:22:21,828 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-04 16:22:21,838 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-04 16:22:31,900 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:25,828 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:25,854 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:25,885 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:25,920 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:25,935 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:26,152 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:26,164 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:28,979 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:29,073 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:29,451 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:31,576 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:31,578 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:31,580 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:31,581 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:31,648 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:31,651 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:31,663 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:31,693 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:31,695 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:31,706 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:23:31,733 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:34,702 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:34,774 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:34,820 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-04 16:23:40,900 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'admin-572245ea'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMNameOrUuid).raw(), machine.asOutParam())" at line 3249 of file VBoxManageInfo.cpp
+
+2026-10-04 16:23:40,956 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: Could not find a registered machine named 'admin-572245ea'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component VirtualBoxWrap, interface IVirtualBox, callee IUnknown
+VBoxManage.exe: error: Context: "FindMachine(Bstr(VMName).raw(), machine.asOutParam())" at line 230 of file VBoxManageMisc.cpp
+
+2026-10-04 16:23:40,971 | INFO     | IP: 127.0.0.1 | User: admin | app — Metrics cache invalidated for VM: admin-572245ea
+2026-10-04 16:23:40,972 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Suppression de la VM 'admin-572245ea' | Résultat: Réussite
+2026-10-04 16:23:41,015 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🗑️ VM Supprimée' for user ID 7
+2026-10-04 16:23:41,028 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🗑️ VM supprimée' for user ID None
+2026-10-04 16:24:05,130 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-dd3a244b)
+2026-10-04 16:24:05,162 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🖥️ VM en cours de création' for user ID 7
+2026-10-04 16:24:05,176 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '🖥️ Nouvelle VM en cours de création' for user ID None
+2026-10-04 16:24:05,211 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] ════════════════ PROVISIONING START (os_type=zorin) ════════════════
+2026-10-04 16:24:05,214 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 0] Resolving Golden Master for os_type='zorin' ...
+2026-10-04 16:24:05,215 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 0] OK — Golden Master resolved: 'zorin-24-master'
+2026-10-04 16:24:05,218 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 1] Verifying Golden Master 'zorin-24-master' in VirtualBox ...
+2026-10-04 16:24:05,343 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [zorin-24-master] _golden_master_vdi_size: found disk at slot 'SATA-0-0': C:/Users/MSI/VirtualBox VMs/zorin-24-master/zorin-24-master.vdi
+2026-10-04 16:24:05,390 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [zorin-24-master] _golden_master_vdi_size: 'capacity' = 25757 MB (27008172032 bytes)
+2026-10-04 16:24:05,391 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 1] Golden Master VDI size: 25757 MB
+2026-10-04 16:24:05,392 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 1] OK — Golden Master verified (25757 MB)
+2026-10-04 16:24:05,394 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 2] Checking for 'clean-template' snapshot on 'zorin-24-master' ...
+2026-10-04 16:24:05,440 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: This machine does not have any snapshots
+
+STDERR: 
+2026-10-04 16:24:05,440 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 2] Snapshot 'clean-template' found: False
+2026-10-04 16:24:05,441 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 2] Running clonevm (timeout=300s) ...
+2026-10-04 16:24:48,193 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 2] clonevm stdout: Machine has been successfully cloned as "admin-dd3a244b"
+2026-10-04 16:24:48,194 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 2] clonevm stderr: 0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+2026-10-04 16:24:48,194 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 2] clonevm return code: 0
+2026-10-04 16:24:48,195 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 2] OK — VM cloned successfully
+2026-10-04 16:24:48,196 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 2] Expected .vbox path: C:\VMs\vms\admin-dd3a244b\admin-dd3a244b.vbox
+2026-10-04 16:24:48,197 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 3] Waiting for VM lock to release after clone ...
+2026-10-04 16:24:48,291 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 3] modifyvm attempt 1 — rc=0 | stderr: (empty)
+2026-10-04 16:24:48,291 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 3] OK — CPU/RAM/boot configured
+2026-10-04 16:24:48,291 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 4] Resizing disk to 30720 MB (vdi=C:\VMs\vms\admin-dd3a244b\admin-dd3a244b.vdi) ...
+2026-10-04 16:24:48,349 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 4] modifymedium stdout: (empty)
+2026-10-04 16:24:48,350 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 4] modifymedium stderr: 0%...10%...20%...30%...40%...50%...60%...70%...80%...90%...100%
+2026-10-04 16:24:48,350 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 4] modifymedium return code: 0
+2026-10-04 16:24:48,350 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 4] OK — Disk resized to 30720 MB
+2026-10-04 16:24:48,351 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 5] Generating cloud-init ISO (username=admin) ...
+2026-10-04 16:24:50,178 | INFO     | IP: 127.0.0.1 | User: admin | app.services.cloudinit_service — Creating cloud-init ISO at C:\VMs\cloud-init-temp\admin-dd3a244b\admin-dd3a244b-cidata.iso
+2026-10-04 16:24:50,200 | INFO     | IP: 127.0.0.1 | User: admin | app.services.cloudinit_service — Cloud-init ISO created: C:\VMs\cloud-init-temp\admin-dd3a244b\admin-dd3a244b-cidata.iso
+2026-10-04 16:24:50,201 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 5] OK — ISO generated: C:\VMs\cloud-init-temp\admin-dd3a244b\admin-dd3a244b-cidata.iso
+2026-10-04 16:24:50,202 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 6] Resolving IDE controller name on cloned VM ...
+2026-10-04 16:24:50,258 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 6] Found existing IDE controller: 'IDE' — no storagectl needed
+2026-10-04 16:24:50,259 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 6] Detaching any existing medium on IDE:1:0 ...
+2026-10-04 16:24:50,316 | WARNING  | IP: 127.0.0.1 | User: admin | app.services.vm_service — VBoxManage exited 1
+STDOUT: 
+STDERR: VBoxManage.exe: error: No storage device attached to device slot 0 on port 1 of controller 'IDE'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component SessionMachine, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "DetachDevice(Bstr(pszCtl).raw(), port, device)" at line 413 of file VBoxManageStorageController.cpp
+
+2026-10-04 16:24:50,317 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 6] detach rc=1 | stderr: VBoxManage.exe: error: No storage device attached to device slot 0 on port 1 of controller 'IDE'
+VBoxManage.exe: error: Details: code VBOX_E_OBJECT_NOT_FOUND (0x80bb0001), component SessionMachine, interface IMachine, callee IUnknown
+VBoxManage.exe: error: Context: "DetachDevice(Bstr(pszCtl).raw(), port, device)" at line 413 of file VBoxManageStorageController.cpp
+2026-10-04 16:24:50,317 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 6] Attaching ISO to IDE:1:0 — C:\VMs\cloud-init-temp\admin-dd3a244b\admin-dd3a244b-cidata.iso
+2026-10-04 16:24:50,396 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 6] attach rc=0 | stderr: (empty)
+2026-10-04 16:24:50,397 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 6] OK — ISO attached at IDE:1:0
+2026-10-04 16:24:50,398 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 7] Picking SSH port and configuring NAT forwarding ...
+2026-10-04 16:24:50,791 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 7] Selected SSH port: 22195
+2026-10-04 16:24:50,856 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 7] modifyvm (natpf1) rc=0 | stderr: (empty)
+2026-10-04 16:24:50,856 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 7] OK — NAT rule: host:22195 → guest:22
+2026-10-04 16:24:50,857 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 8] Starting VM (type=gui) ...
+2026-10-04 16:25:15,063 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 8] startvm stdout: Waiting for VM "admin-dd3a244b" to power on...
+VM "admin-dd3a244b" has been successfully started.
+2026-10-04 16:25:15,063 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 8] startvm stderr: (empty)
+2026-10-04 16:25:15,064 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 8] startvm return code: 0
+2026-10-04 16:25:15,064 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] [STEP 8] OK — VM started
+2026-10-04 16:25:16,712 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:25:16,763 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:25:16,781 | ERROR    | IP: - | User: - | app — Failed to broadcast stats update: This Connection is closed
+2026-10-04 16:25:20,065 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-dd3a244b] ════════════════ PROVISIONING COMPLETE (ssh_port=22195) ═══════════════
+2026-10-04 16:25:20,099 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-dd3a244b' | Résultat: Réussite (SSH port 22195)
+2026-10-04 16:25:20,137 | INFO     | IP: 127.0.0.1 | User: admin | app — Metrics cache invalidated for VM: admin-dd3a244b
+2026-10-04 16:25:20,156 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '✅ VM Prête' for user ID 7
+2026-10-04 16:25:20,174 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '✅ Provisioning terminé' for user ID None
+2026-10-04 16:25:32,903 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 11.9%, RAM: 1046.7MB). Broadcasting.
+2026-10-04 16:25:39,497 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:26:31,914 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 3.8%, RAM: 1551.5MB). Broadcasting.
+2026-10-04 16:26:38,435 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:29:29,935 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 4.8%, RAM: 1543.1MB). Broadcasting.
+2026-10-04 16:29:36,576 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:31:04,921 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 3.8%, RAM: 1543.2MB). Broadcasting.
+2026-10-04 16:31:11,430 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:33:38,904 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 6.2%, RAM: 1538.9MB). Broadcasting.
+2026-10-04 16:33:45,437 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:37:31,936 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 5.0%, RAM: 1385.1MB). Broadcasting.
+2026-10-04 16:37:38,445 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:38:07,919 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 6.2%, RAM: 1385.3MB). Broadcasting.
+2026-10-04 16:38:14,531 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:39:16,918 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 4.5%, RAM: 1385.8MB). Broadcasting.
+2026-10-04 16:39:23,598 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:39:49,918 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 4.7%, RAM: 1385.7MB). Broadcasting.
+2026-10-04 16:39:56,497 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:40:54,785 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:40:54,793 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:40:54,800 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:40:54,801 | INFO     | IP: - | User: - | app — WebSocket disconnected: user=admin
+2026-10-04 16:41:41,931 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 5.3%, RAM: 1385.9MB). Broadcasting.
+2026-10-04 16:41:45,905 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 5.2%, RAM: 1385.7MB). Broadcasting.
+2026-10-04 16:41:48,819 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:41:52,734 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:42:19,935 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 5.6%, RAM: 1385.7MB). Broadcasting.
+2026-10-04 16:42:26,779 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:42:46,914 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 6.0%, RAM: 1385.8MB). Broadcasting.
+2026-10-04 16:42:53,650 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:43:34,188 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 5.7%, RAM: 1385.7MB). Broadcasting.
+2026-10-04 16:43:40,892 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:44:07,966 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 5.8%, RAM: 1385.7MB). Broadcasting.
+2026-10-04 16:44:14,642 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:44:55,955 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-10-04 16:44:55,956 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-10-04 16:44:55,965 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-10-04 16:44:55,966 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-10-04 16:44:57,860 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-04 16:44:57,863 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-04 16:44:57,863 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-04 16:44:57,869 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-04 16:44:57,869 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-04 16:45:09,566 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-10-04 16:45:09,566 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-10-04 16:45:09,569 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-10-04 16:45:09,570 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-10-04 16:45:11,245 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-04 16:45:11,247 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-04 16:45:11,248 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-04 16:45:11,250 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-04 16:45:11,257 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-04 16:45:11,257 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-04 16:47:55,426 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:47:55,448 | INFO     | IP: - | User: - | app — Metric change detected for admin-dd3a244b (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-04 16:49:43,328 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-dd3a244b', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-dd3a244b', '--machinereadable']' timed out after 5 seconds
+2026-10-04 16:56:37,677 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-10-04 16:56:37,681 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-10-04 16:56:37,712 | INFO     | IP: - | User: - | app.main — Shutting down.
+2026-10-04 16:56:37,715 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor stopping.
+2026-10-04 16:56:40,521 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-04 16:56:40,529 | INFO     | IP: - | User: - | app.main — Initialising database …
+2026-10-04 16:56:40,530 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-04 16:56:40,532 | INFO     | IP: - | User: - | app.main — Database ready.
+2026-10-04 16:56:40,536 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-04 16:56:40,540 | INFO     | IP: - | User: - | app — Background VM Metrics Monitor started.
+2026-10-04 16:57:11,666 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-466e702c', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-466e702c', '--machinereadable']' timed out after 5 seconds
+2026-10-04 22:19:15,218 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikisadiki-f6f29e40', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikisadiki-f6f29e40', '--machinereadable']' timed out after 5 seconds
+2026-10-04 22:19:16,615 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikimohammed-7764c6c2', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikimohammed-7764c6c2', '--machinereadable']' timed out after 5 seconds
+2026-10-04 23:53:41,460 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-dd3a244b', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-dd3a244b', '--machinereadable']' timed out after 5 seconds
+2026-10-05 08:37:44,525 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikisadiki-f6f29e40', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikisadiki-f6f29e40', '--machinereadable']' timed out after 5 seconds
+2026-10-05 08:37:51,712 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikimohammed-7764c6c2', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikimohammed-7764c6c2', '--machinereadable']' timed out after 5 seconds
+2026-10-05 08:38:54,357 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikisadiki-744690d0', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikisadiki-744690d0', '--machinereadable']' timed out after 5 seconds
+2026-10-05 08:38:54,357 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikisadiki-e23113ad', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'sadikisadiki-e23113ad', '--machinereadable']' timed out after 5 seconds
+2026-10-05 08:39:39,783 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-dd3a244b', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-dd3a244b', '--machinereadable']' timed out after 5 seconds
+2026-10-05 08:59:36,401 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-466e702c', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-466e702c', '--machinereadable']' timed out after 5 seconds
+2026-10-05 09:28:52,924 | ERROR    | IP: - | User: - | app — Error running VBoxManage metrics command ['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-466e702c', '--machinereadable']: Command '['C:\\Program Files\\Oracle\\VirtualBox\\VBoxManage.exe', 'showvminfo', 'admin-466e702c', '--machinereadable']' timed out after 5 seconds

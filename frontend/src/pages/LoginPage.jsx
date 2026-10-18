@@ -25,7 +25,12 @@ export default function LoginPage() {
       const user = await login(form.username, form.password)
       navigate(user.is_admin ? '/admin' : '/dashboard')
     } catch (err) {
-      const msg = err?.response?.data?.detail || t('auth.wrongCredentials')
+      let msg = err?.response?.data?.detail
+      if (!err?.response) {
+        msg = "Impossible de contacter le serveur backend. Veuillez vérifier qu'il est bien démarré."
+      } else if (msg === 'Incorrect username or password' || !msg) {
+        msg = t('auth.wrongCredentials')
+      }
       setError(msg)
       toast.error(msg)
     } finally {
@@ -103,7 +108,7 @@ export default function LoginPage() {
                   value={form.username}
                   onChange={(e) => setForm({ ...form, username: e.target.value })}
                   required
-                  placeholder="votre_username"
+                  placeholder="admin ou email"
                   className="input-base pl-10"
                 />
               </div>

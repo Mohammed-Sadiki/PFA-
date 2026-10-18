@@ -70,3 +70,36 @@
 2026-09-22 21:14:51,225 | WARNING  | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Échec (Identifiants incorrects)
 2026-09-22 21:14:58,068 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
 2026-09-22 21:16:45,011 | INFO     | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Réussite
+2026-10-02 13:00:04,409 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-10-02 15:48:54,599 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-10-02 16:29:11,371 | WARNING  | IP: 127.0.0.1 | User: admin@myssjobs.com | app.security — Action: Connexion de l'utilisateur 'admin@myssjobs.com' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 16:48:47,195 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-10-02 17:15:35,436 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 17:15:38,870 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 17:15:46,112 | WARNING  | IP: 127.0.0.1 | User: admin@myssjobs.com | app.security — Action: Connexion de l'utilisateur 'admin@myssjobs.com' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 17:16:17,595 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 17:16:18,883 | WARNING  | IP: 127.0.0.1 | User: admin@upf.ac.ma | app.security — Action: Connexion de l'utilisateur 'admin@upf.ac.ma' | Résultat: Échec (Identifiants incorrects)
+2026-10-02 17:16:24,547 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:17:08,859 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:17:12,715 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:17:13,351 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:17:21,475 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:17:51,122 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:18:05,404 | WARNING  | IP: 127.0.0.1 | User: - | app.security — Action: Tentative de connexion bloquée par le Rate Limiter | Résultat: HTTP 429
+2026-10-02 17:22:13,307 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-10-02 17:27:46,133 | INFO     | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Réussite
+2026-10-02 17:28:51,597 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-02 19:25:12,690 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 14:41:21,213 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 14:41:30,393 | WARNING  | IP: 127.0.0.1 | User: admin@gmail.com | app.security — Action: Connexion de l'utilisateur 'admin@gmail.com' | Résultat: Échec (Identifiants incorrects)
+2026-10-03 14:42:02,867 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 14:42:12,694 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 14:44:25,055 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 14:44:32,045 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-03 15:02:17,432 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-04 16:13:12,844 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-04 16:13:25,310 | WARNING  | IP: 127.0.0.1 | User: admin@gmail.com | app.security — Action: Connexion de l'utilisateur 'admin@gmail.com' | Résultat: Échec (Identifiants incorrects)
+2026-10-04 16:13:49,031 | WARNING  | IP: 127.0.0.1 | User: anass | app.security — Action: Connexion de l'utilisateur 'anass' | Résultat: Échec (Identifiants incorrects)
+2026-10-04 16:14:15,110 | WARNING  | IP: 127.0.0.1 | User: anass | app.security — Action: Connexion de l'utilisateur 'anass' | Résultat: Échec (Identifiants incorrects)
+2026-10-04 16:14:30,237 | WARNING  | IP: 127.0.0.1 | User: asmin | app.security — Action: Connexion de l'utilisateur 'asmin' | Résultat: Échec (Identifiants incorrects)
+2026-10-04 16:14:42,868 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
