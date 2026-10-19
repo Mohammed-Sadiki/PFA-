@@ -102,3 +102,26 @@
 2026-10-04 16:23:40,972 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Suppression de la VM 'admin-572245ea' | Résultat: Réussite
 2026-10-04 16:24:05,130 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-dd3a244b)
 2026-10-04 16:25:20,099 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-dd3a244b' | Résultat: Réussite (SSH port 22195)
+2026-10-18 16:08:06,025 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Réussite
+2026-10-18 16:14:09,481 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-18 16:14:39,985 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-18 16:43:07,690 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-18 16:47:23,827 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-18 16:48:24,022 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-19 08:44:11,214 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-19 08:50:28,545 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-466e702c' | Résultat: Échec (Erreur à l'arrêt dans VirtualBox)
+2026-10-19 08:52:44,040 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Réussite
+2026-10-19 09:36:15,608 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-dd3a244b' | Résultat: Réussite
+2026-10-19 09:37:06,943 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-19 09:37:27,118 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Réussite
+2026-10-19 09:39:45,988 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-dd3a244b' | Résultat: Réussite
+2026-10-19 09:40:06,513 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-19 11:01:39,930 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Suppression de la VM 'admin-d9529a11' | Résultat: Réussite
+2026-10-19 11:02:05,868 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Requête de création de VM | Résultat: Soumis avec succès (Nom de la VM: admin-7d177928)
+2026-10-19 11:03:11,035 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Provisioning de la VM 'admin-7d177928' | Résultat: Réussite (SSH port 22444)
+2026-10-19 11:13:32,616 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-7d177928' | Résultat: Réussite
+2026-10-19 11:34:29,489 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-7d177928' | Résultat: Réussite
+2026-10-19 11:35:40,551 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
+2026-10-19 11:35:44,703 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
+2026-10-19 11:35:47,015 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
+2026-10-19 11:35:50,144 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Réussite

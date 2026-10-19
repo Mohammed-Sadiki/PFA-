@@ -29,6 +29,11 @@ export default defineConfig({
       '/admin': 'http://localhost:8000',
       '/notifications': 'http://localhost:8000',
       '/ws': { target: 'ws://localhost:8000', ws: true },
+      '/guacamole': {
+        target: 'http://127.0.0.1:8081',
+        changeOrigin: true,
+        ws: true,
+      },
     },
   },
 })

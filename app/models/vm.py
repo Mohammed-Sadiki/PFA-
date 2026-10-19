@@ -28,6 +28,7 @@ class VM(Base):
     ip_address    = Column(String(45), nullable=True)   # typically 10.0.2.15 (NAT)
     vm_path       = Column(String(500), nullable=True)  # path to .vbox file
     ssh_port      = Column(Integer, nullable=True)       # host-side forwarded port
+    vrde_port     = Column(Integer, nullable=True)       # host-side VirtualBox VRDE/RDP port
     error_message = Column(String(1000), nullable=True)
     os_type       = Column(String(50), default="zorin", server_default="zorin", nullable=False)  # OS type (zorin, ubuntu, windows11)
     created_at    = Column(DateTime, default=lambda: datetime.now(timezone.utc))

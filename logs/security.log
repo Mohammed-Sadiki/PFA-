@@ -103,3 +103,23 @@
 2026-10-04 16:14:15,110 | WARNING  | IP: 127.0.0.1 | User: anass | app.security — Action: Connexion de l'utilisateur 'anass' | Résultat: Échec (Identifiants incorrects)
 2026-10-04 16:14:30,237 | WARNING  | IP: 127.0.0.1 | User: asmin | app.security — Action: Connexion de l'utilisateur 'asmin' | Résultat: Échec (Identifiants incorrects)
 2026-10-04 16:14:42,868 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-18 16:07:29,882 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-18 16:46:04,869 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-18 16:47:59,858 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-19 08:43:06,739 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-19 10:36:26,320 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 10:42:42,436 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 10:44:42,653 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 10:47:10,046 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:00:56,549 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-19 11:28:03,572 | WARNING  | IP: 127.0.0.1 | User: sadikisadiki | app.security — Action: Connexion de l'utilisateur 'sadikisadiki' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:28:03,784 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:28:03,996 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:28:04,209 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:28:04,426 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:28:04,635 | WARNING  | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:28:04,842 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:28:05,047 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:28:05,251 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:28:05,455 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 11:28:05,660 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Échec (Identifiants incorrects)

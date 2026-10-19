@@ -71,6 +71,16 @@ class Settings(BaseSettings):
     SSH_PORT_MIN: int = 22000
     SSH_PORT_MAX: int = 22999
 
+    # VRDE (VirtualBox Remote Desktop) port range
+    VRDE_PORT_MIN: int = 33890
+    VRDE_PORT_MAX: int = 33999
+
+    # Apache Guacamole integration (guacamole-auth-json)
+    GUACAMOLE_PUBLIC_URL: str = "http://127.0.0.1:8081/guacamole"
+    GUACAMOLE_INTERNAL_URL: str = "http://127.0.0.1:8081/guacamole"
+    # 32 hex chars (16 bytes) secret key for guacamole-auth-json
+    GUACAMOLE_JSON_SECRET_KEY: str = "0123456789abcdef0123456789abcdef"
+
     # SMTP / Email Verification
     SMTP_HOST: str = "smtp.gmail.com"
     SMTP_PORT: int = 587

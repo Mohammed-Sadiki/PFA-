@@ -40,3 +40,13 @@ export const getVMMetrics = async (id) => {
   const { data } = await api.get(`/vms/${id}/metrics`)
   return data
 }
+
+export const getConsoleStatus = async (id) => {
+  const { data } = await api.get(`/vms/${id}/console/status`)
+  return data
+}
+
+export const createConsoleSession = async (id) => {
+  const { data } = await api.post(`/vms/${id}/console/session`)
+  return data
+}

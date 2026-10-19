@@ -271,6 +271,43 @@ class VBoxVMService:
                         pass
         return ports
 
+    def _pick_vrde_port(self) -> int:
+        """Return a random host port for VRDE in the configured range that is not yet in use."""
+        used = self._get_used_vrde_ports()
+        available = [
+            p for p in range(settings.VRDE_PORT_MIN, settings.VRDE_PORT_MAX + 1)
+            if p not in used
+        ]
+        if not available:
+            raise PortCollisionError("No free VRDE ports available in the configured range")
+        return random.choice(available)
+
+    def _get_used_vrde_ports(self) -> set[int]:
+        """Scan all registered VMs for active VRDE ports."""
+        stdout, _, rc = self._run_vbox("list", "vms")
+        if rc != 0:
+            return set()
+
+        ports: set[int] = set()
+        for line in stdout.splitlines():
+            parts = line.split('"')
+            if len(parts) < 2:
+                continue
+            vm_name = parts[1]
+            info_out, _, info_rc = self._run_vbox("showvminfo", vm_name, "--machinereadable")
+            if info_rc != 0:
+                continue
+            for info_line in info_out.splitlines():
+                if info_line.startswith("vrdeport="):
+                    try:
+                        port_str = info_line.split("=", 1)[1].strip().strip('"')
+                        p = int(port_str)
+                        if p > 0:
+                            ports.add(p)
+                    except ValueError:
+                        pass
+        return ports
+
     # ── Public API ────────────────────────────────────────────────────────────
 
     def clone_vm(
@@ -526,21 +563,27 @@ class VBoxVMService:
             raise
 
 
-        # ══ STEP 7 — NAT + SSH port forwarding ══════════════════════════════════
-        log.info("[%s] [STEP 7] Picking SSH port and configuring NAT forwarding ...", vm_name)
+        # ══ STEP 7 — NAT + SSH port forwarding & VRDE Console ══════════════════════
+        log.info("[%s] [STEP 7] Picking SSH and VRDE ports and configuring networking ...", vm_name)
         try:
             ssh_port = self._pick_ssh_port()
-            log.info("[%s] [STEP 7] Selected SSH port: %d", vm_name, ssh_port)
+            vrde_port = self._pick_vrde_port()
+            log.info("[%s] [STEP 7] Selected SSH port: %d | VRDE port: %d", vm_name, ssh_port, vrde_port)
             stdout_nat, stderr_nat, rc_nat = self._run_vbox(
                 "modifyvm", vm_name,
                 "--natpf1", f"guestssh,tcp,,{ssh_port},,22",
+                "--vrde", "on",
+                "--vrdeport", str(vrde_port),
+                "--vrdeaddress", "127.0.0.1",
+                "--vrdemulticon", "on",
+                "--vrdeauthtype", "null",
             )
-            log.info("[%s] [STEP 7] modifyvm (natpf1) rc=%d | stderr: %s", vm_name, rc_nat, stderr_nat.strip() or "(empty)")
+            log.info("[%s] [STEP 7] modifyvm (natpf1 + vrde) rc=%d | stderr: %s", vm_name, rc_nat, stderr_nat.strip() or "(empty)")
             if rc_nat != 0:
-                raise VBoxCommandError(f"NAT port forwarding failed for '{vm_name}' (rc={rc_nat})", stderr_nat)
-            log.info("[%s] [STEP 7] OK — NAT rule: host:%d → guest:22", vm_name, ssh_port)
+                raise VBoxCommandError(f"NAT / VRDE configuration failed for '{vm_name}' (rc={rc_nat})", stderr_nat)
+            log.info("[%s] [STEP 7] OK — NAT rule: host:%d → guest:22 | VRDE: 127.0.0.1:%d", vm_name, ssh_port, vrde_port)
         except Exception:
-            log.error("[%s] [STEP 7] FAILED — NAT/SSH configuration\n%s", vm_name, traceback.format_exc())
+            log.error("[%s] [STEP 7] FAILED — NAT/VRDE configuration\n%s", vm_name, traceback.format_exc())
             raise
 
         # ══ STEP 8 — Start VM ════════════════════════════════════════════════════
@@ -562,12 +605,13 @@ class VBoxVMService:
         # Allow VM to initialise before marking running
         time.sleep(5)
 
-        log.info("[%s] ════════════════ PROVISIONING COMPLETE (ssh_port=%d) ═══════════════", vm_name, ssh_port)
+        log.info("[%s] ════════════════ PROVISIONING COMPLETE (ssh_port=%d, vrde_port=%d) ═══════════════", vm_name, ssh_port, vrde_port)
         return {
             "success": True,
             "vm_path": vm_path,
             "ip_address": "10.0.2.15",  # standard VirtualBox NAT internal IP
             "ssh_port": ssh_port,
+            "vrde_port": vrde_port,
             "error": None,
         }
 
@@ -584,8 +628,60 @@ class VBoxVMService:
                 return line.split("=", 1)[1].strip().strip('"')
         return "unknown"
 
+    def get_vm_vrde_port(self, vm_name: str) -> int | None:
+        """Query live showvminfo to get the configured VRDE port."""
+        stdout, _, rc = self._run_vbox("showvminfo", vm_name, "--machinereadable")
+        if rc != 0:
+            return None
+        for line in stdout.splitlines():
+            if line.startswith("vrdeport="):
+                try:
+                    p = int(line.split("=", 1)[1].strip().strip('"'))
+                    if p > 0:
+                        return p
+                except ValueError:
+                    pass
+        return None
+
+    def ensure_vrde_configured(self, vm_name: str, desired_port: int | None = None) -> int:
+        """
+        Ensure VRDE is enabled on the VM.
+        Returns the active VRDE port.
+        """
+        current_port = self.get_vm_vrde_port(vm_name)
+        state = self.get_vm_status(vm_name)
+
+        if current_port and current_port > 0:
+            # If VM is running, verify controlvm has vrde on
+            if state == "running":
+                self._run_vbox("controlvm", vm_name, "vrde", "on")
+            return current_port
+
+        # Not configured yet, assign a free port
+        port = desired_port or self._pick_vrde_port()
+        if state == "running":
+            # On a running VM, modify via controlvm
+            self._run_vbox("controlvm", vm_name, "vrdeport", str(port))
+            self._run_vbox("controlvm", vm_name, "vrde", "on")
+        else:
+            self._run_vbox(
+                "modifyvm", vm_name,
+                "--vrde", "on",
+                "--vrdeport", str(port),
+                "--vrdeaddress", "127.0.0.1",
+                "--vrdemulticon", "on",
+                "--vrdeauthtype", "null",
+            )
+        return port
+
     def start_vm(self, vm_name: str) -> bool:
         """Start a stopped / saved VM. Returns True on success."""
+        # Ensure VRDE is ready before starting
+        try:
+            self.ensure_vrde_configured(vm_name)
+        except Exception as e:
+            log.warning("[%s] Non-fatal: could not pre-configure VRDE before start: %s", vm_name, e)
+
         _, _, rc = self._run_vbox("startvm", vm_name, "--type", settings.VM_START_TYPE)
         return rc == 0
 

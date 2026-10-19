@@ -13,10 +13,11 @@ from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.database import init_db
-from app.routers import auth, vms, admin, ws, notifications
+from app.routers import auth, vms, admin, ws, notifications, console
 from app.limiter import limiter
 from slowapi.errors import RateLimitExceeded
 from slowapi.middleware import SlowAPIMiddleware
+from app.middleware.guacamole_proxy import GuacamoleProxyMiddleware
 
 
 from app.logger import setup_logging
@@ -126,9 +127,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Guacamole reverse proxy middleware — intercepts /guacamole/* before FastAPI routing
+# This replaces the Vite dev-server proxy that only works during development.
+app.add_middleware(GuacamoleProxyMiddleware)
+
 # ── API Routers ────────────────────────────────────────────────────────────────
 app.include_router(auth.router)
 app.include_router(vms.router)
+app.include_router(console.router)
 app.include_router(admin.router)
 app.include_router(ws.router)
 app.include_router(notifications.router)
@@ -138,7 +144,7 @@ app.include_router(notifications.router)
 _static_dir = Path(__file__).parent / "static"
 
 # API path prefixes that should NEVER be caught by the SPA fallback
-_API_PREFIXES = ("auth", "vms", "admin", "notifications", "ws", "api")
+_API_PREFIXES = ("auth", "vms", "admin", "notifications", "ws", "api", "guacamole")
 
 if _static_dir.exists():
     # Mount /assets and /static directories so the React build chunks are served

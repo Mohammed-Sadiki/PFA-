@@ -53,6 +53,7 @@ class VMOut(BaseModel):
     status: VMStatus
     ip_address: Optional[str] = None
     ssh_port: Optional[int] = None
+    vrde_port: Optional[int] = None
     error_message: Optional[str] = None
     os_type: str
     created_at: datetime

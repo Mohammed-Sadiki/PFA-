@@ -69,6 +69,7 @@
     "connect": "Connect SSH",
     "logs": "Logs",
     "metrics": "Metrics",
+    "openConsole": "Open Console",
     "actions": "Actions",
     "confirmDelete": "Delete this VM?",
     "confirmDeleteDesc": "This action is irreversible. The VM and all its files will be permanently deleted.",

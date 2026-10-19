@@ -111,6 +111,7 @@ def provision_vm_task(vm_id: int, username: str, password: str, db_session_facto
         vm.vm_path    = result["vm_path"]
         vm.ip_address = result["ip_address"]
         vm.ssh_port   = result["ssh_port"]
+        vm.vrde_port  = result.get("vrde_port")
         vm.started_at = datetime.now(timezone.utc)
         db.commit()
         vm_log.info("Action: Provisioning de la VM '%s' | Résultat: Réussite (SSH port %d)", vm.name, vm.ssh_port)
@@ -440,6 +441,10 @@ def start_vm(
 
     vm.status = VMStatus.RUNNING
     vm.started_at = datetime.now(timezone.utc)
+    # Refresh vrde_port if not set
+    live_vrde = vm_service.get_vm_vrde_port(vm.name)
+    if live_vrde:
+        vm.vrde_port = live_vrde
     db.commit()
     MetricsService.invalidate_cache(vm.name)
     vm_log.info("Action: Démarrage de la VM '%s' | Résultat: Réussite", vm.name)

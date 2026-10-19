@@ -35,3 +35,16 @@ def init_db():
     from app.models import user, vm, audit_log  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
+
+    # Ensure vrde_port column exists for existing SQLite database
+    try:
+        with engine.connect() as conn:
+            from sqlalchemy import text
+            res = conn.execute(text("PRAGMA table_info(vms);")).fetchall()
+            cols = [row[1] for row in res]
+            if "vrde_port" not in cols:
+                conn.execute(text("ALTER TABLE vms ADD COLUMN vrde_port INTEGER;"))
+                conn.commit()
+    except Exception as exc:
+        import logging
+        logging.getLogger("app").warning("Migration check for vrde_port: %s", exc)

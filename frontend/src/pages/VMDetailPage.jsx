@@ -4,7 +4,8 @@ import {
   Server, Play, Square, RefreshCw, Trash2,
   Cpu, MemoryStick, HardDrive, Network,
   Terminal, FileText, Activity, ArrowLeft,
-  Copy, Check, Clock, Calendar, AlertTriangle
+  Copy, Check, Clock, Calendar, AlertTriangle,
+  Monitor
 } from 'lucide-react'
 import { useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +14,7 @@ import Layout from '../components/layout/Layout'
 import Button from '../components/ui/Button'
 import StatusBadge from '../components/ui/StatusBadge'
 import { ConfirmModal } from '../components/ui/Modal'
+import VMConsoleModal from '../components/VMConsoleModal'
 import { useToast } from '../hooks/useToast'
 import {
   ResponsiveContainer, AreaChart, Area, XAxis, YAxis,
@@ -34,6 +36,7 @@ export default function VMDetailPage() {
   const [loadingLogs, setLoadingLogs] = useState(false)
   const [actionLoading, setActionLoading] = useState(null)
   const [showDelete, setShowDelete] = useState(false)
+  const [showConsole, setShowConsole] = useState(false)
   const [copied, setCopied] = useState(false)
   const [metricsHistory, setMetricsHistory] = useState([])
 
@@ -173,10 +176,21 @@ export default function VMDetailPage() {
               </Button>
             )}
             {(vm.status || '').toLowerCase() === 'running' && (
-              <Button size="sm" variant="warning" icon={<Square size={14} />}
-                onClick={handleStop} loading={actionLoading === 'stop'} disabled={!!actionLoading}>
-                {t('vm.stop')}
-              </Button>
+              <>
+                <Button
+                  size="sm"
+                  variant="primary"
+                  icon={<Monitor size={14} />}
+                  onClick={() => setShowConsole(true)}
+                  disabled={!!actionLoading}
+                >
+                  {t('vm.openConsole') || 'Ouvrir la console'}
+                </Button>
+                <Button size="sm" variant="warning" icon={<Square size={14} />}
+                  onClick={handleStop} loading={actionLoading === 'stop'} disabled={!!actionLoading}>
+                  {t('vm.stop')}
+                </Button>
+              </>
             )}
             <Button size="sm" variant="danger" icon={<Trash2 size={14} />}
               onClick={() => setShowDelete(true)} disabled={!!actionLoading}>
@@ -371,6 +385,12 @@ export default function VMDetailPage() {
         confirmLabel={t('vm.delete')}
         confirmVariant="danger"
         loading={actionLoading === 'delete'}
+      />
+
+      <VMConsoleModal
+        isOpen={showConsole}
+        onClose={() => setShowConsole(false)}
+        vm={vm}
       />
     </Layout>
   )
