@@ -123,3 +123,11 @@
 2026-10-19 11:28:05,251 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Échec (Identifiants incorrects)
 2026-10-19 11:28:05,455 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Échec (Identifiants incorrects)
 2026-10-19 11:28:05,660 | WARNING  | IP: 127.0.0.1 | User: sadikimohammed | app.security — Action: Connexion de l'utilisateur 'sadikimohammed' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 12:30:22,104 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-19 12:38:19,614 | WARNING  | IP: 127.0.0.1 | User: admin@myssjobs.com | app.security — Action: Connexion de l'utilisateur 'admin@myssjobs.com' | Résultat: Échec (Identifiants incorrects)
+2026-10-19 12:38:37,313 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-19 14:26:11,997 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-19 22:08:35,860 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-19 22:09:09,295 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-19 22:39:47,230 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-19 22:39:50,533 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite

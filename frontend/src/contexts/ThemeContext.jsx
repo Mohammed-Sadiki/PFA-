@@ -7,13 +7,8 @@ function getInitialTheme() {
   const saved = localStorage.getItem('theme')
   if (saved === 'dark' || saved === 'light') return saved
 
-  // 2. Détection automatique du thème système
-  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'dark'
-  }
-
-  // 3. Défaut : dark
-  return 'dark'
+  // 2. Défaut : light (Holcim Cloud design)
+  return 'light'
 }
 
 function applyTheme(theme) {

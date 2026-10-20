@@ -87,15 +87,14 @@ export default function Navbar({ onMenuClick }) {
       </button>
 
       {/* Search bar */}
-      <div className={clsx('flex-1 max-w-sm transition-all duration-300', showSearch ? 'flex' : 'hidden md:flex')}>
+      <div className={clsx('flex-1 max-w-xs transition-all duration-300', showSearch ? 'flex' : 'hidden md:flex')}>
         <div className="relative w-full">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" style={{ color: 'var(--placeholder)' }} />
+          <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" />
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={t('common.search') + '…'}
-            className="input-base pl-9"
-            style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}
+            placeholder="Rechercher..."
+            className="w-full pl-9 pr-3 py-1.5 text-xs bg-white text-slate-800 placeholder-slate-400 rounded-xl border border-slate-200/90 shadow-xs focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
           />
         </div>
       </div>
@@ -139,36 +138,25 @@ export default function Navbar({ onMenuClick }) {
         <div ref={langRef} className="relative">
           <button
             onClick={() => setShowLang(!showLang)}
-            className="flex items-center gap-1.5 px-2.5 py-2 rounded-xl text-sm transition-all"
-            style={{ color: 'var(--muted-foreground)', backgroundColor: 'transparent' }}
-            onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--muted)'; e.currentTarget.style.color = 'var(--foreground)' }}
-            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--muted-foreground)' }}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 transition-all"
           >
-            <Globe size={16} />
-            <span className="hidden sm:inline">{currentLang.flag}</span>
+            <Globe size={15} className="text-slate-500" />
+            <span>{currentLang.code.toUpperCase()}</span>
           </button>
 
           {showLang && (
             <div
-              className="absolute right-0 top-full mt-2 w-40 rounded-xl shadow-lg overflow-hidden z-50 animate-slide-down"
-              style={{
-                backgroundColor: 'var(--modal)',
-                border: '1px solid var(--border-strong)',
-                boxShadow: 'var(--shadow-popup)',
-              }}
+              className="absolute right-0 top-full mt-2 w-40 rounded-xl shadow-lg overflow-hidden z-50 animate-slide-down bg-white border border-slate-200"
             >
               {LANGS.map((l) => (
                 <button
                   key={l.code}
                   onClick={() => handleLang(l.code, l.dir)}
-                  className="flex items-center gap-2.5 w-full px-4 py-2.5 text-sm transition-all text-left"
-                  style={{ color: 'var(--muted-foreground)' }}
-                  onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--muted)'; e.currentTarget.style.color = 'var(--foreground)' }}
-                  onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--muted-foreground)' }}
+                  className="flex items-center gap-2.5 w-full px-4 py-2 text-xs font-medium text-slate-700 hover:bg-slate-50 transition-all text-left"
                 >
                   <span>{l.flag}</span>
                   <span>{l.label}</span>
-                  {i18n.language === l.code && <Check size={14} className="ml-auto text-primary-500" />}
+                  {i18n.language === l.code && <Check size={14} className="ml-auto text-blue-600" />}
                 </button>
               ))}
             </div>
@@ -179,14 +167,11 @@ export default function Navbar({ onMenuClick }) {
         <div ref={notifRef} className="relative">
           <button
             onClick={() => setShowNotifs(!showNotifs)}
-            className="relative p-2 rounded-xl transition-all"
-            style={{ color: 'var(--muted-foreground)', backgroundColor: 'transparent' }}
-            onMouseEnter={e => { e.currentTarget.style.backgroundColor = 'var(--muted)'; e.currentTarget.style.color = 'var(--foreground)' }}
-            onMouseLeave={e => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--muted-foreground)' }}
+            className="relative p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 transition-all"
           >
             <Bell size={18} />
             {unreadCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">
+              <span className="absolute top-1 right-1 w-4 h-4 bg-blue-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">
                 {unreadCount > 9 ? '9+' : unreadCount}
               </span>
             )}
@@ -194,24 +179,18 @@ export default function Navbar({ onMenuClick }) {
 
           {showNotifs && (
             <div
-              className="absolute right-0 top-full mt-2 w-80 rounded-2xl z-50 animate-slide-down overflow-hidden"
-              style={{
-                backgroundColor: 'var(--modal)',
-                border: '1px solid var(--border-strong)',
-                boxShadow: 'var(--shadow-popup)',
-              }}
+              className="absolute right-0 top-full mt-2 w-80 rounded-2xl z-50 animate-slide-down overflow-hidden bg-white border border-slate-200 shadow-xl"
             >
               <div
-                className="flex items-center justify-between px-4 py-3"
-                style={{ borderBottom: '1px solid var(--border)' }}
+                className="flex items-center justify-between px-4 py-3 border-b border-slate-100"
               >
-                <h3 className="text-sm font-semibold" style={{ color: 'var(--foreground)' }}>
+                <h3 className="text-sm font-semibold text-slate-900">
                   {t('notifications.title')}
                 </h3>
                 {unreadCount > 0 && (
                   <button
                     onClick={markAllRead}
-                    className="text-xs text-primary-500 hover:text-primary-400 transition-colors"
+                    className="text-xs text-blue-600 hover:text-blue-700 font-medium transition-colors"
                   >
                     {t('notifications.markAllRead')}
                   </button>
@@ -220,7 +199,7 @@ export default function Navbar({ onMenuClick }) {
 
               <div className="max-h-72 overflow-y-auto">
                 {notifications.length === 0 ? (
-                  <div className="px-4 py-8 text-center text-sm" style={{ color: 'var(--muted-foreground)' }}>
+                  <div className="px-4 py-8 text-center text-xs text-slate-400">
                     {t('notifications.empty')}
                   </div>
                 ) : (
@@ -228,19 +207,16 @@ export default function Navbar({ onMenuClick }) {
                     <div
                       key={n.id}
                       onClick={() => handleMarkRead(n.id)}
-                      className="px-4 py-3 cursor-pointer transition-all"
-                      style={{ borderBottom: '1px solid var(--border)' }}
-                      onMouseEnter={e => e.currentTarget.style.backgroundColor = 'var(--muted)'}
-                      onMouseLeave={e => e.currentTarget.style.backgroundColor = n.is_read ? 'transparent' : 'rgba(59,130,246,0.03)'}
+                      className="px-4 py-3 cursor-pointer transition-all border-b border-slate-50 hover:bg-slate-50"
                     >
                       <div className="flex items-start gap-2">
                         {!n.is_read && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary-500 mt-1.5 shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 mt-1.5 shrink-0" />
                         )}
                         <div className="min-w-0 flex-1">
-                          <p className="text-sm font-medium truncate" style={{ color: 'var(--foreground)' }}>{n.title}</p>
-                          <p className="text-xs mt-0.5 line-clamp-2" style={{ color: 'var(--muted-foreground)' }}>{n.message}</p>
-                          <p className="text-xs mt-1" style={{ color: 'var(--placeholder)' }}>
+                          <p className="text-xs font-semibold text-slate-800 truncate">{n.title}</p>
+                          <p className="text-xs mt-0.5 text-slate-500 line-clamp-2">{n.message}</p>
+                          <p className="text-[10px] mt-1 text-slate-400">
                             {new Date(n.created_at).toLocaleString()}
                           </p>
                         </div>
@@ -250,10 +226,10 @@ export default function Navbar({ onMenuClick }) {
                 )}
               </div>
 
-              <div className="px-4 py-2.5" style={{ borderTop: '1px solid var(--border)' }}>
+              <div className="px-4 py-2.5 border-t border-slate-100 text-center">
                 <button
                   onClick={() => { navigate('/notifications'); setShowNotifs(false) }}
-                  className="text-xs text-primary-500 hover:text-primary-400 transition-colors"
+                  className="text-xs text-blue-600 font-medium hover:text-blue-700 transition-colors"
                 >
                   {t('dashboard.viewAll')} →
                 </button>
@@ -265,16 +241,14 @@ export default function Navbar({ onMenuClick }) {
         {/* ── User avatar ──────────────────────────────────────── */}
         <button
           onClick={() => navigate('/profile')}
-          className="flex items-center gap-2 px-2 py-1.5 rounded-xl transition-all"
-          onMouseEnter={e => e.currentTarget.style.backgroundColor = 'var(--muted)'}
-          onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+          className="flex items-center gap-2.5 pl-2 pr-3 py-1.5 rounded-2xl hover:bg-slate-100 transition-all border border-transparent hover:border-slate-200"
         >
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white text-sm font-bold shrink-0">
-            {user?.username?.[0]?.toUpperCase() || 'U'}
+          <div className="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-xs">
+            {user?.username?.[0]?.toUpperCase() || 'A'}
           </div>
           <div className="hidden md:block text-left">
-            <p className="text-xs font-semibold leading-tight" style={{ color: 'var(--foreground)' }}>{user?.username}</p>
-            <p className="text-[10px] leading-tight" style={{ color: 'var(--muted-foreground)' }}>
+            <p className="text-xs font-bold leading-tight text-slate-900">{user?.username || 'admin'}</p>
+            <p className="text-[10px] font-medium leading-tight text-slate-400">
               {user?.is_admin ? '👑 Admin' : 'User'}
             </p>
           </div>

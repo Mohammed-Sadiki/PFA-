@@ -49,13 +49,44 @@ export default function Sidebar({ mobile, onClose }) {
         )}
         style={{ borderBottom: '1px solid var(--sidebar-border)' }}
       >
-        <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shrink-0 shadow-glow-sm">
-          <Cpu size={18} className="text-white" />
+        {/* Holcim Infinity Ribbon Logo Emblem */}
+        <div className="shrink-0 flex items-center justify-center">
+          <svg
+            viewBox="0 0 110 90"
+            className="w-8 h-8 drop-shadow-sm shrink-0"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <defs>
+              <linearGradient id="sbHolcimBlue" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#0072CE" />
+                <stop offset="100%" stopColor="#005A9C" />
+              </linearGradient>
+              <linearGradient id="sbHolcimGreen" x1="0%" y1="100%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#78BE20" />
+                <stop offset="100%" stopColor="#A3D638" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M38 78 C22 78 10 66 10 50 C10 34 22 22 38 22 C44 22 50 25 54 29 L54 44 C50 38 44 34 38 34 C28 34 22 40 22 50 C22 60 28 66 38 66 C48 66 54 60 54 54 L54 69 C50 75 44 78 38 78 Z"
+              fill="url(#sbHolcimGreen)"
+            />
+            <path
+              d="M72 12 C88 12 100 24 100 40 C100 56 88 68 72 68 C66 68 60 65 56 61 L56 46 C60 52 66 56 72 56 C82 56 88 50 88 40 C88 30 82 24 72 24 C62 24 56 30 56 36 L56 21 C60 15 66 12 72 12 Z"
+              fill="url(#sbHolcimBlue)"
+            />
+          </svg>
         </div>
         {(!collapsed || mobile) && (
-          <div>
-            <p className="text-sm font-bold leading-tight" style={{ color: 'var(--foreground)' }}>Zorin VM</p>
-            <p className="text-xs leading-tight" style={{ color: 'var(--muted-foreground)' }}>Cloud Platform</p>
+          <div className="overflow-hidden">
+            <p className="text-[15px] font-black tracking-tight leading-tight flex items-center gap-1.5" style={{ color: 'var(--foreground)' }}>
+              HOLCIM
+              <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.2 text-[#059669] bg-emerald-500/10 border border-emerald-500/20 rounded">
+                Cloud
+              </span>
+            </p>
+            <p className="text-[11px] font-medium leading-tight text-slate-400 mt-0.5">IaaS Platform</p>
           </div>
         )}
         {!mobile && (

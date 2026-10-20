@@ -125,3 +125,11 @@
 2026-10-19 11:35:44,703 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
 2026-10-19 11:35:47,015 | ERROR    | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Échec (Erreur au démarrage dans VirtualBox)
 2026-10-19 11:35:50,144 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Réussite
+2026-10-19 11:41:59,242 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-dd3a244b' | Résultat: Réussite
+2026-10-19 12:31:19,533 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-7d177928' | Résultat: Réussite
+2026-10-19 12:31:19,537 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-7d177928' | Résultat: Déjà en cours d'exécution
+2026-10-19 12:34:10,895 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-7d177928' | Résultat: Réussite
+2026-10-19 12:35:12,969 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-dd3a244b' | Résultat: Réussite
+2026-10-19 14:26:42,295 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-466e702c' | Résultat: Réussite
+2026-10-19 22:42:17,895 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-7d177928' | Résultat: Réussite
+2026-10-19 22:43:39,459 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Démarrage de la VM 'admin-7d177928' | Résultat: Réussite
