@@ -37159,3 +37159,206 @@ fastapi.exceptions.HTTPException: 401: Could not validate credentials
 2026-10-19 23:12:44,448 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
 2026-10-19 23:16:19,851 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.4%, RAM: 1682.0MB). Broadcasting.
 2026-10-19 23:16:26,445 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-19 23:23:52,720 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 1.3%, RAM: 1650.1MB). Broadcasting.
+2026-10-19 23:23:59,260 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-19 23:25:56,721 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.5%, RAM: 1650.1MB). Broadcasting.
+2026-10-19 23:26:03,200 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-19 23:32:33,632 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.5%, RAM: 1629.1MB). Broadcasting.
+2026-10-19 23:32:40,103 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-19 23:35:16,611 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.4%, RAM: 1629.3MB). Broadcasting.
+2026-10-19 23:35:23,044 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-19 23:38:45,563 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.4%, RAM: 1629.3MB). Broadcasting.
+2026-10-19 23:38:52,138 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-19 23:46:40,514 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.4%, RAM: 1407.5MB). Broadcasting.
+2026-10-19 23:46:47,065 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-19 23:48:57,502 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.8%, RAM: 1407.9MB). Broadcasting.
+2026-10-19 23:49:04,025 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-19 23:52:19,472 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 1.4%, RAM: 1408.5MB). Broadcasting.
+2026-10-19 23:52:25,945 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-19 23:57:45,429 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.5%, RAM: 1408.5MB). Broadcasting.
+2026-10-19 23:57:51,912 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-20 00:02:05,431 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 1.1%, RAM: 1294.9MB). Broadcasting.
+2026-10-20 00:02:11,901 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-20 00:03:46,521 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 93, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 99, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-20 00:03:46,516 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 93, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 99, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-20 00:03:46,603 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 93, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 99, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-20 00:03:46,606 | ERROR    | IP: 127.0.0.1 | User: - | app — Action: Transaction base de données | Résultat: Échec (Erreur DB : 401: Could not validate credentials)
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 93, in get_current_user
+    payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 157, in decode
+    _validate_claims(
+    ~~~~~~~~~~~~~~~~^
+        claims,
+        ^^^^^^^
+    ...<5 lines>...
+        options=defaults,
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 481, in _validate_claims
+    _validate_exp(claims, leeway=leeway)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\jose\jwt.py", line 314, in _validate_exp
+    raise ExpiredSignatureError("Signature has expired.")
+jose.exceptions.ExpiredSignatureError: Signature has expired.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\database.py", line 22, in get_db
+    yield db
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\concurrency.py", line 29, in contextmanager_in_threadpool
+    yield await run_in_threadpool(cm.__enter__)
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 151, in app
+    response = await f(request)
+               ^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\routing.py", line 499, in app
+    solved_result = await solve_dependencies(
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<6 lines>...
+    )
+    ^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\venv\Lib\site-packages\fastapi\dependencies\utils.py", line 674, in solve_dependencies
+    solved = await call(**solved_result.values)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\MSI\Desktop\pfa\PFA-\app\routers\auth.py", line 99, in get_current_user
+    raise credentials_exc
+fastapi.exceptions.HTTPException: 401: Could not validate credentials
+2026-10-20 00:03:48,801 | INFO     | IP: 127.0.0.1 | User: admin | app.security — Action: Connexion de l'utilisateur 'admin' | Résultat: Réussite
+2026-10-20 00:03:48,935 | INFO     | IP: - | User: - | app — WebSocket connected: user=admin, is_admin=True
+2026-10-20 00:05:47,393 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.4%, RAM: 1297.2MB). Broadcasting.
+2026-10-20 00:05:53,913 | INFO     | IP: - | User: - | app — Metric change detected for admin-7d177928 (Status: RUNNING, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
+2026-10-20 00:08:19,098 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-7d177928] Sending ACPI power button event...
+2026-10-20 00:08:25,629 | INFO     | IP: 127.0.0.1 | User: admin | app.services.vm_service — [admin-7d177928] VM stopped gracefully via ACPI.
+2026-10-20 00:08:25,641 | INFO     | IP: 127.0.0.1 | User: admin | app — Metrics cache invalidated for VM: admin-7d177928
+2026-10-20 00:08:25,642 | INFO     | IP: 127.0.0.1 | User: admin | app.vm — Action: Arrêt de la VM 'admin-7d177928' | Résultat: Réussite
+2026-10-20 00:08:25,663 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '⏹️ VM Arrêtée' for user ID 7
+2026-10-20 00:08:25,675 | INFO     | IP: 127.0.0.1 | User: admin | app — Notification created: '⏹️ VM arrêtée' for user ID None
+2026-10-20 00:08:25,741 | INFO     | IP: 127.0.0.1 | User: admin | app — Metric change detected for admin-7d177928 (Status: STOPPED, IP: 10.0.2.15, CPU: 0.0%, RAM: 0.0MB). Broadcasting.
